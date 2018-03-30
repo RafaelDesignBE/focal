@@ -14,6 +14,7 @@
 
         private function passwordLenght(){
             if (strlen($this->password) <= 8) {
+                throw new Exception ("Passwords must be at least 8 characters");
                 return false;
             }
             else {
@@ -26,6 +27,7 @@
                 return true;
             }
             else {
+                throw new Exception ("Passwords don't match");
                 return false;
             }
         }

@@ -20,11 +20,10 @@ if (!empty($_POST)) {
             if( $user->register() ){
                 $user->login();
             }
-            echo "yass queen";
         }
     }
     catch (Exception $e){
-                   
+              echo $e;     
     }
     
 } 
@@ -38,7 +37,7 @@ if (!empty($_POST)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
+    <title>Signup</title>
 </head>
 <body>
     <form action="" method="post">

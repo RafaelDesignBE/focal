@@ -21,6 +21,10 @@
          */ 
         public function setUsername($username)
         {
+                if (empty($username)){
+                    throw new Exception ("You must enter a username");
+                }
+
                 $this->username = $username;
 
                 return $this;
@@ -41,6 +45,9 @@
          */ 
         public function setFirstName($firstName)
         {
+                if (empty($firstName)){
+                    throw new Exception ("You must enter a first name");
+                }
                 $this->firstName = $firstName;
 
                 return $this;
@@ -61,6 +68,10 @@
          */ 
         public function setLastName($lastName)
         {
+                if (empty($lastName)){
+                    throw new Exception ("You must enter a last name");
+                }
+                
                 $this->lastName = $lastName;
 
                 return $this;
@@ -81,6 +92,10 @@
          */ 
         public function setEmail($email)
         {
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    throw new Exception ("Email not valid");
+                }
+
                 $this->email = $email;
 
                 return $this;
@@ -125,7 +140,6 @@
 
             // execute
             $result = $statement->execute();
-            var_dump($result);
             return $result;
 
             // antwoord geven
