@@ -9,11 +9,11 @@
     <form action="" method="post">
         <div class="form__field">
 			<label for="email">Email</label>
-			<input type="text" id="email" name="email">
+			<input type="email" id="email" name="email">
 		</div>
         <div class="form__field">
 			<label for="email">Password</label>
-			<input type="text" id="password" name="password">
+			<input type="password" id="password" name="password">
 		</div>
     </form>
 </body>

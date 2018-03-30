@@ -4,7 +4,7 @@ session_start();
 	if ( isset($_SESSION['email'])) {
 	}
 	else {
-		header('Location: login.php');
+		header('Location: signup.php');
 	}
 
 ?>
@@ -18,5 +18,6 @@ session_start();
 </head>
 <body>
     <h1>Homepage</h1>
+    <a href="logout.php">Log out</a>
 </body>
 </html>
