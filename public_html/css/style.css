@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'Womby';
+    src: url('../fonts/Womby-Regular.eot');
+    src: url('../fonts/Womby-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Womby-Regular.woff2') format('woff2'),
+         url('../fonts/Womby-Regular.woff') format('woff'),
+         url('../fonts/Womby-Regular.ttf') format('truetype'),
+         url('../fonts/Womby-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+*{
+    font-family: 'Lato', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: Womby, sans-serif;
+    text-transform: uppercase;
+}
