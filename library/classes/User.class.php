@@ -22,7 +22,7 @@
         public function setUsername($username)
         {
                 if (empty($username)){
-                    throw new Exception ("You must enter a username");
+                    throw new Exception ("Please enter a username");
                 }
 
                 $this->username = $username;
@@ -46,7 +46,7 @@
         public function setFirstName($firstName)
         {
                 if (empty($firstName)){
-                    throw new Exception ("You must enter a first name");
+                    throw new Exception ("Please enter a first name");
                 }
                 $this->firstName = $firstName;
 
@@ -69,7 +69,7 @@
         public function setLastName($lastName)
         {
                 if (empty($lastName)){
-                    throw new Exception ("You must enter a last name");
+                    throw new Exception ("Please enter a last name");
                 }
                 
                 $this->lastName = $lastName;
@@ -93,7 +93,7 @@
         public function setEmail($email)
         {
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    throw new Exception ("Email not valid");
+                    throw new Exception ("Please enter a valid email");
                 }
 
                 $this->email = $email;
