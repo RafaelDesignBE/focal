@@ -96,7 +96,7 @@
                     throw new Exception ("Please enter a valid email");
                 }
 
-                $this->email = $email;
+                $this->email = strtolower($email);
 
                 return $this;
         }
@@ -126,25 +126,27 @@
             include_once('library/classes/Db.class.php');
             $conn = Db::getInstance();
             //$conn = new PDO("mysql:host=localhost;dbname=focal","root", "");
-            $statement = $conn->prepare("insert into users (username, first_name, last_name, email, password) values (:username, :firstName, :lastName, :email, :password)");
-            $options = [
-                'cost' => 12,
-            ];
-
-            $hash = password_hash($this->password, PASSWORD_DEFAULT, $options);
-            $statement->bindParam(":username", $this->username);
-            $statement->bindParam(":firstName", $this->firstName);
-            $statement->bindParam(":lastName", $this->lastName);
-            $statement->bindParam(":email", $this->email);
-            $statement->bindParam(":password", $hash);
-
-            // query (sql injectie!!)
-
-            // execute
-            $result = $statement->execute();
-            return $result;
-
-            // antwoord geven
+            $mailCheck = $conn->prepare('select email from users where email = :email');
+            $mailCheck->bindParam(":email", $this->email);
+            $mailCheck->execute();
+            if( $mailCheck->rowCount() > 0 ) { // check if email is already found or not.
+                throw new Exception ("That email address is already in use");
+           }
+           else {
+                $statement = $conn->prepare("insert into users (username, first_name, last_name, email, password) values (:username, :firstName, :lastName, :email, :password)");
+                $options = [
+                    'cost' => 12,
+                ];
+                $hash = password_hash($this->password, PASSWORD_DEFAULT, $options);
+                $statement->bindParam(":username", $this->username);
+                $statement->bindParam(":firstName", $this->firstName);
+                $statement->bindParam(":lastName", $this->lastName);
+                $statement->bindParam(":email", $this->email);
+                $statement->bindParam(":password", $hash);
+                // execute
+                $result = $statement->execute();
+                return $result;
+           }            
         }
 
         public function login(){
