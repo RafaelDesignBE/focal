@@ -123,7 +123,9 @@
 
         public function register(){
             //connectie 
-            $conn = @new PDO("mysql:host=localhost;dbname=focal","root", "");
+            include_once('library/classes/Db.class.php');
+            $conn = Db::getInstance();
+            //$conn = new PDO("mysql:host=localhost;dbname=focal","root", "");
             $statement = $conn->prepare("insert into users (username, first_name, last_name, email, password) values (:username, :firstName, :lastName, :email, :password)");
             $options = [
                 'cost' => 12,
