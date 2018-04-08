@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 30 mrt 2018 om 10:33
+-- Gegenereerd op: 08 apr 2018 om 20:06
 -- Serverversie: 10.1.30-MariaDB
 -- PHP-versie: 7.2.2
 
@@ -70,6 +70,7 @@ CREATE TABLE `posts` (
   `datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `tags` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `photo_url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `thmb_url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `categories_id` int(11) NOT NULL,
   `users_id` int(11) NOT NULL
@@ -157,7 +158,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT voor een tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
