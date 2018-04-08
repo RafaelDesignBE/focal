@@ -2,8 +2,12 @@
 class Upload {
     private $image;
     private $description;
+    private $tags;
+    private $category;
     private $width;
     private $height;
+    private $fileName;
+    private $imageFileType;
     /**
      * Get the value of image
      */ 
@@ -46,6 +50,46 @@ class Upload {
             throw new Exception ("Please add a description");
         }
         $this->description = $description;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the value of tags
+     */ 
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Set the value of tags
+     *
+     * @return  self
+     */ 
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+/**
+     * Get the value of category
+     */ 
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set the value of category
+     *
+     * @return  self
+     */ 
+    public function setCategory($category)
+    {
+        $this->category = $category;
 
         return $this;
     }
@@ -101,10 +145,9 @@ class Upload {
             if(isset($_POST["submit"])) {
                 $check = getimagesize($this->image["tmp_name"]);
                 if($check !== false) {
-                    echo "File is an image - " . $check["mime"] . ".";
                     $uploadOk = 1;
                 } else {
-                    echo "File is not an image.";
+                    throw new Exception ("Error uploading image");
                     $uploadOk = 0;
                 }
             }
@@ -133,7 +176,6 @@ class Upload {
             } else {
                 // upload full image to /uploads
                 if (move_uploaded_file($this->image["tmp_name"], $target_file)) {
-                    echo "file uploaded";
                     $name = $target_file;
                     list($img_width, $img_height) = getimagesize($name); // get sizes of image
                     $img_ratio = $img_width/$img_height; // get aspect ratio of image
@@ -159,12 +201,38 @@ class Upload {
                     if($check == 1){
                         imagecopyresampled($output_image, $image, 0, 0, 0, 0, $this->width, $this->height, $img_width, $img_height);
                         imagejpeg( $output_image,"./uploads/".$fileName."_thmb.jpg" );
+                        $this->fileName = $fileName;
+                        $this->imageFileType = $imageFileType;
                     }
                 } else {
                     throw new Exception ("Error uploading image");
                 }
             }
         }
+    }
+    public function postImg($email){
+        //connectie 
+        include_once('library/classes/Db.class.php');
+        $conn = Db::getInstance();
+        $userQ = "select id from users where email = :email";
+        $user = $conn->prepare($userQ);
+        $user->bindParam(":email", $email);
+        $user->execute();
+        $result = $user->fetch();  
+        $userId = $result[0];
+        $photo_url = $this->fileName.".".$this->imageFileType;
+        $thmb_url = $this->fileName."_thmb.jpg";
+        $statement = $conn->prepare("insert into posts (tags, photo_url, thmb_url, title, categories_id, users_id) values (:tags, :photo_url, :thmb_url, :title, :categories_id, :users_id)");
+
+        $statement->bindParam(":tags", $this->tags);
+        $statement->bindParam(":photo_url", $photo_url);
+        $statement->bindParam(":thmb_url", $thmb_url);
+        $statement->bindParam(":title", $this->description);
+        $statement->bindParam(":categories_id", $this->category);
+        $statement->bindParam(":users_id", $userId);
+            // execute
+        $result = $statement->execute();
+        return $result;
     }
 }
     
