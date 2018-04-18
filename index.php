@@ -1,11 +1,15 @@
 <?php
 
 session_start();
-	if ( isset($_SESSION['email'])) {
-	}
-	else {
-		header('Location: signup.php');
-	}
+if ( isset($_SESSION['email'])) {
+}
+else {
+	header('Location: signup.php');
+};
+
+include_once('/library/classes/Upload.class.php');
+
+$collection = Post::getAll();
 
 ?>
 
@@ -19,5 +23,14 @@ session_start();
 <body>
     <h1>Homepage</h1>
     <a href="logout.php">Log out</a>
+
+    <div class="feed">
+        <?php foreach ($collection as $c): ?>
+            <a href="details.php?watch=<?php echo $c['id']; ?>" class="collection__item" style="background-image: url(<?php echo $c["photo_url"] ?>)">
+            </a>
+        <?php endforeach ?> 
+    </div>
+    
+    
 </body>
 </html>

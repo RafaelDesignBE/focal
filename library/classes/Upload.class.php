@@ -1,4 +1,5 @@
 <?php 
+
 class Upload {
     private $image;
     private $description;
@@ -234,6 +235,7 @@ class Upload {
         $result = $statement->execute();
         return $result;
     }
+
 }
     
 

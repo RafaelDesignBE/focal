@@ -4,7 +4,7 @@ $db = [
     "host" => 'localhost',
     "dbname" => 'focal',
     "username" => "root",
-    "password" => "",
+    "password" => "root",
     "port" => ""
 ]
 
