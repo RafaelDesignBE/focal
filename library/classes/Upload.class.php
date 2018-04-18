@@ -1,5 +1,7 @@
 <?php 
 
+include_once('Db.class.php');
+
 class Upload {
     private $image;
     private $description;
@@ -234,6 +236,13 @@ class Upload {
             // execute
         $result = $statement->execute();
         return $result;
+    }
+
+    public static function getAll() {
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("select * from posts");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }
