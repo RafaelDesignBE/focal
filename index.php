@@ -10,12 +10,6 @@
         header('Location: signup.php');
     };
 
-    include_once("library/classes/Upload.class.php");
-
-	$collection = Upload::getAll();
-
-    
-
 ?>
 
 <html lang="en">
@@ -30,13 +24,14 @@
     <h1>Homepage</h1>
     <a href="logout.php">Log out</a>
 
-    <div class="feed">
-        <?php foreach ($collection as $c): ?>
-            <a href="details.php?watch=<?php echo $c['id']; ?>" class="feed__item" style="background-image: url(<?php echo $c["photo_url"] ?>)">
-            </a>
-        <?php endforeach ?> 
+    <div class="feed">        
+        
+
     </div>
     
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="public_html/js/index.js"></script>
     
 </body>
 </html>

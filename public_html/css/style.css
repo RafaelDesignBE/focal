@@ -109,12 +109,14 @@ input[type="submit"]:active {
   grid-gap: 2em;
 }
 
-.feed__item {
+.feed__post--title {
+    font-size: 1.2em;
+}
+
+.feed__post--image {
     display: block;
-    background-size: cover;
     height: 200px;
     width: 200px;
-    background-position: center center;
-    background-repeat: no-repeat
+
 }
 

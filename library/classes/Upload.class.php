@@ -238,12 +238,7 @@ class Upload {
         return $result;
     }
 
-    public static function getAll() {
-        $conn = Db::getInstance();
-        $statement = $conn->prepare("select * from posts");
-        $statement->execute();
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
+
 
 }
     
