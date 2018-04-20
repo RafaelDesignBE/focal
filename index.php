@@ -3,12 +3,31 @@
     ini_set('display_errors', 'On');
     error_reporting(E_ALL);
 
+    include_once('library/classes/Upload.class.php');
+
     session_start();
     if ( isset($_SESSION['email'])) {
+
     }
     else {
         header('Location: signup.php');
     };
+
+    if (isset($_GET["page"])) {
+        $amountPages = $_GET["page"] + 1;
+        $loadPosts = $amountPages*4;
+        $page = Upload::loadPosts($loadPosts);
+
+    }
+    else {
+        if (empty(Upload::loadPosts(1))) {
+            $empty = 1;
+        } else {
+            $page = Upload::loadPosts(4);
+        }
+
+        $amountPages = 1;
+    }
 
 ?>
 
@@ -24,10 +43,20 @@
     <h1>Homepage</h1>
     <a href="logout.php">Log out</a>
 
-    <div class="feed">        
-        
-
+    <div class="feed">
+        <?php if(isset($page)): ?>  
+            <?php foreach ($page as $p): ?>
+                <a href="post.php?watch=<?php echo $p['id']; ?>" class="feed__post--image" style="background-image: url(<?php echo $p["photo_url"] ?>)">
+                </a>
+            <?php endforeach ?>
+          
     </div>
+    <form action='' method='GET'>
+        <button type="submit" value="<?php echo $amountPages ?>" name="page">Load More</button>
+    </form> 
+    <?php elseif (isset($empty)): ?>
+        <p>No posts yet</p>
+    <?php endif; ?>
     
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

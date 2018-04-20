@@ -238,7 +238,14 @@ class Upload {
         return $result;
     }
 
-
+    /* Load first 20 results on feed */
+    public static function loadPosts($limit) {
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT * FROM posts ORDER BY id DESC LIMIT :limit");
+        $statement->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 }
     
