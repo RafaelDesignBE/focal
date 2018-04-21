@@ -238,11 +238,12 @@ class Upload {
         return $result;
     }
 
-    /* Load first 20 results on feed */
-    public static function loadPosts($limit) {
+    /* Load results on feed */
+    public static function loadPosts($limit, $currentUserID) {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT * FROM posts ORDER BY id DESC LIMIT :limit");
+        $statement = $conn->prepare("SELECT * FROM posts INNER JOIN followers ON posts.users_id = followers.f_id WHERE followers.u_id = :currentUser ORDER BY posts.id DESC LIMIT :limit");
         $statement->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $statement->bindValue(':currentUser', $currentUserID, PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }

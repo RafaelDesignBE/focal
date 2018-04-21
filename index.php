@@ -16,14 +16,14 @@
     if (isset($_GET["page"])) {
         $amountPages = $_GET["page"] + 1;
         $loadPosts = $amountPages*4;
-        $page = Upload::loadPosts($loadPosts);
+        $page = Upload::loadPosts($loadPosts, $_SESSION['user_id']);
 
     }
     else {
-        if (empty(Upload::loadPosts(1))) {
+        if (empty(Upload::loadPosts(1, $_SESSION['user_id']))) {
             $empty = 1;
         } else {
-            $page = Upload::loadPosts(4);
+            $page = Upload::loadPosts(4, $_SESSION['user_id']);
         }
 
         $amountPages = 1;
