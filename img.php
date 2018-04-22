@@ -5,11 +5,10 @@ if ( isset($_SESSION['email'])) {
 else {
     header('Location: signup.php');
 }
-include_once('library/classes/Upload.class.php');
+include_once('library/classes/Post.class.php');
 
 
 if (!empty($_POST)) {
-
     try {
         $upload = new Upload();
         $upload->setImage($_FILES["uploadFile"]);
@@ -31,7 +30,23 @@ if (!empty($_POST)) {
 
 <!DOCTYPE html>
 <html>
+<head>
+<script type="text/javascript">
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    document.getElementById('preview--image').src = e.target.result;
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</head>
 <body>
+<img id="preview--image" src="#" alt="Image preview" />
 <?php if(isset($e)): ?>
             <div class="error">
                 <p><?php echo $e->getMessage(); ?></p>
@@ -39,7 +54,7 @@ if (!empty($_POST)) {
             <?php endif; ?>
 <form action="" method="post" enctype="multipart/form-data">
     Select image to upload:
-    <input type="file" name="uploadFile" id="uploadFile">
+    <input type="file" name="uploadFile" id="uploadFile" onchange="readURL(this);">
     <input type="text" name="description" id="description">
     <input type="text" name="tags" id="tags">
     
