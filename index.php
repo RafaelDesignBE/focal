@@ -17,21 +17,26 @@
         $amountPages = $_GET["page"] + 1;
         $loadPosts = $amountPages*4;
         $page = Upload::loadPosts($loadPosts, $_SESSION['user_id']);
-
+        if (count(Upload::loadPosts($loadPosts + 1, $_SESSION['user_id'])) <= count($page)) {
+            $hideMore = 1;
+        }
+        
     }
     else {
         if (empty(Upload::loadPosts(1, $_SESSION['user_id']))) {
             $empty = 1;
         } else {
             $page = Upload::loadPosts(4, $_SESSION['user_id']);
+            if (count(Upload::loadPosts(5, $_SESSION['user_id'])) <= count($page)) {
+                $hideMore = 1;
+                
+            }
         }
 
         $amountPages = 1;
     }
 
-?>
-
-<html lang="en">
+?><html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,7 +45,11 @@
     <title>Home</title>
 </head>
 <body>
+
+    <?php include_once("nav.inc.php"); ?>
+
     <h1>Homepage</h1>
+    
     <a href="logout.php">Log out</a>
 
     <div class="feed">
@@ -51,9 +60,13 @@
             <?php endforeach ?>
           
     </div>
-    <form action='' method='GET'>
-        <button type="submit" value="<?php echo $amountPages ?>" name="page">Load More</button>
-    </form> 
+    <?php if (!isset($hideMore)): ?>
+        <form action='' method='GET'>
+            <button type="submit" value="<?php echo $amountPages ?>" name="page">Load More</button>
+        </form>
+    <?php else: ?>
+        <p>End of feed</p>
+    <?php endif; ?>
     <?php elseif (isset($empty)): ?>
         <p>No posts yet</p>
     <?php endif; ?>

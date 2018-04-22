@@ -248,6 +248,14 @@ class Upload {
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /* get all posts */
+    public static function getAll() {
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT * FROM posts ORDER BY id DESC");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
     
 
