@@ -41,8 +41,8 @@ if (!empty($_POST)) {
     <title>Sign Up</title>
 </head>
 <body>
-    <h1>Sign Up</h1>
     <form action="" method="post" class="form__login">
+        <h1>Sign Up</h1>
         <div class="form__field">
             <?php if(isset($e)): ?>
             <div class="error">
@@ -57,7 +57,7 @@ if (!empty($_POST)) {
 			<input type="text" id="first_name" name="first_name" placeholder="First name">
 		</div>
         <div class="form__field">
-			<label for="last_name">First name</label>
+			<label for="last_name">Last name</label>
 			<input type="text" id="last_name" name="last_name" placeholder="Last name">
 		</div>
         <div class="form__field">
@@ -73,8 +73,9 @@ if (!empty($_POST)) {
 			<input type="password" id="password_repeat" name="password_repeat" placeholder="Password repeat">
 		</div>
         <div class="form__field">
-			<input type="submit" value="Sign up" class="btn">
+			<input type="submit" value="Sign up" class="btn btn--primary">
 		</div>
     </form>
+    <script src="public_html/js/validatesignup.js"></script>
 </body>
 </html>
