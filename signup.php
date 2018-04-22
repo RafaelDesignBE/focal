@@ -42,7 +42,7 @@ if (!empty($_POST)) {
 </head>
 <body>
     <h1>Sign Up</h1>
-    <form action="" method="post">
+    <form action="" method="post" class="form__login">
         <div class="form__field">
             <?php if(isset($e)): ?>
             <div class="error">
