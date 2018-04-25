@@ -1,4 +1,7 @@
 <?php
+
+    include_once('library/classes/Db.class.php');
+
     class User {
         private $username;
         private $firstName;
@@ -123,7 +126,6 @@
 
         public function register(){
             //connectie 
-            include_once('library/classes/Db.class.php');
             $conn = Db::getInstance();
             //$conn = new PDO("mysql:host=localhost;dbname=focal","root", "");
             $mailCheck = $conn->prepare('select email from users where email = :email');
@@ -150,8 +152,14 @@
         }
 
         public function login(){
+            $conn = Db::getInstance();
+            $statement = $conn->prepare('select id from users where email = :email');
+            $statement->bindParam(":email", $this->email);
+            $statement->execute();
+            $currentUserID = $statement->fetch(PDO::FETCH_ASSOC);
             session_start();
-			$_SESSION['email'] = $this->email;
+            $_SESSION['email'] = $this->email;
+            $_SESSION['user_id'] = $currentUserID['id'];
             header('Location: index.php');
         }
     }
