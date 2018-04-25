@@ -1,6 +1,6 @@
 <?php
 
-    include_once('library/classes/Upload.class.php');
+    include_once('library/classes/Post.class.php');
 
     session_start();
     if ( isset($_SESSION['email'])) {

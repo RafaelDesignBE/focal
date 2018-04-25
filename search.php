@@ -3,7 +3,7 @@
     ini_set('display_errors', 'On');
     error_reporting(E_ALL);
 
-    include_once('library/classes/Upload.class.php');
+    include_once('library/classes/Post.class.php');
 
     $search = $_GET['q'];
     $search = strtolower($search);
