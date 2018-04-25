@@ -13,18 +13,18 @@
     if (isset($_GET["page"])) {
         $amountPages = $_GET["page"] + 1;
         $loadPosts = $amountPages*4;
-        $page = Upload::loadPosts($loadPosts, $_SESSION['user_id']);
-        if (count(Upload::loadPosts($loadPosts + 1, $_SESSION['user_id'])) <= count($page)) {
+        $page = Post::loadPosts($loadPosts, $_SESSION['user_id']);
+        if (count(Post::loadPosts($loadPosts + 1, $_SESSION['user_id'])) <= count($page)) {
             $hideMore = 1;
         }
         
     }
     else {
-        if (empty(Upload::loadPosts(1, $_SESSION['user_id']))) {
+        if (empty(Post::loadPosts(1, $_SESSION['user_id']))) {
             $empty = 1;
         } else {
-            $page = Upload::loadPosts(4, $_SESSION['user_id']);
-            if (count(Upload::loadPosts(5, $_SESSION['user_id'])) <= count($page)) {
+            $page = Post::loadPosts(4, $_SESSION['user_id']);
+            if (count(Post::loadPosts(5, $_SESSION['user_id'])) <= count($page)) {
                 $hideMore = 1;
                 
             }
