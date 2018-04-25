@@ -133,6 +133,13 @@ h1, h2, h3, h4, h5 {
     width: 8em;
     line-height: 3rem;
 }
+
+a.link--login {
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: #626FFD;
+  }
 /* END OF SIGNUP / SIGN IN FORM */
 
 /* POST */
