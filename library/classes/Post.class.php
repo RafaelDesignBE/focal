@@ -224,8 +224,8 @@ class Post {
         $user->execute();
         $result = $user->fetch();  
         $userId = $result[0];
-        $photo_url = $this->fileName.".".$this->imageFileType;
-        $thmb_url = $this->fileName."_thmb.jpg";
+        $photo_url = "uploads/".$this->fileName.".".$this->imageFileType;
+        $thmb_url = "uploads/".$this->fileName."_thmb.jpg";
         $statement = $conn->prepare("insert into posts (tags, photo_url, thmb_url, title, categories_id, users_id) values (:tags, :photo_url, :thmb_url, :title, :categories_id, :users_id)");
 
         $statement->bindParam(":tags", $this->tags);
