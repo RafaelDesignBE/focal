@@ -133,6 +133,13 @@ h1, h2, h3, h4, h5 {
     width: 8em;
     line-height: 3rem;
 }
+
+a.link--login {
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: #626FFD;
+  }
 /* END OF SIGNUP / SIGN IN FORM */
 
 /* POST */
@@ -144,6 +151,11 @@ h1, h2, h3, h4, h5 {
     margin-right: auto;
 }
 
+.btn--upload {
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
 .btn--primary input[type=file] {
     left: 0;
     top: 0;
@@ -152,6 +164,7 @@ h1, h2, h3, h4, h5 {
     opacity: 0;
     width: 100%;
     height: 100%;
+    cursor: pointer;
     -webkit-border-radius: 3rem;
             border-radius: 3rem;
 }

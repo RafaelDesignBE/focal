@@ -74,8 +74,9 @@ if (!empty($_POST)) {
 		</div>
         <div class="form__field">
 			<input type="submit" value="Sign up" class="btn btn--primary">
-		</div>
+        </div>
     </form>
+    <a class="link--login" href="login.php">Log in</a>
     <script src="public_html/js/validatesignup.js"></script>
 </body>
 </html>
