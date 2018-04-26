@@ -26,8 +26,6 @@ h1, h2, h3, h4, h5 {
     text-transform: uppercase;
 }
 
-<<<<<<< HEAD
-=======
 .h1--focal {
     letter-spacing: .25em;
 }
@@ -36,16 +34,11 @@ h1, h2, h3, h4, h5 {
     text-decoration: none;
     color: #000;
 }
-
->>>>>>> feature6
 /* BUTTONS */
 .btn {
     font-size: 1.25rem;
     text-align: center;
-<<<<<<< HEAD
-=======
     text-decoration: none;
->>>>>>> feature6
     display: inline-block;
     border: 0;
     outline: none;
@@ -73,10 +66,8 @@ h1, h2, h3, h4, h5 {
     color: #fff;
     background-color: #616EFF;
 }
-<<<<<<< HEAD
-=======
 
-.btn--secondary {
+btn--secondary {
     color: #616EFF;
     border: 1px solid #616EFF;
     background-color: #fff;
@@ -86,7 +77,6 @@ h1, h2, h3, h4, h5 {
     display: block;
     margin: 2em auto 2em auto;
 }
->>>>>>> feature6
 /* END OF BUTTONS */
 
 /* SIGNUP / SIGN IN AND FORMS */
@@ -162,7 +152,6 @@ h1, h2, h3, h4, h5 {
     margin-right: auto;
     width: 8em;
     line-height: 3rem;
-<<<<<<< HEAD
 }
 
 a.link--login {
@@ -208,7 +197,7 @@ a.link--login {
     background-position: center;
     background-color: #000;
     transition: all 0.1s ease-in-out;
-=======
+
 }
 
 a.link--login {
@@ -224,12 +213,10 @@ a.link--login {
 .form__post .btn--primary {
     position: relative;
     display: block;
->>>>>>> feature6
     margin-left: auto;
     margin-right: auto;
 }
 
-<<<<<<< HEAD
 #preview--image.open {
     height: 100vw;
 }
@@ -265,7 +252,6 @@ a.link--login {
     display: inline;
 }
 
-<<<<<<< HEAD
 .field__upload label {
     margin-bottom: 0.5rem;
     text-align: center;
@@ -296,9 +282,9 @@ a.link--login {
     }
 }
 /* END OF POST */
-=======
-/* END OF SIGNUP / SIGN IN FORM *.
-=======
+
+/* END OF SIGNUP / SIGN IN FORM */
+
 .btn--primary input[type=file] {
     left: 0;
     top: 0;
@@ -310,7 +296,6 @@ a.link--login {
     -webkit-border-radius: 3rem;
             border-radius: 3rem;
 }
->>>>>>> feature6
 
 #preview--image {
     width: 100vw;
@@ -495,9 +480,7 @@ a.link--login {
     margin: 4em;
 }
 
-<<<<<<< HEAD
->>>>>>> feature6
-=======
+
 @media (min-width : 700px){
     
     .feed__post__info {
@@ -520,4 +503,3 @@ a.link--login {
         border-radius: .2em;
     }
 }
->>>>>>> feature6
