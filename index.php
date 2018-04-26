@@ -45,27 +45,31 @@
 
     <?php include_once("nav.inc.php"); ?>
 
-    <h1>Homepage</h1>
-    
-    <a href="logout.php">Log out</a>
-
     <div class="feed">
         <?php if(isset($page)): ?>  
             <?php foreach ($page as $p): ?>
-                <a href="post.php?watch=<?php echo $p['id']; ?>" class="feed__post--image" style="background-image: url(<?php echo $p["photo_url"] ?>)">
-                </a>
+                <div class="feed__post">
+                    <a href="post.php?watch=<?php echo $p['id']; ?>" class="feed__post--image" style="background-image: url(<?php echo $p["photo_url"] ?>)">
+                    </a>
+                    <div class="feed__post__info">
+                        <p class="feed__post__info--uploader">Jo Smets</p>
+                        <p class="feed__post__info--description"><?php echo $p['description']; ?></p>
+                        <p class="feed__post__info--comments">Great pic</p>
+                    </div>
+                </div>
+                
             <?php endforeach ?>
           
     </div>
     <?php if (!isset($hideMore)): ?>
         <form action='' method='GET'>
-            <button type="submit" value="<?php echo $amountPages ?>" name="page">Load More</button>
+            <button class="btn btn--secondary btn--loadmore" type="submit" value="<?php echo $amountPages ?>" name="page">Load More</button>
         </form>
     <?php else: ?>
-        <p>End of feed</p>
+        <p class="feed__msg">End of feed</p>
     <?php endif; ?>
     <?php elseif (isset($empty)): ?>
-        <p>No posts yet</p>
+        <p class="feed__msg">No posts yet, be sure to follow people!</p>
     <?php endif; ?>
     
 
