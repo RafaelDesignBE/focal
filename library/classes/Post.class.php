@@ -242,7 +242,7 @@ class Post {
     /* Load results on feed */
     public static function loadPosts($limit, $currentUserID) {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT * FROM posts INNER JOIN followers ON posts.users_id = followers.f_id WHERE followers.u_id = :currentUser ORDER BY posts.id DESC LIMIT :limit");
+        $statement = $conn->prepare("SELECT posts.id, posts.photo_url, posts.title FROM posts INNER JOIN followers ON posts.users_id = followers.f_id WHERE followers.u_id = :currentUser ORDER BY posts.id  DESC LIMIT :limit");
         $statement->bindValue(':limit', $limit, PDO::PARAM_INT);
         $statement->bindValue(':currentUser', $currentUserID, PDO::PARAM_INT);
         $statement->execute();
@@ -253,6 +253,15 @@ class Post {
     public static function getAll() {
         $conn = Db::getInstance();
         $statement = $conn->prepare("SELECT * FROM posts ORDER BY id DESC");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+     /* get all posts */
+    public static function getPost($id) {
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT * FROM posts WHERE id = :id ORDER BY id DESC");
+        $statement->bindValue(':id', $id, PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
