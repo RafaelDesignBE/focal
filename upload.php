@@ -39,6 +39,7 @@ if (!empty($_POST)) {
 <script src="./public_html/js/uploadpreview.js"></script>
 </head>
 <body>
+<?php include_once("nav.inc.php"); ?>
 
 <form action="" method="post" enctype="multipart/form-data" class="form__post">
     <?php if(isset($e)): ?>

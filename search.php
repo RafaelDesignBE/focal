@@ -10,7 +10,7 @@
     $search = htmlspecialchars($search);
     $searchArray = explode(",", $search);
 
-    $all = Upload::getAll();
+    $all = Post::getAll();
     $result = [];
     foreach($all as $key => $p) {
         $tags = explode(", ", $p['tags']);
