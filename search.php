@@ -43,9 +43,8 @@
                     <a href="post.php?watch=<?php echo $p['id']; ?>" class="feed__post--image" style="background-image: url(<?php echo $p["photo_url"] ?>)">
                     </a>
                     <div class="feed__post__info">
-                        <p class="feed__post__info--uploader">Jo Smets</p>
-                        <p class="feed__post__info--description"></p>
-                        <p class="feed__post__info--comments">Great pic</p>
+                    <p class="feed__post__info--uploader"><?php echo htmlspecialchars($p['username']); ?></p>
+                        <p class="feed__post__info--description"><?php echo htmlspecialchars($p['title']); ?></p>
                     </div>
                 </div>
             <?php endforeach ?>
