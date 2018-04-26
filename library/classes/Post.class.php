@@ -2,7 +2,7 @@
 
 include_once('Db.class.php');
 
-class Upload {
+class Post {
     private $image;
     private $description;
     private $tags;

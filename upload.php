@@ -10,7 +10,7 @@ include_once('library/classes/Post.class.php');
 
 if (!empty($_POST)) {
     try {
-        $upload = new Upload();
+        $upload = new Post();
         $upload->setImage($_FILES["uploadFile"]);
         $upload->setDescription($_POST['description']);
         $upload->setTags($_POST['tags']);
