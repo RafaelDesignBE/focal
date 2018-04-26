@@ -1,2 +1,4 @@
 
 settings/db.php
+*.jpg
+*.png
