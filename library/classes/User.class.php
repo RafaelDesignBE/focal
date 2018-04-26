@@ -140,10 +140,10 @@
                     'cost' => 12,
                 ];
                 $hash = password_hash($this->password, PASSWORD_DEFAULT, $options);
-                $statement->bindParam(":username", htmlspecialchars($this->username));
-                $statement->bindParam(":firstName", htmlspecialchars($this->firstName));
-                $statement->bindParam(":lastName", htmlspecialchars($this->lastName));
-                $statement->bindParam(":email", htmlspecialchars($this->email));
+                $statement->bindParam(":username", $this->username);
+                $statement->bindParam(":firstName", $this->firstName);
+                $statement->bindParam(":lastName", $this->lastName);
+                $statement->bindParam(":email", $this->email);
                 $statement->bindParam(":password", $hash);
                 // execute
                 $result = $statement->execute();

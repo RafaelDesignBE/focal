@@ -220,20 +220,20 @@ class Post {
         $userQ = "select id from users where email = :email";
         $user = $conn->prepare($userQ);
         
-        $user->bindParam(":email", htmlspecialchars($email));
+        $user->bindParam(":email", $email);
         $user->execute();
         $result = $user->fetch();  
         $userId = $result[0];
         $photo_url = $this->fileName.".".$this->imageFileType;
         $thmb_url = $this->fileName."_thmb.jpg";
-        $statement = $conn->prepare("insert into posts (tags, photo_url, thmb_url, title, categories_id, users_id) values (:tags, :photo_url, :thmb_url, :title, :categories_id, :users_id)");
+        $statement = $conn->prepare("insert into posts (tags, photo_url, title, categories_id, users_id) values (:tags, :photo_url, :thmb_url, :title, :categories_id, :users_id)");
 
-        $statement->bindParam(":tags", htmlspecialchars($this->tags));
+        $statement->bindParam(":tags", $this->tags);
         $statement->bindParam(":photo_url", $photo_url);
         $statement->bindParam(":thmb_url", $thmb_url);
-        $statement->bindParam(":title", htmlspecialchars($this->description));
-        $statement->bindParam(":categories_id", htmlspecialchars($this->category));
-        $statement->bindParam(":users_id", htmlspecialchars($userId));
+        $statement->bindParam(":title", $this->description);
+        $statement->bindParam(":categories_id", $this->category);
+        $statement->bindParam(":users_id", $userId);
             // execute
         $result = $statement->execute();
         return $result;
