@@ -67,7 +67,7 @@ h1, h2, h3, h4, h5 {
     background-color: #616EFF;
 }
 
-btn--secondary {
+.btn--secondary {
     color: #616EFF;
     border: 1px solid #616EFF;
     background-color: #fff;
