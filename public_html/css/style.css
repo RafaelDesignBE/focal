@@ -151,6 +151,11 @@ a.link--login {
     margin-right: auto;
 }
 
+.btn--upload {
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
 .btn--primary input[type=file] {
     left: 0;
     top: 0;
@@ -159,6 +164,7 @@ a.link--login {
     opacity: 0;
     width: 100%;
     height: 100%;
+    cursor: pointer;
     -webkit-border-radius: 3rem;
             border-radius: 3rem;
 }
