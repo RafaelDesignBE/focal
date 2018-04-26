@@ -53,7 +53,7 @@
                     </a>
                     <div class="feed__post__info">
                         <p class="feed__post__info--uploader">Jo Smets</p>
-                        <p class="feed__post__info--description"><?php echo $p['description']; ?></p>
+                        <p class="feed__post__info--description"><?php echo $p['title']; ?></p>
                         <p class="feed__post__info--comments">Great pic</p>
                     </div>
                 </div>

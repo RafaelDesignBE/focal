@@ -503,3 +503,11 @@ a.link--login {
         border-radius: .2em;
     }
 }
+
+/* POST DETAIL */
+
+.post__detail__image {
+    display: block;
+    max-width: 80%;
+    margin: 0 auto;
+}
