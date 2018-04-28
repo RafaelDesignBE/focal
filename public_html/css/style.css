@@ -10,7 +10,7 @@
     font-style: normal;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('https://fonts.googleapis.com/css?family=Lato:400,400i');
 
 * {
     font-family: 'Lato', sans-serif;
@@ -472,6 +472,15 @@ a.link--login {
     background-position: center center;
     max-width: 35em;
     max-height: 35em;
+}
+
+.feed__post__info--description {
+    font-size: 2em;
+}
+
+.feed__post__info--uploadtime {
+    color: #999;
+    font-style: italic;
 }
 
 .feed__msg {

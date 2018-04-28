@@ -7,7 +7,6 @@
 
 
     $page = Post::getPost($getPost);
-
 ?><html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,6 +24,7 @@
             <?php foreach ($page as $p): ?>
                 <div class="post__detail">
                     <img class="post__detail__image" src="<?php echo $p["photo_url"] ?>" alt="">
+                        <p class="feed__post__info--uploadtime"><?php echo Post::time_elapsed_string($p['datetime']); ?></p>
                 </div>
                 
             <?php endforeach ?>

@@ -33,6 +33,8 @@
         $amountPages = 1;
     }
 
+    
+
 ?><html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -54,6 +56,7 @@
                     <div class="feed__post__info">
                         <p class="feed__post__info--uploader"><?php echo htmlspecialchars($p['username']); ?></p>
                         <p class="feed__post__info--description"><?php echo htmlspecialchars($p['title']); ?></p>
+                        <p class="feed__post__info--uploadtime"><?php echo Post::time_elapsed_string($p['datetime']); ?></p>
                     </div>
                 </div>
                 

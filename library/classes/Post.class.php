@@ -242,7 +242,7 @@ class Post {
     /* Load results on feed */
     public static function loadPosts($limit, $currentUserID) {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT posts.id, posts.photo_url, posts.title, users.username FROM ((posts INNER JOIN followers ON posts.users_id = followers.f_id) INNER JOIN users ON posts.users_id = users.id) WHERE followers.u_id = :currentUser ORDER BY posts.id  DESC LIMIT :limit");
+        $statement = $conn->prepare("SELECT posts.id, posts.photo_url, posts.title, posts.datetime, users.username FROM ((posts INNER JOIN followers ON posts.users_id = followers.f_id) INNER JOIN users ON posts.users_id = users.id) WHERE followers.u_id = :currentUser ORDER BY posts.id  DESC LIMIT :limit");
         $statement->bindValue(':limit', $limit, PDO::PARAM_INT);
         $statement->bindValue(':currentUser', $currentUserID, PDO::PARAM_INT);
         $statement->execute();
@@ -252,7 +252,7 @@ class Post {
     /* get all posts */
     public static function getAll() {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT posts.id, posts.photo_url, posts.title, posts.tags, users.username FROM posts  INNER JOIN users ON posts.users_id = users.id  ORDER BY posts.id DESC");
+        $statement = $conn->prepare("SELECT posts.id, posts.photo_url, posts.title, posts.datetime, posts.tags, users.username FROM posts  INNER JOIN users ON posts.users_id = users.id  ORDER BY posts.id DESC");
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -264,6 +264,32 @@ class Post {
         $statement->bindValue(':id', $id, PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function time_elapsed_string($datetime, $full = false) {
+        $now = new DateTime;
+        $ago = new DateTime($datetime);
+        $diff = $now->diff($ago);
+        $diff->w = floor($diff->d / 7);
+        $diff->d -= $diff->w * 7;
+        $string = array(
+            'y' => 'year',
+            'm' => 'month',
+            'w' => 'week',
+            'd' => 'day',
+            'h' => 'hour',
+            'i' => 'minute',
+            's' => 'second',
+        );
+        foreach ($string as $k => &$v) {
+            if ($diff->$k) {
+                $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+            } else {
+                unset($string[$k]);
+            }
+        }
+        if (!$full) $string = array_slice($string, 0, 1);
+        return $string ? implode(', ', $string) . ' ago' : 'just now';
     }
 
 }
