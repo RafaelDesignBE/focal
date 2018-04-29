@@ -520,3 +520,7 @@ a.link--login {
     max-width: 80%;
     margin: 0 auto;
 }
+
+
+.like {background-color: green;}
+.liked {background-color: red;}

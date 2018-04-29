@@ -9,7 +9,6 @@
     else {
         header('Location: signup.php');
     };
-
     if (isset($_GET["page"])) {
         $amountPages = $_GET["page"] + 1;
         $loadPosts = $amountPages*4;
@@ -44,9 +43,8 @@
     <title>Home</title>
 </head>
 <body>
-
     <?php include_once("nav.inc.php"); ?>
-
+    <?php echo $_SESSION['user_id']; ?>
     <div class="feed">
         <?php if(isset($page)): ?>  
             <?php foreach ($page as $p): ?>
@@ -57,6 +55,9 @@
                         <p class="feed__post__info--uploader"><?php echo htmlspecialchars($p['username']); ?></p>
                         <p class="feed__post__info--description"><?php echo htmlspecialchars($p['title']); ?></p>
                         <p class="feed__post__info--uploadtime"><?php echo Post::time_elapsed_string($p['datetime']); ?></p>
+                        <div class="feed__post__info--likes"><button class="<?php if( $p['liketype'] === "0" ){ echo "liked"; } else{echo "like";} ?>" data-post="<?php echo  $p['id']; ?>" data-type="0">Like</button><div class="like--count"><?php echo substr_count($p['likes'],"0"); ?></div></div>
+                        <div class="feed__post__info--likes"><button class="<?php if( $p['liketype'] === "1" ){ echo "liked"; } else{echo "like";} ?>" data-post="<?php echo  $p['id']; ?>" data-type="1">Bump</button><div class="like--count"><?php echo substr_count($p['likes'],"1"); ?></div></div>
+                        <div class="feed__post__info--likes"><button class="<?php if( $p['liketype'] === "2" ){ echo "liked"; } else{echo "like";} ?>" data-post="<?php echo  $p['id']; ?>" data-type="2">Lol</button><div class="like--count"><?php echo substr_count($p['likes'],"2"); ?></div></div>
                     </div>
                 </div>
                 
@@ -77,6 +78,49 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="public_html/js/index.js"></script>
+    <script>
+    function likePost() {
+        $.ajax({
+                url: "likePost.php",
+                context: this,
+                method: "POST",
+                data: { postId: $(this).data("post"), likeType: $(this).data("type") }
+                }).done(function() {
+                    var liked = $( this ).parent().parent().find('.liked');
+                    var parent = $( this ).parent().find('.like--count');
+                    liked.toggleClass('like liked');
+                    liked.off();
+                    liked.on("click", likePost);
+                    $( this ).toggleClass('like liked');
+                    $( this ).off();
+                    $( this ).on("click", removeLike);
+                    var newlike = parseInt(parent.html()) + 1;
+                    parent.html(newlike);
+            });
+            console.log("added like");
+    }
+
+    function removeLike() {
+        $.ajax({
+                url: "unlikePost.php",
+                context: this,
+                method: "POST",
+                data: { postId: $(this).data("post") }
+                }).done(function() {
+                    var parent = $( this ).parent().find('.like--count');
+                    $( this ).toggleClass('like liked');
+                    $( this ).off();
+                    $( this ).on("click", likePost);
+                    var newlike = parseInt(parent.html()) - 1;
+                    parent.html(newlike);
+            });
+            console.log("removed like");
+    }
+
+    $(".like").on("click", likePost);
+
+    $(".liked").on("click", removeLike);
     
+    </script>
 </body>
 </html>

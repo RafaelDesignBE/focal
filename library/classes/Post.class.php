@@ -213,17 +213,9 @@ class Post {
             }
         }
     }
-    public function postImg($email){
+    public function postImg($userId){
         //connectie 
-        include_once('library/classes/Db.class.php');
         $conn = Db::getInstance();
-        $userQ = "select id from users where email = :email";
-        $user = $conn->prepare($userQ);
-        
-        $user->bindParam(":email", $email);
-        $user->execute();
-        $result = $user->fetch();  
-        $userId = $result[0];
         $photo_url = "uploads/".$this->fileName.".".$this->imageFileType;
         $thmb_url = "uploads/".$this->fileName."_thmb.jpg";
         $statement = $conn->prepare("insert into posts (tags, photo_url, thmb_url, title, categories_id, users_id) values (:tags, :photo_url, :thmb_url, :title, :categories_id, :users_id)");
@@ -242,7 +234,7 @@ class Post {
     /* Load results on feed */
     public static function loadPosts($limit, $currentUserID) {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT posts.id, posts.photo_url, posts.title, posts.datetime, users.username FROM ((posts INNER JOIN followers ON posts.users_id = followers.f_id) INNER JOIN users ON posts.users_id = users.id) WHERE followers.u_id = :currentUser ORDER BY posts.id  DESC LIMIT :limit");
+        $statement = $conn->prepare("SELECT posts.id, posts.photo_url, posts.title, posts.datetime, users.username, (SELECT likes.type from likes WHERE likes.users_id = :currentUser) AS liketype, GROUP_CONCAT(likes.type) AS likes FROM ((posts INNER JOIN followers ON posts.users_id = followers.f_id) INNER JOIN users ON posts.users_id = users.id) INNER JOIN likes ON posts.id = likes.posts_id WHERE followers.u_id = :currentUser ORDER BY posts.id  DESC LIMIT :limit");
         $statement->bindValue(':limit', $limit, PDO::PARAM_INT);
         $statement->bindValue(':currentUser', $currentUserID, PDO::PARAM_INT);
         $statement->execute();
@@ -290,6 +282,28 @@ class Post {
         }
         if (!$full) $string = array_slice($string, 0, 1);
         return $string ? implode(', ', $string) . ' ago' : 'just now';
+    }
+
+    public static function likePost($usersId, $postsId, $likeType){
+        self::removeLike($usersId, $postsId);
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("insert into likes (users_id, posts_id, type) values (:users_id, :posts_id, :likeType)");
+        $statement->bindParam(":users_id", $usersId);
+        $statement->bindParam(":posts_id", $postsId);
+        $statement->bindParam(":likeType", $likeType);
+            // execute
+        $result = $statement->execute();
+        return $result;
+    }
+
+    public static function removeLike($usersId, $postsId){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("DELETE FROM likes WHERE likes.users_id = :users_id AND likes.posts_id = :posts_id");
+        $statement->bindParam(":users_id", $usersId);
+        $statement->bindParam(":posts_id", $postsId);
+            // execute
+        $result = $statement->execute();
+        return $result;
     }
 
 }

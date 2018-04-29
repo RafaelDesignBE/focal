@@ -18,7 +18,7 @@ if (!empty($_POST)) {
         $upload->setWidth(400);
         $upload->setHeight(400);
         $upload->saveImg();
-        $upload->postImg($_SESSION['email']);
+        $upload->postImg($_SESSION['user_id']);
     }
     catch (Exception $e){
   
