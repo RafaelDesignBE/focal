@@ -567,7 +567,17 @@ a.link--login {
     margin: 0 auto;
 }
 
-<<<<<<< HEAD
+.post__detail__info--uploader {
+    display:inline-block;
+    color: rgba(0, 0, 0, 0.7);
+    margin: 0;
+}
+
+.post__detail__info--description {
+    margin: 0;
+    padding-bottom: 1em;
+}
+
 /* likes */
 
 .feed__post__info--likes {
@@ -651,15 +661,3 @@ a.link--login {
 }
 
 .liked {opacity: 0.8;}
-=======
-.post__detail__info--uploader {
-    display:inline-block;
-    color: rgba(0, 0, 0, 0.7);
-    margin: 0;
-}
-
-.post__detail__info--description {
-    margin: 0;
-    padding-bottom: 1em;
-}
->>>>>>> loadDetails
