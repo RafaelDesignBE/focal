@@ -44,3 +44,25 @@ function removeLike() {
 $(".like").on("click", likePost);
 
 $(".liked").on("click", removeLike);
+
+
+function closeMenu(){
+        $(this).removeClass('open');
+}
+
+function openMenu(){
+        $(this).parent().find('.feed__post__info--more--menu').addClass('open');
+}
+
+function markPost(){
+        $.ajax({
+                url: "markPost.php",
+                context: this,
+                method: "POST",
+                data: { postId: $(this).data("post") }
+                }).done(function() {
+            });
+}
+$('.feed__post__info--option.option__mark').on('click', markPost);
+$('.feed__post__info--more--menu').on('click', closeMenu);
+$('.feed__post__info--more--button').on('click', openMenu);

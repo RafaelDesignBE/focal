@@ -286,15 +286,6 @@ class Post {
         return $string ? implode(', ', $string) . ' ago' : 'just now';
     }
 
-    public static function loadLikes($usersId, $postId){
-        $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT (SELECT likes.type from likes WHERE likes.users_id = :userId) AS liketype, GROUP_CONCAT(likes.type) AS likes FROM likes WHERE likes.posts_id = :postId");
-        $statement->bindValue(':userId', $usersId, PDO::PARAM_INT);
-        $statement->bindValue(':postId', $currentUser, PDO::PARAM_INT);
-        $statement->execute();
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
-
     public static function loadComments($commentID) {
         $conn = Db::getInstance();
         $statement = $conn->prepare("SELECT users.username, comments.comment FROM comments INNER JOIN users ON comments.users_id = users.id WHERE comments.posts_id = :comment LIMIT 2");
@@ -325,6 +316,7 @@ class Post {
         return $result;
     }
 
+
     public static function loadAllComments($commentID) {
         $conn = Db::getInstance();
         $statement = $conn->prepare("SELECT users.username, comments.comment FROM comments INNER JOIN users ON comments.users_id = users.id WHERE comments.posts_id = :comment");
@@ -339,6 +331,34 @@ class Post {
         $statement->bindValue(':comment', $commentID, PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetchColumn();
+    }
+
+    public static function getMark($postsId){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT marked FROM posts WHERE posts.id = :posts_id");
+        //$statement->bindParam(":users_id", $usersId);
+        $statement->bindParam(":posts_id", $postsId);
+            // execute
+        $statement->execute();
+        return $statement->fetch();
+    }
+    public static function setMark($mark, $postsId){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("UPDATE posts SET marked = :mark WHERE id = :posts_id");
+        $statement->bindParam(":mark", $mark);
+        $statement->bindParam(":posts_id", $postsId);
+            // execute
+        $result = $statement->execute();
+        return $result;
+    }
+
+    public static function deletePost($postsId){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("UPDATE posts SET deleted = 1 WHERE id = :posts_id");
+        $statement->bindParam(":posts_id", $postsId);
+            // execute
+        $result = $statement->execute();
+        return $result;
     }
 
 }
