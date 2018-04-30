@@ -521,6 +521,86 @@ a.link--login {
     margin: 0 auto;
 }
 
+/* likes */
 
-.like {background-color: green;}
-.liked {background-color: red;}
+.feed__post__info--likes {
+    display: flex;
+    flex-direction: row;
+}
+
+.feed__post__info--likes .like--count {
+    line-height: 3rem;
+    margin-left: 1rem;
+    font-size: 1.2em;
+}
+.feed__post__info--likes button {
+    border: none;
+    outline: none;
+    width: 3rem;
+    height: 3rem;
+    background-color: transparent;
+    text-indent: -9999999px;
+    cursor: pointer;
+    background-size: 100% 100%;
+}
+
+.feed__post__info--likes.likes-0 button {
+    background-image: url('../img/like.svg');
+}
+
+.feed__post__info--likes.likes-1 button {
+    background-image: url('../img/bump.svg');
+}
+
+.feed__post__info--likes.likes-2 button {
+    background-image: url('../img/lol.svg');
+}
+
+.feed__post__info--likes.likes-0 .liked {
+    transform-origin: 25% 50%;
+    animation: shaked 0.3s ease-in-out;
+}
+
+.feed__post__info--likes.likes-1 .liked {
+    animation: zoomed 0.3s ease-in-out;
+}
+
+.feed__post__info--likes.likes-2 .liked {
+    animation: bounce 0.4s ease-in-out;
+}
+
+.feed__post__info--likes .liked-db {
+    animation: none !important;
+}
+
+.liked-db ~ .like--count{
+    animation: none !important;
+}
+
+.liked ~ .like--count {
+    animation: greencount 2s ease-in-out;
+}
+
+@keyframes shaked {
+    30%{transform: rotate(10deg)}
+    70%{transform: rotate(-30deg)}
+}
+
+@keyframes zoomed {
+    30%{transform: scale(0.8)}
+    70%{transform: scale(1.2)}
+}
+
+@keyframes bounce {
+    10%{transform: translateY(0.25rem) scale(1.1, 0.9)}
+    30%{transform: scale(0.8, 1.2)}
+    50%{transform: translateY(-0.5rem)}
+    70%{transform: scale(1.2, 0.8)}
+}
+
+@keyframes greencount {
+    10%{color: #4CAF50}
+    40%{color: #4CAF50}
+}
+
+.liked {opacity: 0.8;}
