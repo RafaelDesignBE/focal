@@ -55,7 +55,13 @@ function openMenu(){
 }
 
 function markPost(){
-    alert('mark');
+        $.ajax({
+                url: "markPost.php",
+                context: this,
+                method: "POST",
+                data: { postId: $(this).data("post") }
+                }).done(function() {
+            });
 }
 $('.feed__post__info--option.option__mark').on('click', markPost);
 $('.feed__post__info--more--menu').on('click', closeMenu);

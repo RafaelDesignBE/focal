@@ -55,7 +55,7 @@
                         <button class="feed__post__info--more--button">More</button>
                             <div class="feed__post__info--more--menu">
                                 <div class="flexspace"></div>
-                                <div class="feed__post__info--option option__mark">Mark as inappropriate</div>
+                                <div class="feed__post__info--option option__mark" data-post="<?php echo  $p['id']; ?>">Mark as inappropriate</div>
                                 <div class="feed__post__info--option option__delete">Delete post</div>
                                 <div class="flexspace"></div>
                             </div>

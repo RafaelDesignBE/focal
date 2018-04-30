@@ -286,15 +286,6 @@ class Post {
         return $string ? implode(', ', $string) . ' ago' : 'just now';
     }
 
-    public static function loadLikes($usersId, $postId){
-        $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT (SELECT likes.type from likes WHERE likes.users_id = :userId) AS liketype, GROUP_CONCAT(likes.type) AS likes FROM likes WHERE likes.posts_id = :postId");
-        $statement->bindValue(':userId', $usersId, PDO::PARAM_INT);
-        $statement->bindValue(':postId', $currentUser, PDO::PARAM_INT);
-        $statement->execute();
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
-
     public static function likePost($usersId, $postsId, $likeType){
         self::removeLike($usersId, $postsId);
         $conn = Db::getInstance();
@@ -317,6 +308,33 @@ class Post {
         return $result;
     }
 
+    public static function getMark($postsId){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT marked FROM posts WHERE posts.id = :posts_id");
+        //$statement->bindParam(":users_id", $usersId);
+        $statement->bindParam(":posts_id", $postsId);
+            // execute
+        $statement->execute();
+        return $statement->fetch();
+    }
+    public static function setMark($mark, $postsId){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("UPDATE posts SET marked = :mark WHERE id = :posts_id");
+        $statement->bindParam(":mark", $mark);
+        $statement->bindParam(":posts_id", $postsId);
+            // execute
+        $result = $statement->execute();
+        return $result;
+    }
+
+    public static function deletePost($postsId){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("UPDATE posts SET deleted = 1 WHERE id = :posts_id");
+        $statement->bindParam(":posts_id", $postsId);
+            // execute
+        $result = $statement->execute();
+        return $result;
+    }
 }
     
 
