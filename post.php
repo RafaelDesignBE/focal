@@ -32,6 +32,15 @@
                     <img class="post__detail__image" src="<?php echo $p["photo_url"] ?>" alt="">    
                 </div>
                 <div class="post__detail__info">
+                <div class="feed__post__info--more">
+                        <button class="feed__post__info--more--button">More</button>
+                            <div class="feed__post__info--more--menu">
+                                <div class="flexspace"></div>
+                                <div class="feed__post__info--option option__mark" data-post="<?php echo  $p['id']; ?>">Mark as inappropriate</div>
+                                <div class="feed__post__info--option option__delete">Delete post</div>
+                                <div class="flexspace"></div>
+                            </div>
+                        </div>
                     <p class="post__detail__info--uploader"><?php echo htmlspecialchars($p['username']); ?></p>
                     <p class="post__detail__info--description"><?php echo htmlspecialchars($p['title']); ?></p>
                     <p class="feed__post__info--uploadtime"><?php echo Post::time_elapsed_string($p['datetime']); ?></p>
