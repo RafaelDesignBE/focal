@@ -576,6 +576,7 @@ a.link--login {
 .post__detail__info--description {
     margin: 0;
     padding-bottom: 1em;
+    font-size: 2em;
 }
 
 /* likes */
