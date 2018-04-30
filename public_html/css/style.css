@@ -458,10 +458,7 @@ a.link--login {
 
 .feed__post {
     display: flex;
-}
-
-.feed__post__info {
-    display: none;
+    flex-direction: column;
 }
 
 .feed__post--image {
@@ -493,8 +490,15 @@ a.link--login {
     padding-bottom: 1em;
 }
 
+.feed__post__info__comments {
+    margin-top: 1em;
+}
+
 .feed__post__info__comments--comment {
     padding: .4em 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 .feed__post__info__comments--comment p {
@@ -513,28 +517,39 @@ a.link--login {
     text-decoration: none;
     display: block;
     color: #616EFF;
-    padding: 2em 0;
+    padding: 0;
+    padding-top: 1em;
 }
 
-@media (min-width : 700px){
     
+.feed__post__info {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    max-width: 35em;
+    padding-left: 1em;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.feed__post__info p {
+    margin: 0;
+}
+
+.feed__post__info--uploader {
+    display:inline-block;
+    color: rgba(0, 0, 0, 0.7);
+    border-radius: .2em;
+}
+
+@media (min-width : 1024px){
+    .feed__post {
+        flex-direction: row;
+    }
+
     .feed__post__info {
-        display: flex;
-        flex-direction: column;
         width: 30vw;
         max-width: 25em;
-        padding-left: 1em;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-    }
-
-    .feed__post__info p {
-        margin: 0;
-    }
-
-    .feed__post__info--uploader {
-        display:inline-block;
-        color: rgba(0, 0, 0, 0.7);
-        border-radius: .2em;
+        overflow: hidden;
     }
 }
 
@@ -580,15 +595,19 @@ a.link--login {
 
 /* likes */
 
-.feed__post__info--likes {
+.feed__post__info--reactions {
     display: flex;
     flex-direction: row;
 }
 
+.feed__post__info--likes {
+    display: flex;
+    flex-direction: column;
+}
+
 .feed__post__info--likes .like--count {
-    line-height: 3rem;
-    margin-left: 1rem;
-    font-size: 1.2em;
+    text-align: center;
+    font-size: 1em;
 }
 .feed__post__info--likes button {
     border: none;
@@ -711,3 +730,21 @@ a.link--login {
 }
 
 .liked {opacity: 0.8;}
+
+.feed__post__info__add-comment {
+    padding-top: 0.5em;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+.feed__post__info__add-comment textarea {
+    width: 100%;
+    margin: 0;
+    font-size: 1em;
+    line-height: 1.5em;
+    border: none;
+    outline: none;
+    resize: none;
+}

@@ -288,7 +288,7 @@ class Post {
 
     public static function loadComments($commentID) {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT users.username, comments.comment FROM comments INNER JOIN users ON comments.users_id = users.id WHERE comments.posts_id = :comment LIMIT 2");
+        $statement = $conn->prepare("SELECT users.username, users.id, comments.comment FROM comments INNER JOIN users ON comments.users_id = users.id WHERE comments.posts_id = :comment LIMIT 4");
         $statement->bindValue(':comment', $commentID, PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -359,6 +359,21 @@ class Post {
             // execute
         $result = $statement->execute();
         return $result;
+    }
+
+    public static function addComment($comment, $usersId, $postsId){
+        //
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("INSERT INTO comments (`comment`,`users_id`,`posts_id`) VALUES (:comment, :users_id, :posts_id)");
+        $statement->bindParam(":comment", $comment);
+        $statement->bindParam(":users_id", $usersId);
+        $statement->bindParam(":posts_id", $postsId);
+            // execute
+        $statement->execute();
+        $username = $conn->prepare("SELECT username FROM users WHERE id = :users_id");
+        $username->bindParam(":users_id", $usersId);
+        $username->execute();
+        return $username->fetch();
     }
 
 }

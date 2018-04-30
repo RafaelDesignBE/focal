@@ -66,3 +66,28 @@ function markPost(){
 $('.feed__post__info--option.option__mark').on('click', markPost);
 $('.feed__post__info--more--menu').on('click', closeMenu);
 $('.feed__post__info--more--button').on('click', openMenu);
+
+$('.feed__post__info__add-comment-area').keypress(function(e) {
+        if(e.which == 13) {
+                $.ajax({
+                        url: "addComment.php",
+                        context: this,
+                        method: "POST",
+                        data: { comment: $(this).val(), postId: $(this).data("post") },
+                        success: function(data) {
+                                var parent = $(this).parent().parent().find('.feed__post__info__comments');
+                                var counter = parent.children().length;
+                                if(counter > 3){
+                                        parent.find('.feed__post__info__comments--comment:first-child').remove();
+                                }
+                                parent.append('<div class="feed__post__info__comments--comment"><a href="profile.php?user='+$(this).data("post")+'" class="feed__post__info__comments--commentUsername">'+ data + '</a><p>' + $(this).val() + '</p></div>');
+                                
+                                var count = parent.parent().find('.feed__post__info__comments--moreComments .count');
+                                var newCount = parseInt(count.html()) +1;
+                                count.html(newCount);
+                                $(this).val('');
+                        }
+                        });
+            e.preventDefault();
+        }
+    });
