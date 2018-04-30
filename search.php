@@ -71,15 +71,21 @@
                                 $comments = Post::loadComments($p['id']);
                                 foreach ($comments as $c) {
                                     echo "<div class='feed__post__info__comments--comment'>";
-                                    echo "<a href='#' class='feed__post__info__comments--commentUsername'>".$c['username']."</a>";
-                                    echo "<p>".$c['comment']."</p>";
+                                    echo "<a href='profile.php?user=".$c['id']."' class='feed__post__info__comments--commentUsername'>".htmlspecialchars($c['username'])."</a>";
+                                    echo "<p>".htmlspecialchars($c['comment'])."</p>";
                                     echo "</div>";
-                                }
+                                } ?>
+            
+                        </div>
+                        <?php
                                 $countComments = Post::countComments($p['id']);
-                                if ($countComments > 2) {
-                                    echo "<a class='feed__post__info__comments--moreComments' href='post.php?watch=".$p['id']."'>See all " . $countComments. " comments</a>";
+                                if ($countComments > 4) {
+                                    echo "<a class='feed__post__info__comments--moreComments' href='post.php?watch=".$p['id']."'>See all <span class='count'>" . $countComments. "</span> comments</a>";
                                 }
                             ?>
+                        <div class="flexspace"></div>
+                        <div class="feed__post__info__add-comment">
+                            <textarea class="feed__post__info__add-comment-area" data-post="<?php echo  $p['id']; ?>" data-post="<?php echo  $p['id']; ?>" rows="1" placeholder="Add a comment..."></textarea>
                         </div>
                     </div>
                 </div>

@@ -49,16 +49,21 @@
                             <div class="feed__post__info--likes likes-1"><button class="<?php if( $p['liketype'] === "1" ){ echo "liked liked-db"; } else{echo "like";} ?>" data-post="<?php echo  $p['id']; ?>" data-type="1">Bump</button><div class="like--count"><?php echo substr_count($p['likes'],"1"); ?></div></div>
                             <div class="feed__post__info--likes likes-2"><button class="<?php if( $p['liketype'] === "2" ){ echo "liked liked-db"; } else{echo "like";} ?>" data-post="<?php echo  $p['id']; ?>" data-type="2">Lol</button><div class="like--count"><?php echo substr_count($p['likes'],"2"); ?></div></div>
                         </div>
-                        <div class="feed__post__info__comments">
+                        <div class="feed__post__info__comments commments--all">
                         <?php
                             $comments = Post::loadAllComments($p['id']);
                             foreach ($comments as $c) {
                                 echo "<div class='feed__post__info__comments--comment'>";
-                                echo "<a href='#' class='feed__post__info__comments--commentUsername'>".htmlspecialchars($c['username'])."</a>";
+                                echo "<a href='profile.php?user=".$c['id']."' class='feed__post__info__comments--commentUsername'>".htmlspecialchars($c['username'])."</a>";
                                 echo "<p>".htmlspecialchars($c['comment'])."</p>";
                                 echo "</div>";
                             }
                         ?>
+                        </div>
+                        <div class="flexspace"></div>
+                        <div class="feed__post__info__add-comment">
+                            <textarea class="feed__post__info__add-comment-area" data-post="<?php echo  $p['id']; ?>" data-post="<?php echo  $p['id']; ?>" rows="1" placeholder="Add a comment..."></textarea>
+                        </div>
                     </div>
                 </div>
             <?php endforeach; ?>

@@ -319,7 +319,7 @@ class Post {
 
     public static function loadAllComments($commentID) {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT users.username, comments.comment FROM comments INNER JOIN users ON comments.users_id = users.id WHERE comments.posts_id = :comment");
+        $statement = $conn->prepare("SELECT users.username, users.id, comments.comment FROM comments INNER JOIN users ON comments.users_id = users.id WHERE comments.posts_id = :comment");
         $statement->bindValue(':comment', $commentID, PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
