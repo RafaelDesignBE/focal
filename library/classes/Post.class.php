@@ -244,8 +244,12 @@ class Post {
     /* get all posts */
     public static function getAll($currentUserID) {
         $conn = Db::getInstance();
+<<<<<<< HEAD
         $statement = $conn->prepare("SELECT posts.id, posts.photo_url, posts.title, posts.datetime, posts.tags, users.username, (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype FROM posts  INNER JOIN users ON posts.users_id = users.id  ORDER BY posts.id DESC");
         $statement->bindValue(':currentUser', $currentUserID, PDO::PARAM_INT);
+=======
+        $statement = $conn->prepare("SELECT posts.id, posts.photo_url, posts.title, posts.tags, users.username FROM posts INNER JOIN users ON posts.users_id = users.id  ORDER BY posts.id DESC");
+>>>>>>> loadDetails
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -253,13 +257,18 @@ class Post {
      /* get all posts */
     public static function getPost($currentUserID, $id) {
         $conn = Db::getInstance();
+<<<<<<< HEAD
         $statement = $conn->prepare("SELECT (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype, posts.*  FROM posts WHERE id = :id ORDER BY id DESC");
         $statement->bindValue(':currentUser', $currentUserID, PDO::PARAM_INT);
+=======
+        $statement = $conn->prepare("SELECT posts.id, posts.photo_url, posts.title, users.username FROM posts INNER JOIN users ON posts.users_id = users.id WHERE posts.id = :id ORDER BY id DESC");
+>>>>>>> loadDetails
         $statement->bindValue(':id', $id, PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+<<<<<<< HEAD
     public static function time_elapsed_string($datetime, $full = false) {
         $now = new DateTime;
         $ago = new DateTime($datetime);
@@ -291,10 +300,17 @@ class Post {
         $statement = $conn->prepare("SELECT (SELECT likes.type from likes WHERE likes.users_id = :userId) AS liketype, GROUP_CONCAT(likes.type) AS likes FROM likes WHERE likes.posts_id = :postId");
         $statement->bindValue(':userId', $usersId, PDO::PARAM_INT);
         $statement->bindValue(':postId', $currentUser, PDO::PARAM_INT);
+=======
+    public static function loadComments($commentID) {
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT users.username, comments.comment FROM comments INNER JOIN users ON comments.users_id = users.id WHERE comments.posts_id = :comment LIMIT 2");
+        $statement->bindValue(':comment', $commentID, PDO::PARAM_INT);
+>>>>>>> loadDetails
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+<<<<<<< HEAD
     public static function likePost($usersId, $postsId, $likeType){
         self::removeLike($usersId, $postsId);
         $conn = Db::getInstance();
@@ -315,6 +331,22 @@ class Post {
             // execute
         $result = $statement->execute();
         return $result;
+=======
+    public static function loadAllComments($commentID) {
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT users.username, comments.comment FROM comments INNER JOIN users ON comments.users_id = users.id WHERE comments.posts_id = :comment");
+        $statement->bindValue(':comment', $commentID, PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function countComments($commentID) {
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT count(*) FROM comments WHERE comments.posts_id = :comment");
+        $statement->bindValue(':comment', $commentID, PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetchColumn();
+>>>>>>> loadDetails
     }
 
 }

@@ -53,10 +53,28 @@
                     <div class="feed__post__info">
                         <p class="feed__post__info--uploader"><?php echo htmlspecialchars($p['username']); ?></p>
                         <p class="feed__post__info--description"><?php echo htmlspecialchars($p['title']); ?></p>
+<<<<<<< HEAD
                         <p class="feed__post__info--uploadtime"><?php echo Post::time_elapsed_string($p['datetime']); ?></p>
                         <div class="feed__post__info--likes likes-0"><button class="<?php if( $p['liketype'] === "0" ){ echo "liked liked-db"; } else{echo "like";} ?>" data-post="<?php echo  $p['id']; ?>" data-type="0">Like</button><div class="like--count"><?php echo substr_count($p['likes'],"0"); ?></div></div>
                         <div class="feed__post__info--likes likes-1"><button class="<?php if( $p['liketype'] === "1" ){ echo "liked liked-db"; } else{echo "like";} ?>" data-post="<?php echo  $p['id']; ?>" data-type="1">Bump</button><div class="like--count"><?php echo substr_count($p['likes'],"1"); ?></div></div>
                         <div class="feed__post__info--likes likes-2"><button class="<?php if( $p['liketype'] === "2" ){ echo "liked liked-db"; } else{echo "like";} ?>" data-post="<?php echo  $p['id']; ?>" data-type="2">Lol</button><div class="like--count"><?php echo substr_count($p['likes'],"2"); ?></div></div>
+=======
+                        <div class="feed__post__info__comments">
+                            <?php 
+                                $comments = Post::loadComments($p['id']);
+                                foreach ($comments as $c) {
+                                    echo "<div class='feed__post__info__comments--comment'>";
+                                    echo "<a href='#' class='feed__post__info__comments--commentUsername'>".htmlspecialchars($c['username'])."</a>";
+                                    echo "<p>".htmlspecialchars($c['comment'])."</p>";
+                                    echo "</div>";
+                                }
+                                $countComments = Post::countComments($p['id']);
+                                if ($countComments > 2) {
+                                    echo "<a class='feed__post__info__comments--moreComments' href='post.php?watch=".$p['id']."'>See all " . $countComments. " comments</a>";
+                                }
+                            ?>
+                        </div>
+>>>>>>> loadDetails
                     </div>
                 </div>
                 

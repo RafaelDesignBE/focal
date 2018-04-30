@@ -489,6 +489,32 @@ a.link--login {
     margin: 4em;
 }
 
+.feed__post__info--description {
+    padding-bottom: 1em;
+}
+
+.feed__post__info__comments--comment {
+    padding: .4em 0;
+}
+
+.feed__post__info__comments--comment p {
+    display: inline;
+}
+
+
+.feed__post__info__comments--commentUsername {
+    text-decoration: none;
+    font-weight: bold;
+    color: #000;
+    padding-right: 0.4em;
+}
+
+.feed__post__info__comments--moreComments {
+    text-decoration: none;
+    display: block;
+    color: #616EFF;
+    padding: 2em 0;
+}
 
 @media (min-width : 700px){
     
@@ -515,12 +541,33 @@ a.link--login {
 
 /* POST DETAIL */
 
-.post__detail__image {
-    display: block;
+.post {
+    margin-top: 2em; 
+}
+
+.post__detail {
     max-width: 80%;
     margin: 0 auto;
 }
 
+.post__detail__info {
+    margin: 0 auto;
+    padding: 2em;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 1000px;
+    box-sizing: border-box;
+    margin-bottom: 5em;
+}
+
+.post__detail__image {
+    display: block;
+    width: 80%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+<<<<<<< HEAD
 /* likes */
 
 .feed__post__info--likes {
@@ -604,3 +651,15 @@ a.link--login {
 }
 
 .liked {opacity: 0.8;}
+=======
+.post__detail__info--uploader {
+    display:inline-block;
+    color: rgba(0, 0, 0, 0.7);
+    margin: 0;
+}
+
+.post__detail__info--description {
+    margin: 0;
+    padding-bottom: 1em;
+}
+>>>>>>> loadDetails
