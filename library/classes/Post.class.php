@@ -252,7 +252,7 @@ class Post {
     /* get all posts */
     public static function getAll() {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT posts.id, posts.photo_url, posts.title, posts.tags, users.username FROM posts  INNER JOIN users ON posts.users_id = users.id  ORDER BY posts.id DESC");
+        $statement = $conn->prepare("SELECT posts.id, posts.photo_url, posts.title, posts.tags, users.username FROM posts INNER JOIN users ON posts.users_id = users.id  ORDER BY posts.id DESC");
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -260,10 +260,34 @@ class Post {
      /* get all posts */
     public static function getPost($id) {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT * FROM posts WHERE id = :id ORDER BY id DESC");
+        $statement = $conn->prepare("SELECT posts.id, posts.photo_url, posts.title, users.username FROM posts INNER JOIN users ON posts.users_id = users.id WHERE posts.id = :id ORDER BY id DESC");
         $statement->bindValue(':id', $id, PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function loadComments($commentID) {
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT users.username, comments.comment FROM comments INNER JOIN users ON comments.users_id = users.id WHERE comments.posts_id = :comment LIMIT 2");
+        $statement->bindValue(':comment', $commentID, PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function loadAllComments($commentID) {
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT users.username, comments.comment FROM comments INNER JOIN users ON comments.users_id = users.id WHERE comments.posts_id = :comment");
+        $statement->bindValue(':comment', $commentID, PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function countComments($commentID) {
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT count(*) FROM comments WHERE comments.posts_id = :comment");
+        $statement->bindValue(':comment', $commentID, PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetchColumn();
     }
 
 }

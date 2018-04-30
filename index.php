@@ -54,6 +54,21 @@
                     <div class="feed__post__info">
                         <p class="feed__post__info--uploader"><?php echo htmlspecialchars($p['username']); ?></p>
                         <p class="feed__post__info--description"><?php echo htmlspecialchars($p['title']); ?></p>
+                        <div class="feed__post__info__comments">
+                            <?php 
+                                $comments = Post::loadComments($p['id']);
+                                foreach ($comments as $c) {
+                                    echo "<div class='feed__post__info__comments--comment'>";
+                                    echo "<a href='#' class='feed__post__info__comments--commentUsername'>".htmlspecialchars($c['username'])."</a>";
+                                    echo "<p>".htmlspecialchars($c['comment'])."</p>";
+                                    echo "</div>";
+                                }
+                                $countComments = Post::countComments($p['id']);
+                                if ($countComments > 2) {
+                                    echo "<a class='feed__post__info__comments--moreComments' href='post.php?watch=".$p['id']."'>See all " . $countComments. " comments</a>";
+                                }
+                            ?>
+                        </div>
                     </div>
                 </div>
                 
