@@ -237,7 +237,7 @@ class Post {
         $statement->bindValue(':currentUser', $currentUserID, PDO::PARAM_INT);
         $statement->bindValue(':id', $id, PDO::PARAM_INT);
         $statement->execute();
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
     public static function time_elapsed_string($datetime, $full = false) {

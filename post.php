@@ -11,7 +11,7 @@
 
     $getPost = $_GET['watch'];
 
-    $page = Post::getPost($_SESSION['user_id'] ,$getPost);
+    $p = Post::getPost($_SESSION['user_id'] ,$getPost);
 
 ?><html lang="en">
 <head>
@@ -19,15 +19,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <?php include_once('header.inc.php'); ?>
-    <title>Home</title>
+    <title><?php echo htmlspecialchars($p['title']); ?></title>
 </head>
 <body>
-
     <?php include_once("nav.inc.php"); ?>
-    
     <div class="post">
-        <?php if(isset($page)): ?>  
-            <?php foreach ($page as $p): ?>
+        <?php if(isset($p)): ?>
                 <div class="post__detail">
                     <img class="post__detail__image" src="<?php echo $p["photo_url"] ?>" alt="">    
                 </div>
@@ -66,7 +63,6 @@
                         </div>
                     </div>
                 </div>
-            <?php endforeach; ?>
         <?php endif; ?>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
