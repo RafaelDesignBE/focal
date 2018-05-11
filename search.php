@@ -45,11 +45,11 @@
     <div class="feed">
         <?php if(!empty($page)): ?>  
             <?php foreach ($page as $p): ?>
-                <div class="feed__post">
-                    <a href="post.php?watch=<?php echo $p['id']; ?>" class="feed__post--image" style="background-image: url(<?php echo $p["photo_url"] ?>)">
+            <div class="feed__post">
+                    <a href="post.php?watch=<?php echo $p['id']; ?>" class="feed__post--image"><img src="<?php echo $p["thmb_url"] ?>">
                     </a>
                     <div class="feed__post__info">
-                    <div class="feed__post__info--more">
+                        <div class="feed__post__info--more">
                         <button class="feed__post__info--more--button">More</button>
                             <div class="feed__post__info--more--menu">
                                 <div class="flexspace"></div>
