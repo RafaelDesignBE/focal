@@ -31,7 +31,6 @@
 
         $amountPages = 1;
     }
-
     
 
 ?><html lang="en">
@@ -43,6 +42,13 @@
     <title>Home</title>
 </head>
 <body>
+    <?php 
+        if(isset($_GET['upload'])){
+            if( $_GET['upload'] == "complete" ) {
+                echo "<div class='upload__complete'>Your post has been uploaded</div>";
+            }
+        }
+    ?>
     <?php include_once("nav.inc.php"); ?>
     <div class="feed">
         <?php if(isset($page)): ?>  

@@ -18,6 +18,7 @@ if (!empty($_POST)) {
         $upload->setHeight(400);
         $upload->saveImg();
         $upload->postImg($_SESSION['user_id']);
+        header('Location: index.php?upload=complete');
     }
     catch (Exception $e){
   

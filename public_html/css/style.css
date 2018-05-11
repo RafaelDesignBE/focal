@@ -79,6 +79,32 @@ h1, h2, h3, h4, h5 {
 }
 /* END OF BUTTONS */
 
+
+/* UPLOAD COMPLETE MESSAGE */
+.upload__complete {
+    position: fixed;
+    bottom: -3rem;
+    left: 0;
+    right: 0;
+    line-height: 3rem;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.7);
+    max-width: 480px;
+    -webkit-box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    animation: bannerMessage 4s ease-in-out forwards;
+    -webkit-backdrop-filter: blur(1rem);
+    backdrop-filter: blur(1rem);
+}
+
+@keyframes bannerMessage {
+    10%{transform: translateY(-3rem)}
+    90%{transform: translateY(-3rem)}
+}
+
 /* SIGNUP / SIGN IN AND FORMS */
 .form__login h1 {
     text-align: center;
