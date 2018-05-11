@@ -4,7 +4,7 @@ if(!empty($_POST['latitude']) && !empty($_POST['longitude'])){
 
     //Send request and receive json data by latitude and longitude 
 
-    $url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='.trim($_POST['latitude']).','.trim($_POST['longitude']).'&sensor=false&KEY=AIzaSyCTiq2TgM0Kh0S-CULZsO5ecsGJxW4qQ2I'; 
+    $url = 'http://maps.googleapis.com/maps/api/geocode/json?KEY=AIzaSyCTiq2TgM0Kh0S-CULZsO5ecsGJxW4qQ2I&latlng='.trim($_POST['latitude']).','.trim($_POST['longitude']).'&sensor=false'; 
 
     $json = @file_get_contents($url); 
 
