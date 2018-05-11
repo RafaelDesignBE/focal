@@ -16,6 +16,7 @@ if (!empty($_POST)) {
         $upload->setTags($_POST['tags']);
         $upload->setWidth(400);
         $upload->setHeight(400);
+        $upload->setLocation($_POST['latitude'], $_POST['longitude'], $_POST['location']);
         $upload->saveImg();
         $upload->postImg($_SESSION['user_id']);
         header('Location: index.php?upload=complete');
@@ -43,7 +44,7 @@ if (!empty($_POST)) {
 
 if (navigator.geolocation) { 
 
-    navigator.geolocation.watchPosition(showLocation); 
+    navigator.geolocation.getCurrentPosition(showLocation); 
 
 } else { 
 

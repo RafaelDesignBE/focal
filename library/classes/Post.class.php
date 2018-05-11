@@ -117,6 +117,30 @@ class Post {
         return $this;
     }
 
+    public function setLocation($latitude, $longitude, $location)
+    {
+        $this->latitude = $latitude;
+        $this->longitude = $longitude;
+        $this->location = $location;
+        $conn = Db::getInstance();
+        $check = $conn->prepare("select id from locations where latitude=:latitude and longitude=:longitude and place=:location");
+        $check->bindParam(":latitude", $this->latitude);
+        $check->bindParam(":longitude", $this->longitude);
+        $check->bindParam(":location", $this->location);
+        $check->execute();
+        $this->locationId = $check->fetch(PDO::FETCH_ASSOC)['id'];
+        if($this->locationId > 0){
+        } else {
+            $statement = $conn->prepare("insert into locations (latitude, longitude, place) values (:latitude, :longitude, :location)");
+            $statement->bindParam(":latitude", $this->latitude);
+            $statement->bindParam(":longitude", $this->longitude);
+            $statement->bindParam(":location", $this->location);
+                // execute
+            $result = $statement->execute();
+            $this->locationId = $conn->lastInsertId();
+        }
+    }
+
     public function saveImg() {
         if(isset($_POST)) {
             $target_dir = "uploads/";
@@ -199,13 +223,15 @@ class Post {
         $conn = Db::getInstance();
         $photo_url = "uploads/".$this->fileName.".".$this->imageFileType;
         $thmb_url = "uploads/".$this->fileName."_thmb.jpg";
-        $statement = $conn->prepare("insert into posts (tags, photo_url, thmb_url, title, users_id) values (:tags, :photo_url, :thmb_url, :title, :users_id)");
+        $statement = $conn->prepare("insert into posts (tags, photo_url, thmb_url, title, users_id, location_id) values (:tags, :photo_url, :thmb_url, :title, :users_id, :location_id)");
 
         $statement->bindParam(":tags", $this->tags);
         $statement->bindParam(":photo_url", $photo_url);
         $statement->bindParam(":thmb_url", $thmb_url);
         $statement->bindParam(":title", $this->description);
         $statement->bindParam(":users_id", $userId);
+        $statement->bindParam(":location_id", $this->locationId);
+        
             // execute
         $result = $statement->execute();
         return $result;
