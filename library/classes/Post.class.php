@@ -6,7 +6,6 @@ class Post {
     private $image;
     private $description;
     private $tags;
-    private $category;
     private $width;
     private $height;
     private $fileName;
@@ -74,25 +73,6 @@ class Post {
     public function setTags($tags)
     {
         $this->tags = $tags;
-
-        return $this;
-    }
-/**
-     * Get the value of category
-     */ 
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
-     * Set the value of category
-     *
-     * @return  self
-     */ 
-    public function setCategory($category)
-    {
-        $this->category = $category;
 
         return $this;
     }
@@ -213,18 +193,18 @@ class Post {
             }
         }
     }
+
     public function postImg($userId){
         //connectie 
         $conn = Db::getInstance();
         $photo_url = "uploads/".$this->fileName.".".$this->imageFileType;
         $thmb_url = "uploads/".$this->fileName."_thmb.jpg";
-        $statement = $conn->prepare("insert into posts (tags, photo_url, thmb_url, title, categories_id, users_id) values (:tags, :photo_url, :thmb_url, :title, :categories_id, :users_id)");
+        $statement = $conn->prepare("insert into posts (tags, photo_url, thmb_url, title, users_id) values (:tags, :photo_url, :thmb_url, :title, :users_id)");
 
         $statement->bindParam(":tags", $this->tags);
         $statement->bindParam(":photo_url", $photo_url);
         $statement->bindParam(":thmb_url", $thmb_url);
         $statement->bindParam(":title", $this->description);
-        $statement->bindParam(":categories_id", $this->category);
         $statement->bindParam(":users_id", $userId);
             // execute
         $result = $statement->execute();

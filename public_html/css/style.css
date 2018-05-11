@@ -261,6 +261,10 @@ a.link--login {
     margin-top: 1rem;
 }
 
+.location {
+    display: none !important;
+}
+
 @media (min-width : 601px){
     .form__content:first-child {
         width: 320px;

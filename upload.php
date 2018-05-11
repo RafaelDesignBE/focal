@@ -14,7 +14,6 @@ if (!empty($_POST)) {
         $upload->setImage($_FILES["uploadFile"]);
         $upload->setDescription($_POST['description']);
         $upload->setTags($_POST['tags']);
-        $upload->setCategory($_POST['category']);
         $upload->setWidth(400);
         $upload->setHeight(400);
         $upload->saveImg();
@@ -36,7 +35,59 @@ if (!empty($_POST)) {
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>New post</title>
 <?php include_once('header.inc.php'); ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="./public_html/js/uploadpreview.js"></script>
+<script>
+    $(document).ready(function(){ 
+
+if (navigator.geolocation) { 
+
+    navigator.geolocation.watchPosition(showLocation); 
+
+} else { 
+
+    $('#location').val('Geolocation is not supported by this browser.'); 
+
+} 
+
+}); 
+
+function showLocation(position) { 
+
+var latitude = position.coords.latitude; 
+
+var longitude = position.coords.longitude; 
+
+$("#latitude").val(latitude);
+
+$("#longitude").val(longitude);
+
+$.ajax({ 
+
+type:'POST', 
+
+url:'getLocation.php', 
+
+data:'latitude='+latitude+'&longitude='+longitude, 
+
+success:function(msg){ 
+
+        if(msg){ 
+
+           $("#location").val(msg); 
+
+        }else{ 
+
+            $("#location").val('Location not available'); 
+
+        } 
+
+} 
+
+}); 
+
+} 
+</script>
 </head>
 <body>
 <?php include_once("nav.inc.php"); ?>
@@ -64,25 +115,16 @@ if (!empty($_POST)) {
                 <label for="tags">Tags</label>
                 <input type="text" name="tags" id="tags" placeholder = "Tags">
             </div>
-            
-            <div class="form__field form__radio">
-                <input type="radio" id="category1"
-                name="category" value="0">
-                <label for="category1">Photo</label>
-
-                <input type="radio" id="category2"
-                name="category" value="1">
-                <label for="category2">Graphic</label>
-
-                <input type="radio" id="category3"
-                name="category" value="2">
-                <label for="category3">Art</label>
+               
+            <div class="form__field location">
+                <input id="latitude" name="latitude">
+                <input id="longitude" name="longitude">
+                <input id="location" name="location">
             </div>
 
             <input type="submit" value="Upload" name="submit" class="btn btn--primary">
         </div>
     </div>
 </form>
-
 </body>
 </html>

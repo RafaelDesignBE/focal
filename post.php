@@ -24,7 +24,7 @@
 <body>
 
     <?php include_once("nav.inc.php"); ?>
-
+    
     <div class="post">
         <?php if(isset($page)): ?>  
             <?php foreach ($page as $p): ?>
