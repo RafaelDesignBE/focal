@@ -690,6 +690,32 @@ a.link--login {
     animation: none !important;
 }
 
+.post__info--location {
+    display: flex;
+    line-height: 1.5em;
+    color: #616EFF;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.post__info--location p {
+    margin: 0;
+}
+
+.post__info--location a, .post__info--location a:hover, .post__info--location a:visited, .post__info--location a:active {
+    text-decoration: none;
+    color: #616EFF;
+}
+
+.post__info--location .location__icon {
+    background-image: url('../img/loc.svg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 0.9375em;
+    height: 1.5em;
+    margin-right: 0.5em;
+}
+
 .liked-db ~ .like--count{
     animation: none !important;
 }

@@ -122,6 +122,16 @@ class Post {
         $this->latitude = $latitude;
         $this->longitude = $longitude;
         $this->location = $location;
+        if(!empty($location)){
+            $loc = explode(',',$location);
+            $this->city = $loc[0];
+            $this->region = $loc[1];
+            $this->country = $loc[2];
+        } else {
+            $this->city = "";
+            $this->region = "";
+            $this->country = "";
+        }
         $conn = Db::getInstance();
         $check = $conn->prepare("select id from locations where latitude=:latitude and longitude=:longitude and place=:location");
         $check->bindParam(":latitude", $this->latitude);
@@ -131,9 +141,12 @@ class Post {
         $this->locationId = $check->fetch(PDO::FETCH_ASSOC)['id'];
         if($this->locationId > 0){
         } else {
-            $statement = $conn->prepare("insert into locations (latitude, longitude, place) values (:latitude, :longitude, :location)");
+            $statement = $conn->prepare("insert into locations (latitude, longitude, city, region, country, place) values (:latitude, :longitude, :city, :region, :country, :location)");
             $statement->bindParam(":latitude", $this->latitude);
             $statement->bindParam(":longitude", $this->longitude);
+            $statement->bindParam(":city", $this->city);
+            $statement->bindParam(":region", $this->region);
+            $statement->bindParam(":country", $this->country);
             $statement->bindParam(":location", $this->location);
                 // execute
             $result = $statement->execute();
@@ -240,7 +253,7 @@ class Post {
     /* Load results on feed */
     public static function loadPosts($limit, $currentUserID) {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT posts.id, posts.thmb_url, posts.title, posts.datetime, users.username, (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype FROM ((posts INNER JOIN followers ON posts.users_id = followers.f_id) INNER JOIN users ON posts.users_id = users.id) WHERE followers.u_id = :currentUser ORDER BY posts.id  DESC LIMIT :limit");
+        $statement = $conn->prepare("SELECT posts.id, posts.thmb_url, posts.title, posts.datetime, users.username, locations.city, locations.region, locations.country, (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype FROM posts INNER JOIN followers ON posts.users_id = followers.f_id INNER JOIN users ON posts.users_id = users.id INNER JOIN locations ON posts.location_id = locations.id WHERE followers.u_id = :currentUser ORDER BY posts.id  DESC LIMIT :limit");
         $statement->bindValue(':limit', $limit, PDO::PARAM_INT);
         $statement->bindValue(':currentUser', $currentUserID, PDO::PARAM_INT);
         $statement->execute();
@@ -250,7 +263,7 @@ class Post {
     /* get all posts */
     public static function getAll($currentUserID) {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT posts.id, posts.thmb_url, posts.title, posts.datetime, posts.tags, users.username, (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype FROM posts  INNER JOIN users ON posts.users_id = users.id  ORDER BY posts.id DESC");
+        $statement = $conn->prepare("SELECT posts.id, posts.thmb_url, posts.title, posts.datetime, posts.tags, users.username, locations.city, locations.region, locations.country, (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype FROM posts  INNER JOIN users ON posts.users_id = users.id INNER JOIN locations ON posts.location_id = locations.id ORDER BY posts.id DESC");
         $statement->bindValue(':currentUser', $currentUserID, PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -259,7 +272,7 @@ class Post {
      /* get specific post */
     public static function getPost($currentUserID, $id) {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype, posts.id, posts.photo_url, posts.title, posts.datetime, users.username FROM posts INNER JOIN users ON posts.users_id = users.id WHERE posts.id = :id ORDER BY posts.id DESC");
+        $statement = $conn->prepare("SELECT (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype, posts.id, posts.photo_url, posts.title, posts.datetime, users.username, posts.tags, users.username, locations.city, locations.region, locations.country FROM posts INNER JOIN users ON posts.users_id = users.id INNER JOIN locations ON posts.location_id = locations.id WHERE posts.id = :id ORDER BY posts.id DESC");
         $statement->bindValue(':currentUser', $currentUserID, PDO::PARAM_INT);
         $statement->bindValue(':id', $id, PDO::PARAM_INT);
         $statement->execute();

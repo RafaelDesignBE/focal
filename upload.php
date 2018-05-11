@@ -48,7 +48,7 @@ if (navigator.geolocation) {
 
 } else { 
 
-    $('#location').val('Geolocation is not supported by this browser.'); 
+    $('#location').val(''); 
 
 } 
 
@@ -80,7 +80,7 @@ success:function(msg){
 
         }else{ 
 
-            $("#location").val('Location not available'); 
+            $("#location").val(''); 
 
         } 
 
