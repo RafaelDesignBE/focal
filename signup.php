@@ -1,5 +1,8 @@
 <?php
-
+session_start();
+if ( isset($_SESSION['email'])) {
+    header('Location: index.php');
+}
 include_once('library/helpers/Security.class.php');
 include_once('library/classes/User.class.php');
 
