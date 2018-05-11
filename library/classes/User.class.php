@@ -147,6 +147,10 @@
                 $statement->bindParam(":password", $hash);
                 // execute
                 $result = $statement->execute();
+                $last_id = $conn->lastInsertId();
+                $followSelf = $conn->prepare("insert into followers (u_id, f_id) values (:newUser, :newUser)");
+                $followSelf->bindValue(':newUser', $last_id, PDO::PARAM_INT);
+                $result = $followSelf->execute();
                 return $result;
            }            
         }
