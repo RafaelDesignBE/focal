@@ -1,4 +1,8 @@
-<nav class="navbar">
+<?php
+
+  session_start();
+
+?><nav class="navbar">
 
     <div class="navbar__container">  
 
@@ -7,7 +11,7 @@
       <div class="navbar__icons">
         <a href="upload.php"><img class="navbar__icons--icon" src="public_html/img/upload.svg" alt="upload"></a>
         <a href="#"><img class="navbar__icons--icon" src="public_html/img/notification.svg" alt="notification"></a>
-        <a href="logout.php"><img class="navbar__icons--icon navbar__icons--rightIcon" src="public_html/img/profile.svg" alt="profile"></a>
+        <a href="profile.php?user=<?php echo $_SESSION['user_id'] ?>"><img class="navbar__icons--icon navbar__icons--rightIcon" src="public_html/img/profile.svg" alt="profile"></a>
       </div>
 
       <form class="form__search" action="search.php" method="get">
