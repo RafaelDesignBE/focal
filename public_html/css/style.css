@@ -563,9 +563,7 @@ a.link--login {
     margin-top: 0.75rem;
 }
 /* FEED HOME */ 
-
 .feed {
-  margin-top: 2em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -573,12 +571,15 @@ a.link--login {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+    transition: all 0.3s ease-in-out;
+    margin-top: 2em;
 }
 
 .feed__post {
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -589,6 +590,8 @@ a.link--login {
     -webkit-box-shadow: 0px 2px 8px rgba(0,111,253,0.2);
             box-shadow: 0px 2px 8px rgba(98,111,253,0.2);
     width: 90vw;
+    box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
 }
 
 .feed__post--image {
@@ -683,6 +686,7 @@ a.link--login {
 }
 
 @media (min-width: 27rem){
+    
     .feed__post__info {
         width: 25rem;
     }
@@ -707,6 +711,31 @@ a.link--login {
     background-size: 100% 100%;
     margin-right: 0.5em;
     margin-bottom: -0.15em;
+}
+
+@media (min-width: 56rem ) {
+    .feed {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        width: 54rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .feed__post {
+        display: block;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+}
+
+@media (min-width: 83rem ) {
+    .feed {
+        width: 81rem;
+    }
+    .feed__post {
+    }
 }
 
 /* POST DETAIL */
