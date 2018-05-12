@@ -9,7 +9,7 @@
       <a class="link--h1" href="index.php"><h1 class="h1--focal">Focal</h1></a>
 
       <form class="form__search" action="search.php" method="get">
-        <input placeholder="Search" type="text" name="q">
+        <input placeholder="Search" type="text" name="q" onfocus="maxSearch()" onblur="minSearch()">
       </form>
 
       <div class="navbar__icons">

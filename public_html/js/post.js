@@ -106,3 +106,13 @@ $('.feed__post__info__add-comment-area').keypress(function(e) {
                 }).done(function() {
         });
     });
+
+   function maxSearch(){
+           $('.h1--focal').css('width', '0');
+           $('.form__search').css('margin-left', '0');
+   }
+
+   function minSearch(){
+        $('.h1--focal').css('width', 'auto');
+        $('.form__search').css('margin-left', '1rem');
+}
