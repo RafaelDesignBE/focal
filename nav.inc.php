@@ -1,8 +1,4 @@
-<?php
-
-  session_start();
-
-?><nav class="navbar">
+<nav class="navbar">
 
     <div class="navbar__container">  
 
@@ -18,7 +14,6 @@
         <input placeholder="Search" type="text" name="q">
       </form>
     
-    <!--<a href="logout.php" class="btn btn--secondary">Log out</a>-->
     </div>
     
 </nav>
