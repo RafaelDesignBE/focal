@@ -1,6 +1,6 @@
 <?php
 
-    include_once('library/classes/Profile.class.php');
+    include_once('library/classes/User.class.php');
 
     session_start();
     if ( isset($_SESSION['email'])) {
@@ -11,11 +11,11 @@
     };
     
     if ($_GET["user"] == $_SESSION['user_id']) {
-        $profile = Profile::loadProfile($_SESSION['user_id']);
+        $profile = User::loadProfile($_SESSION['user_id']);
         $edit = 1;
     }
     else {
-        $profile = Profile::loadProfile($_GET["user"]);
+        $profile = User::loadProfile($_GET["user"]);
     }
     
 
