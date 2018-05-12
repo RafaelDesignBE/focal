@@ -185,6 +185,16 @@
             session_start();
             $_SESSION['email'] = $this->email;
             $_SESSION['user_id'] = $currentUserID['id'];
+            
+            $options = [
+                'cost' => 12,
+            ];
+            $hash = password_hash($this->email, PASSWORD_DEFAULT, $options);
+            setcookie("user", $hash,time()+2592000);
+            $cookieDb = $conn->prepare("insert into cookies (cookie, user_id) values (:cookie, :userId)");
+            $cookieDb->bindValue(':cookie', $hash);
+            $cookieDb->bindValue(':userId', $_SESSION['user_id'], PDO::PARAM_INT);
+            $cookieDb->execute();
             header('Location: index.php');
         }
 
@@ -229,5 +239,21 @@
 
         
 
+        public function cookieCheck($hash) {
+                $conn = Db::getInstance();
+                $statement = $conn->prepare("SELECT users.id, users.email FROM cookies INNER JOIN users ON users.id = cookies.user_id WHERE cookie = :hash");
+                $statement->bindValue(':hash', $hash);
+                $statement->execute();
+                $result = $statement->fetch(PDO::FETCH_ASSOC);
+                $_SESSION['email'] = $result['email'];
+                $_SESSION['user_id'] = $result['id'];
+        }
+
+        public function removeCookie($hash) {
+                $conn = Db::getInstance();
+                $statement = $conn->prepare("DELETE FROM cookies WHERE cookie = :hash");
+                $statement->bindValue(':hash', $hash);
+                $statement->execute();
+        }
     }
 ?>
