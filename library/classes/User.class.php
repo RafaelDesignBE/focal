@@ -237,6 +237,21 @@
                 $statement->execute();
         } 
 
+        public static function followUser($userId, $currentUser){
+                $conn = Db::getInstance();
+                $statement = $conn->prepare("INSERT INTO followers (u_id, f_id) VALUES (:currentUser, :userID)");
+                $statement->bindParam(":currentUser", $currentUser);
+                $statement->bindParam(":userID", $userId);
+                $result = $statement->execute();
+        }
+
+        public static function unfollowUser($userId, $currentUser){
+                $conn = Db::getInstance();
+                $statement = $conn->prepare("DELETE FROM followers WHERE u_id = :currentUser && f_id = :userID");
+                $statement->bindParam(":currentUser", $currentUser);
+                $statement->bindParam(":userID", $userId);
+                $result = $statement->execute();
+        }
         
 
         public function cookieCheck($hash) {

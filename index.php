@@ -49,7 +49,7 @@
                                 <div class="flexspace"></div>
                             </div>
                         </div>
-                        <p class="feed__post__info--uploader"><?php echo htmlspecialchars($p['username']); ?></p>
+                        <a href="<?php echo "profile.php?user=".Post::getUploader($p['id']).""; ?>" class="feed__post__info--uploader"><?php echo htmlspecialchars($p['username']); ?></a>
                         <p class="feed__post__info--description"><?php echo htmlspecialchars($p['title']); ?></p>
                         <p class="feed__post__info--uploadtime"><?php echo Post::time_elapsed_string($p['datetime']); ?></p>
                         <?php if(!empty($p['city'])): ?>
