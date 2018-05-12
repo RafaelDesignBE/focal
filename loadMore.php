@@ -20,7 +20,6 @@ catch (Exception $e){
 }
 ?>
 <?php if($page != "none"): ?>
-<div class="feed">
 <?php foreach ($page as $p): ?>
                 <div class="feed__post">
                     <a href="post.php?watch=<?php echo $p['id']; ?>" class="feed__post--image"><img src="<?php echo $p["thmb_url"] ?>">
@@ -77,7 +76,6 @@ catch (Exception $e){
                     </div>
                 </div>
 <?php endforeach ?>
-</div>
 <?php else : ?>
 <?php echo "none" ?>
 <?php endif ?>

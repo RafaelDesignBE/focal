@@ -557,10 +557,6 @@ a.link--login {
     margin-top: 0.75rem;
 }
 /* FEED HOME */ 
-.content {
-    margin-top: 2em;
-}
-
 .feed {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -570,6 +566,7 @@ a.link--login {
       -ms-flex-direction: column;
           flex-direction: column;
     transition: all 0.3s ease-in-out;
+    margin-top: 2em;
 }
 
 .feed__post {
@@ -693,24 +690,26 @@ a.link--login {
     }
 }
 
-@media (min-width: 54rem ) {
+@media (min-width: 56rem ) {
     .feed {
-        display: block;
-        column-count: 2;
-        column-gap: 2rem;
-        width: 52rem;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        width: 54rem;
         margin-left: auto;
         margin-right: auto;
     }
     .feed__post {
-        display: inline-block;
+        display: block;
+        margin-left: 1rem;
+        margin-right: 1rem;
     }
 }
 
-@media (min-width: 81rem ) {
+@media (min-width: 83rem ) {
     .feed {
-        column-count: 3;
-        width: 79rem;
+        width: 81rem;
     }
     .feed__post {
     }

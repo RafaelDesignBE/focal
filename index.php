@@ -31,7 +31,6 @@
         }
     ?>
     <?php include_once("nav.inc.php"); ?>
-    <div class="content">
     <div class="feed">
         <?php if(isset($page)): ?>  
             <?php foreach ($page as $p): ?>
@@ -94,7 +93,6 @@
                 
             <?php endforeach ?>
           
-    </div>
     </div>
     <?php if (!isset($hideMore)): ?>
         <form action='' method='GET'>

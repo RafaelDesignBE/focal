@@ -14,8 +14,7 @@ function loadMore(event) {
                     $('.btn.btn--secondary.btn--loadmore').remove();
                     $('.feed').append("<p class='feed__msg'>End of feed</p>");
                 } else {
-                    //$('.feed').append(res);
-                    $(res).hide().appendTo(".content").fadeIn();
+                    $('.feed').append(res);
                     $(this).val(offset + 1);
                     $(".like").on("click", likePost);
                     $(".liked").on("click", removeLike);
