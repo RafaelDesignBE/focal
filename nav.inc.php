@@ -1,3 +1,4 @@
+
 <?php
 
 
@@ -19,7 +20,6 @@
 
       
     
-    <!--<a href="logout.php" class="btn btn--secondary">Log out</a>-->
     </div>
     
 </nav>
