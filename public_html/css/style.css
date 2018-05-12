@@ -116,13 +116,13 @@ h1, h2, h3, h4, h5 {
 }
 
 @-webkit-keyframes bannerMessage {
-    10%{-webkit-transform: translateY(-3rem);transform: translateY(-3rem); opacity: 1}
-    90%{-webkit-transform: translateY(-3rem);transform: translateY(-3rem); opacity: 1}
+    10%{-webkit-transform: translateY(-48px);transform: translateY(-48px); opacity: 1}
+    90%{-webkit-transform: translateY(-48px);transform: translateY(-48px); opacity: 1}
 }
 
 @keyframes bannerMessage {
-    10%{-webkit-transform: translateY(-3rem);transform: translateY(-3rem); opacity: 1}
-    90%{-webkit-transform: translateY(-3rem);transform: translateY(-3rem); opacity: 1}
+    10%{-webkit-transform: translateY(-48px);transform: translateY(-48px); opacity: 1}
+    90%{-webkit-transform: translateY(-48px);transform: translateY(-48px); opacity: 1}
 }
 
 /* SIGNUP / SIGN IN AND FORMS */
@@ -221,6 +221,7 @@ a.link--login {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    -webkit-appearance: none;
 }
 
 .btn--upload {
@@ -499,7 +500,6 @@ a.link--login {
     -webkit-box-shadow: 0px -4px 8px rgba(98,111,253,0.08);
             box-shadow: 0px -4px 8px rgba(98,111,253,0.08);
     box-sizing: border-box;
-    transition: all 0.3s ease-in-out;
     z-index: 999;
 }
 
