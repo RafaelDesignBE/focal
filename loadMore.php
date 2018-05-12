@@ -1,46 +1,26 @@
 <?php
+session_start();
+if ( isset($_SESSION['email'])) {
 
-    include_once('library/classes/Post.class.php');
+}
+else {
+    header('Location: index.php');
+};
 
-    session_start();
-    if ( isset($_SESSION['email'])) {
+include_once('library/classes/Post.class.php');
 
-    }
-    else {
-        header('Location: signup.php');
-    };
-    $limit = 20;
-    $pCount = 0;
-    $offset = 0;
-
-    if (isset($_GET["page"])) {
-        $pCount = $_GET["page"];
-        $offset = $limit * $pCount; 
-    }
-    
+try {
+    $limit = $_POST['limit'];
+    $offset = $_POST['offset'] * $limit;
     $page = Post::loadPosts($limit, $offset, $_SESSION['user_id']);
-    
+}
 
-?><html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <?php include_once('header.inc.php'); ?>
-    <title>Home</title>
-</head>
-<body>
-    <?php 
-        if(isset($_GET['upload'])){
-            if( $_GET['upload'] == "complete" ) {
-                echo "<div class='upload__complete'>Your post has been uploaded</div>";
-            }
-        }
-    ?>
-    <?php include_once("nav.inc.php"); ?>
-    <div class="feed">
-        <?php if(isset($page)): ?>  
-            <?php foreach ($page as $p): ?>
+catch (Exception $e){
+  
+}
+?>
+<?php if($page != "none"): ?>
+<?php foreach ($page as $p): ?>
                 <div class="feed__post">
                     <a href="post.php?watch=<?php echo $p['id']; ?>" class="feed__post--image"><img src="<?php echo $p["thmb_url"] ?>">
                     </a>
@@ -95,24 +75,7 @@
                         </div>
                     </div>
                 </div>
-                
-            <?php endforeach ?>
-          
-    </div>
-    <?php if (!isset($hideMore)): ?>
-        <form action='' method='GET'>
-            <button class="btn btn--secondary btn--loadmore" type="submit" value="<?php echo $pCount+1; ?>" name="page">Load More</button>
-        </form>
-    <?php else: ?>
-        <p class="feed__msg">End of feed</p>
-    <?php endif; ?>
-    <?php elseif (isset($empty)): ?>
-        <p class="feed__msg">No posts yet, be sure to follow people!</p>
-    <?php endif; ?>
-    
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="public_html/js/index.js"></script>
-    <script src="public_html/js/post.js"></script>
-</body>
-</html>
+<?php endforeach ?>
+<?php else : ?>
+<?php echo "none" ?>
+<?php endif ?>
