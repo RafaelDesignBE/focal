@@ -8,6 +8,7 @@
         private $lastName;
         private $email;
         private $password;
+        private $status;
 
         /**
          * Get the value of username
@@ -124,6 +125,26 @@
                 return $this;
         }
 
+        /**
+         * Get the value of status
+         */ 
+        public function getStatus()
+        {
+                return $this->status;
+        }
+
+        /**
+         * Set the value of status
+         *
+         * @return  self
+         */ 
+        public function setStatus($status)
+        {
+                $this->status = $status;
+
+                return $this;
+        }
+
         public function register(){
             //connectie 
             $conn = Db::getInstance();
@@ -181,5 +202,32 @@
                                 throw new Exception ("Email and password do not match");
                         }
             }
+
+        public static function loadProfile($userId) {
+                $conn = Db::getInstance();
+                $statement = $conn->prepare("SELECT users.username, users.profileText, users.email FROM users WHERE users.id = :id");
+                $statement->bindValue(':id', $userId, PDO::PARAM_INT);
+                $statement->execute();
+                return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public static function updateProfileText($userId, $profileText) {
+                $conn = Db::getInstance();
+                $statement = $conn->prepare("UPDATE users SET profileText=:profileText WHERE id = :id");
+                $statement->bindValue(':id', $userId, PDO::PARAM_INT);
+                $statement->bindValue(':profileText', $profileText, PDO::PARAM_STR);
+                $statement->execute();
+        } 
+
+        public static function updateEmail($userId, $email) {
+                $conn = Db::getInstance();
+                $statement = $conn->prepare("UPDATE users SET email=:email WHERE id = :id");
+                $statement->bindValue(':id', $userId, PDO::PARAM_INT);
+                $statement->bindValue(':email', $email, PDO::PARAM_STR);
+                $statement->execute();
+        } 
+
+        
+
     }
 ?>

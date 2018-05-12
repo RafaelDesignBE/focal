@@ -95,3 +95,14 @@ $('.feed__post__info__add-comment-area').keypress(function(e) {
             e.preventDefault();
         }
     });
+
+
+    $('.feed__post__info--option.option__delete').on("click", function() {
+        $.ajax({
+                url: "deletePost.php",
+                context: this,
+                method: "POST",
+                data: { postId: $(this).data("post") }
+                }).done(function() {
+        });
+    });
