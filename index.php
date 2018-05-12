@@ -1,25 +1,18 @@
 <?php
 
+    include_once('userCheck.php');
     include_once('library/classes/Post.class.php');
 
-    session_start();
-    if ( isset($_SESSION['email'])) {
-
-    }
-    else {
-        header('Location: signup.php');
-    };
     $limit = 20;
     $pCount = 0;
     $offset = 0;
-
     if (isset($_GET["page"])) {
         $pCount = $_GET["page"];
         $offset = $limit * $pCount; 
     }
     
     $page = Post::loadPosts($limit, $offset, $_SESSION['user_id']);
-    
+
 
 ?><html lang="en">
 <head>
