@@ -38,35 +38,76 @@
 <body>
     <?php include_once("nav.inc.php"); ?>
     
-    <h1>Change profile settings</h1>
+    <h1 class="editprofile--h1">Change profile settings</h1>
 
-    <?php foreach ($profile as $p): ?>
-        <form action="" method="post" id="changeSettings" class="form__changeSettings">
-            <div class="form__field">
-                <label for="profileText">Change status</label>
-                <textarea id="profileText" form="changeSettings" name="profileText"><?php echo $p['profileText'] ?></textarea>
-            </div>
-            <div class="form__field">
-                <label for="oldpassword">Old password</label>
-                <input type="password" id="oldpassword" name="oldpassword" placeholder="Old password">
-            </div>
-            <div class="form__field">
-                <label for="newpassword">New password</label>
-                <input type="newpassword" id="newpassword" name="newpassword" placeholder="New password">
-            </div>
-            <div class="form__field">
-                <label for="confirmnewpassword">Confirm new password</label>
-                <input type="confirmnewpassword" id="confirmnewpassword" name="confirmnewpassword" placeholder="Confirm new password">
-            </div>
-            <div class="form__field">
-                <label for="email">Change email</label>
-                <input type="email" id="email" name="email" placeholder="<?php echo $p['email'] ?>">
-            </div>
-            <div class="form__field">
-                <input type="submit" value="Change settings" class="btn btn--primary">
-            </div>
-        </form>
-    <?php endforeach; ?>
+    <button class="accordion">Change profile text</button>
+    <div class="panel panel__profileText">
+        <?php foreach ($profile as $p): ?>
+            <form action="" method="post" id="changeProfileText" class="form__changeSettings">
+                <div class="form__field form__field--profileText">
+                    <label for="profileText">Change status</label>
+                    <textarea id="profileText" form="changeProfileText" name="profileText"><?php echo $p['profileText'] ?></textarea>
+                </div>
+                <div class="form__field">
+                    <input type="submit" value="Save" class="btn btn--primary btn--change">
+                </div>
+            </form>
+        <?php endforeach; ?>
+    </div>
 
+    <button class="accordion">Change password</button>
+    <div class="panel panel__password">
+        <?php foreach ($profile as $p): ?>
+            <form action="" method="post" id="changePassword" class="form__changeSettings">
+                <div class="form__field form__field--password">
+                    <label for="oldpassword">Old password</label>
+                    <input type="password" id="oldpassword" name="oldpassword" placeholder="Old password">
+                </div>
+                <div class="form__field form__field--password">
+                    <label for="newpassword">New password</label>
+                    <input type="newpassword" id="newpassword" name="newpassword" placeholder="New password">
+                </div>
+                <div class="form__field form__field--password">
+                    <label for="confirmnewpassword">Confirm new password</label>
+                    <input type="confirmnewpassword" id="confirmnewpassword" name="confirmnewpassword" placeholder="Confirm new password">
+                </div>
+                <div class="form__field">
+                    <input type="submit" value="Save" class="btn btn--change btn--primary">
+                </div>
+            </form>
+        <?php endforeach; ?>
+    </div>
+
+    <button class="accordion">Change email</button>
+    <div class="panel panel__email">
+        <?php foreach ($profile as $p): ?>
+            <form action="" method="post" id="changeEmail" class="form__changeSettings">
+                <div class="form__field form__field--email">
+                    <label for="email">Change email</label>
+                    <input type="email" id="email" name="email" placeholder="<?php echo $p['email'] ?>">
+                </div>
+                <div class="form__field">
+                    <input type="submit" value="Save" class="btn btn--change btn--primary">
+                </div>
+            </form>
+        <?php endforeach; ?>
+    </div>
+
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight){
+                panel.style.maxHeight = null;
+                } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            } 
+            });
+        }
+    </script>
 </body>
 </html>
