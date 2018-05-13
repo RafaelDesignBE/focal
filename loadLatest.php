@@ -11,15 +11,14 @@ include_once('library/classes/Post.class.php');
 
 try {
     $limit = $_POST['limit'];
-    $offset = $_POST['offset'] * $limit;
-    $page = Post::loadPosts($limit, $offset, $_SESSION['user_id']);
+    $page = Post::getLatest($limit, $_SESSION['user_id']);
 }
 
 catch (Exception $e){
   
 }
 ?>
-<?php if($page != "none"): ?>
+<?php if(!empty($page)): ?>
 <?php foreach ($page as $p): ?>
                 <div class="feed__post">
                     <a href="post.php?watch=<?php echo $p['id']; ?>" class="feed__post--image"><img src="<?php echo $p["thmb_url"] ?>">
