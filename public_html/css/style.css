@@ -1294,7 +1294,23 @@ figure {
 }
 
 .previewAvatar {
-    background-color: yellow;
+    display: block;
+    position: relative;
+    background-color: #eee;
+    border-radius: 1000px;
+    height: 10em;
+    width: 10em;
+    margin-bottom: 1em;
+    background-size: cover;
+    background-position: center;
+}
+
+.form__changeAvatar {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    margin: 2em auto;
 }
 
 .previewAvatar input[type=file] {

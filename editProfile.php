@@ -43,8 +43,8 @@
     <div class="editprofile__avatar">
         <?php foreach ($profile as $p): ?>
             <form action="" method="post" id="changeAvatar" class="form__changeAvatar">
-                <label>Edit avatar</label>
-                <div class="previewAvatar"><input type="file" name="avatarFile" id="avatarFile" onchange="readURL(this);">Choose file</div>
+                <label>Click on avatar to edit</label>
+                <div class="previewAvatar"><input type="file" name="avatarFile" id="avatarFile" onchange="readURL(this);"></div>
             </form>
             <input type="submit" value="Save avatar" name="submit" class="btn btn--primary btn--change">
         <?php endforeach; ?>
