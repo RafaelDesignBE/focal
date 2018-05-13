@@ -108,4 +108,3 @@ $('.feed__post__info__add-comment-area').keypress(function(e) {
                 }).done(function() {
         });
     }
-}
