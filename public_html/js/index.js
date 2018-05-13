@@ -27,7 +27,10 @@ function loadFeed(offset) {
                     $('.btn.btn--secondary.btn--loadmore').css('display', 'none'); 
                     if(offset != 0){
                         $("<p class='feed__msg'>End of feed</p>").insertAfter('.feed');
-                    } 
+                    } else {
+                        $('.feed__post').remove();
+                        $('<p class="feed__msg">No posts yet, be sure to follow people!</p>').insertAfter('.feed');
+                    }
                 } else {
                     $('.feed__post').remove();
                     $('.feed__msg').css('display', 'flex');
