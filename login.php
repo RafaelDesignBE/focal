@@ -30,27 +30,29 @@ if (!empty($_POST)) {
 </head>
 <body>
 <form action="" method="post" class="form__login">
-        <h1>FOCAL</h1>
-        <h2>Focus on the good things</h2>
-        <div class="form__field">
-            <?php if(isset($e)): ?>
-            <div class="error">
-                <p><?php echo $e->getMessage(); ?></p>
+        <h1 class="h1--focal">FOCAL</h1>
+        <h2 class="h2--focal" >Focus on the good things</h2>
+        <div class="form__login__field__container">
+            <div class="form__field">
+                <?php if(isset($e)): ?>
+                <div class="error">
+                    <p><?php echo $e->getMessage(); ?></p>
+                </div>
+                <?php endif; ?>
             </div>
-            <?php endif; ?>
-		</div>
-        <div class="form__field">
-			<label for="email">Email</label>
-			<input type="email" id="email" name="email" placeholder="Email">
-		</div>
-        <div class="form__field">
-			<label for="email">Password</label>
-			<input type="password" id="password" name="password" placeholder="Password">
-		</div>
-        <div class="form__field">
-			<input type="submit" value="Log in" class="btn btn--primary">
-        </div>
+            <div class="form__field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Email">
+            </div>
+            <div class="form__field">
+                <label for="email">Password</label>
+                <input type="password" id="password" name="password" placeholder="Password">
+            </div>
+            <div class="form__field">
+                <input type="submit" value="Log in" class="btn btn--small btn--primary">
+            </div>
+        </div>        
     </form>
-    <a class="link--login" href="signup.php">Sign up</a>
+    <a class="link--login" href="signup.php">No account yet? Sign up</a>
 </body>
 </html>
