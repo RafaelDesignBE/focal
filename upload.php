@@ -20,7 +20,10 @@ if (!empty($_POST)) {
                     $upload->setFilter($_POST['filterinput']);
                 }
             }
-        }        
+        } 
+        else {
+            $upload->setFilter("nofilter");
+        }      
         $upload->postImg($_SESSION['user_id']);
         header('Location: index.php?upload=complete');
     }
