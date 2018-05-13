@@ -20,7 +20,10 @@
     <div class="post">
         <?php if(isset($p)): ?>
                 <div class="post__detail">
-                    <img class="post__detail__image" src="<?php echo $p["photo_url"] ?>" alt="">    
+                <figure class="<?php echo $p["photofilter"]; ?>">
+                    <img class="post__detail__image" src="<?php echo $p["photo_url"] ?>" alt="">
+                </figure> 
+                        
                 </div>
                 <div class="post__detail__info">
                 <div class="feed__post__info--more">
