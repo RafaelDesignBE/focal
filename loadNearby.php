@@ -1,51 +1,27 @@
 <?php
+session_start();
+if ( isset($_SESSION['email'])) {
 
-    include_once('userCheck.php');
-    include_once('library/classes/Post.class.php');
+}
+else {
+    header('Location: index.php');
+};
 
-    $limit = 20;
-    $pCount = 0;
-    $offset = 0;
-    if (isset($_GET["page"])) {
-        $pCount = $_GET["page"];
-        $offset = $limit * $pCount; 
-    }
-    
-    $page = Post::loadPosts($limit, $offset, $_SESSION['user_id']);
+include_once('library/classes/Post.class.php');
 
-?><html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <?php include_once('header.inc.php'); ?>
-    <title>Home</title>
-</head>
-<body>
-    <?php 
-        if(isset($_GET['upload'])){
-            if( $_GET['upload'] == "complete" ) {
-                echo "<div class='upload__complete'>Your post has been uploaded</div>";
-            }
-        }
-    ?>
-    <?php include_once("nav.inc.php"); ?>
-    <div class="feeds">
-        <div class="feeds__container">
-            <div class="feeds__tab"><a href="#" id="latest">Latest</a></div> 
-            <div class="feeds__tab"><a href="#" id="myfeed">My Feed</a><div class="feeds__tabs__selected"></div></div>
-            <div class="feeds__tab"><a href="#" id="nearby">Nearby</a></div>
-        </div>
-    </div>
-    <input id="location" name="location">
-    <div class="feed">
-        <?php if(isset($page)): ?>  
-            <?php foreach ($page as $p): ?>
+try {
+    $city = $_POST['city'];
+    $page = Post::getByCity($_SESSION['user_id'], $city);
+}
+
+catch (Exception $e){
+  
+}
+?>
+<?php if(!empty($page)): ?>
+<?php foreach ($page as $p): ?>
                 <div class="feed__post">
-                    <a href="post.php?watch=<?php echo $p['id']; ?>" class="feed__post--image">
-                        <figure class="<?php echo $p["photofilter"]; ?>">
-                            <img src="<?php echo $p["thmb_url"] ?>">
-                        </figure> 
+                    <a href="post.php?watch=<?php echo $p['id']; ?>" class="feed__post--image"><img src="<?php echo $p["thmb_url"] ?>">
                     </a>
                     <div class="feed__post__info">
                         <div class="feed__post__info--more">
@@ -53,13 +29,11 @@
                             <div class="feed__post__info--more--menu">
                                 <div class="flexspace"></div>
                                 <div class="feed__post__info--option option__mark" data-post="<?php echo  $p['id']; ?>">Mark as inappropriate</div>
-                                <?php if ($_SESSION['user_id'] == Post::getUploader($p['id'])):  ?>
-                                    <div class="feed__post__info--option option__delete" data-post="<?php echo  $p['id']; ?>">Delete post</div>
-                                <?php endif; ?>
+                                <div class="feed__post__info--option option__delete">Delete post</div>
                                 <div class="flexspace"></div>
                             </div>
                         </div>
-                        <a href="<?php echo "profile.php?user=".Post::getUploader($p['id']).""; ?>" class="feed__post__info--uploader"><?php echo htmlspecialchars($p['username']); ?></a>
+                        <p class="feed__post__info--uploader"><?php echo htmlspecialchars($p['username']); ?></p>
                         <p class="feed__post__info--description"><?php echo htmlspecialchars($p['title']); ?></p>
                         <p class="feed__post__info--uploadtime"><?php echo Post::time_elapsed_string($p['datetime']); ?></p>
                         <?php if(!empty($p['city'])): ?>
@@ -100,26 +74,7 @@
                         </div>
                     </div>
                 </div>
-                
-            <?php endforeach ?>
-          
-    </div>
-    <?php if(!empty($page)){
-        echo '<form action="" method="GET">
-        <button class="btn btn--secondary btn--loadmore" type="submit" value="'.($pCount+1).'" name="page">Load More</button>
-    </form>';
-        
-    } else {
-        echo '<p class="feed__msg">No posts yet, be sure to follow people!</p>';
-    }
-    
-    ?>
-        
-    <?php endif; ?>
-    
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="public_html/js/index.js"></script>
-    <script src="public_html/js/post.js"></script>
-</body>
-</html>
+<?php endforeach ?>
+<?php else : ?>
+<?php echo "none" ?>
+<?php endif ?>
