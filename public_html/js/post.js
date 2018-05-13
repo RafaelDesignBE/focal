@@ -97,7 +97,9 @@ $('.feed__post__info__add-comment-area').keypress(function(e) {
     });
 
 
-    $('.feed__post__info--option.option__delete').on("click", function() {
+    $('.feed__post__info--option.option__delete').on("click", deletePost);
+
+    function deletePost() {
         $.ajax({
                 url: "deletePost.php",
                 context: this,
@@ -105,7 +107,7 @@ $('.feed__post__info__add-comment-area').keypress(function(e) {
                 data: { postId: $(this).data("post") }
                 }).done(function() {
         });
-    });
+    }
 
    function maxSearch(){
            $('.h1--focal').css('width', '0');

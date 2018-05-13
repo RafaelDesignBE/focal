@@ -41,6 +41,7 @@ function loadFeed(offset) {
                     $('.feed__post__info--option.option__mark').on('click', markPost);
                     $('.feed__post__info--more--menu').on('click', closeMenu);
                     $('.feed__post__info--more--button').on('click', openMenu); 
+                    $('.feed__post__info--option.option__delete').on("click", deletePost);
                 }
                 
         });
@@ -62,6 +63,7 @@ function loadLatest(event) {
                 $('.feed__post__info--option.option__mark').on('click', markPost);
                 $('.feed__post__info--more--menu').on('click', closeMenu);
                 $('.feed__post__info--more--button').on('click', openMenu); 
+                $('.feed__post__info--option.option__delete').on("click", deletePost);
                 $('.btn.btn--secondary.btn--loadmore').css('display', 'none');   
                 $('.feed__msg').css('display', 'none');
             }
@@ -87,6 +89,7 @@ function loadNearby(event) {
                 $('.feed__post__info--option.option__mark').on('click', markPost);
                 $('.feed__post__info--more--menu').on('click', closeMenu);
                 $('.feed__post__info--more--button').on('click', openMenu); 
+                $('.feed__post__info--option.option__delete').on("click", deletePost);
                 $('.btn.btn--secondary.btn--loadmore').css('display', 'none');   
                 $('.feed__msg').css('display', 'none');
             }
@@ -137,7 +140,6 @@ $(document).ready(function(){
             }else{ 
     
                 $("#location").val(''); 
-    
             } 
     
     } 
