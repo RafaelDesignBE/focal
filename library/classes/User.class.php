@@ -287,5 +287,13 @@
                 
                 
         }
+
+        public static function getAllUsers(){
+                $conn = Db::getInstance();
+                $statement = $conn->prepare("SELECT * FROM users");
+                $statement->execute();
+                $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                return $result;
+        }
     }
 ?>
