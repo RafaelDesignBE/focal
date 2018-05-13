@@ -11,18 +11,19 @@ include_once('library/classes/Post.class.php');
 try {
     $post = new Post();
     $m = $post->getMark($_POST['postId']);
-    if(!empty($m['marked'])){
+    var_dump($m);
         $check = explode(",", $m['marked']);
         if (in_array($_SESSION['user_id'], $check)){
         } else {
-            if(count($check) < 2){
+            if(count($check) < 3){
                 array_push($check, $_SESSION['user_id']);
                 $post->setMark(implode(",", $check), $_POST['postId']);
             } else {
+                array_push($check, $_SESSION['user_id']);
+                $post->setMark(implode(",", $check), $_POST['postId']);
                 $post->deletePost($_POST['postId']);
             }
         }
-    }
     
 }
 
