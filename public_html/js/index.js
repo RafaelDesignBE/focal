@@ -51,16 +51,18 @@ function loadLatest(event) {
         method: "POST",
         data: { limit: limit }
         }).done(function(res) {
-            console.log(res);
-            $('.feed__post').remove();
-            $('.feed').append(res);
-            $(".like").on("click", likePost);
-            $(".liked").on("click", removeLike);
-            $('.feed__post__info--option.option__mark').on('click', markPost);
-            $('.feed__post__info--more--menu').on('click', closeMenu);
-            $('.feed__post__info--more--button').on('click', openMenu); 
-            $('.btn.btn--secondary.btn--loadmore').css('display', 'none');   
-            $('.feed__msg').css('display', 'none');
+            if(res == "none"){
+            } else {
+                $('.feed__post').remove();
+                $('.feed').append(res);
+                $(".like").on("click", likePost);
+                $(".liked").on("click", removeLike);
+                $('.feed__post__info--option.option__mark').on('click', markPost);
+                $('.feed__post__info--more--menu').on('click', closeMenu);
+                $('.feed__post__info--more--button').on('click', openMenu); 
+                $('.btn.btn--secondary.btn--loadmore').css('display', 'none');   
+                $('.feed__msg').css('display', 'none');
+            }
     });
     event.preventDefault();
 }
@@ -74,16 +76,18 @@ function loadNearby(event) {
         method: "POST",
         data: { city: city }
         }).done(function(res) {
-            console.log(res);
-            $('.feed__post').remove();
-            $('.feed').append(res);
-            $(".like").on("click", likePost);
-            $(".liked").on("click", removeLike);
-            $('.feed__post__info--option.option__mark').on('click', markPost);
-            $('.feed__post__info--more--menu').on('click', closeMenu);
-            $('.feed__post__info--more--button').on('click', openMenu); 
-            $('.btn.btn--secondary.btn--loadmore').css('display', 'none');   
-            $('.feed__msg').css('display', 'none');
+            if(res == "none"){
+            } else {
+                $('.feed__post').remove();
+                $('.feed').append(res);
+                $(".like").on("click", likePost);
+                $(".liked").on("click", removeLike);
+                $('.feed__post__info--option.option__mark').on('click', markPost);
+                $('.feed__post__info--more--menu').on('click', closeMenu);
+                $('.feed__post__info--more--button').on('click', openMenu); 
+                $('.btn.btn--secondary.btn--loadmore').css('display', 'none');   
+                $('.feed__msg').css('display', 'none');
+            }
     });
     event.preventDefault();
 }
