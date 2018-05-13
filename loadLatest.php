@@ -15,7 +15,7 @@ try {
 }
 
 catch (Exception $e){
-  
+
 }
 ?>
 <?php if(!empty($page)): ?>

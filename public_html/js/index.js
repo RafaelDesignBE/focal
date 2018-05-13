@@ -21,7 +21,7 @@ function loadFeed(offset) {
             url: "loadFeed.php",
             context: this,
             method: "POST",
-            data: { limit: limit, offset: offset }
+            data: { offset: offset }
             }).done(function(res) {
                 if(res == "none"){
                     $('.btn.btn--secondary.btn--loadmore').css('display', 'none'); 
@@ -48,8 +48,7 @@ function loadLatest(event) {
     $.ajax({
         url: "loadLatest.php",
         context: this,
-        method: "POST",
-        data: { limit: limit }
+        method: "POST"
         }).done(function(res) {
             if(res == "none"){
             } else {
