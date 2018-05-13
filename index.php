@@ -32,9 +32,9 @@
     <?php include_once("nav.inc.php"); ?>
     <div class="feeds">
         <div class="feeds__container">
-            <div class="feeds__tab"><a href="#" id="latest">Latest</a></div> 
-            <div class="feeds__tab"><a href="#" id="myfeed">My Feed</a><div class="feeds__tabs__selected"></div></div>
-            <div class="feeds__tab"><a href="#" id="nearby">Nearby</a></div>
+            <div class="feeds__tab"><a href="#" id="latest"><img src="public_html/img/rec.svg" alt="">Latest</a></div> 
+            <div class="feeds__tab"><a href="#" id="myfeed"><img src="public_html/img/prof.svg" alt="">My Feed</a><div class="feeds__tabs__selected"></div></div>
+            <div class="feeds__tab"><a href="#" id="nearby"><img src="public_html/img/near.svg" alt="">Nearby</a></div>
         </div>
     </div>
     <input id="location" name="location">

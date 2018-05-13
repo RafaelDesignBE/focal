@@ -486,7 +486,7 @@ input[type="checkbox"] {
     display: block;
     line-height: 3rem;
     text-align: center;
-    font-size: 1.1em;
+    font-size: 1.1rem;
     text-decoration: none;
     color: #323232;
     box-sizing: border-box;
@@ -495,6 +495,12 @@ input[type="checkbox"] {
 
 .feeds__tab a.selected {
     border-bottom: 2px solid #323232;
+}
+
+.feeds__tab a img {
+    height: 1.1rem;
+    margin-right: 0.5rem;
+    margin-bottom: -0.2rem;
 }
 
 /* END OF SIGNUP / SIGN IN FORM */
