@@ -199,8 +199,8 @@ class Post {
                 $uploadOk = 0;
             }
             // Check file size
-            if ($this->image["size"] > 2097152) {
-                throw new Exception ("Upload size limit is 2MB");
+            if ($this->image["size"] > 6291456) {
+                throw new Exception ("Upload size limit is 6MB");
                 $uploadOk = 0;
             }
             // Allow only jpg, pbg and gif
