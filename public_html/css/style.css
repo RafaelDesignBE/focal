@@ -274,7 +274,6 @@ a.link--login {
 }
 
 #preview--image.open {
-    max-height: 90vw;
     max-width: 90vw;
 }
 
@@ -491,7 +490,6 @@ input[type="checkbox"] {
 
 #preview--image.open {
     display: block;
-    max-width: 90vw;
     height: auto;
 }
 
