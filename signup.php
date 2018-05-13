@@ -46,40 +46,42 @@ if (!empty($_POST)) {
 <body>
     <form action="" method="post" class="form__login">
         <h1>Sign Up</h1>
-        <div class="form__field">
-            <?php if(isset($e)): ?>
-            <div class="error">
-                <p><?php echo $e->getMessage(); ?></p>
+        <div class="form__login__field__container">
+            <div class="form__field">
+                <?php if(isset($e)): ?>
+                <div class="error">
+                    <p><?php echo $e->getMessage(); ?></p>
+                </div>
+                <?php endif; ?>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Username">
             </div>
-            <?php endif; ?>
-			<label for="username">Username</label>
-			<input type="text" id="username" name="username" placeholder="Username">
-		</div>
-        <div class="form__field">
-			<label for="first_name">First name</label>
-			<input type="text" id="first_name" name="first_name" placeholder="First name">
-		</div>
-        <div class="form__field">
-			<label for="last_name">Last name</label>
-			<input type="text" id="last_name" name="last_name" placeholder="Last name">
-		</div>
-        <div class="form__field">
-			<label for="email">Email</label>
-			<input type="email" id="email" name="email" placeholder="Email">
-		</div>
-        <div class="form__field">
-			<label for="email">Password</label>
-			<input type="password" id="password" name="password" placeholder="Password">
-		</div>
-        <div class="form__field">
-			<label for="password_repeat">Password repeat</label>
-			<input type="password" id="password_repeat" name="password_repeat" placeholder="Password repeat">
-		</div>
-        <div class="form__field">
-			<input type="submit" value="Sign up" class="btn btn--primary">
+            <div class="form__field">
+                <label for="first_name">First name</label>
+                <input type="text" id="first_name" name="first_name" placeholder="First name">
+            </div>
+            <div class="form__field">
+                <label for="last_name">Last name</label>
+                <input type="text" id="last_name" name="last_name" placeholder="Last name">
+            </div>
+            <div class="form__field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Email">
+            </div>
+            <div class="form__field">
+                <label for="email">Password</label>
+                <input type="password" id="password" name="password" placeholder="Password">
+            </div>
+            <div class="form__field">
+                <label for="password_repeat">Password repeat</label>
+                <input type="password" id="password_repeat" name="password_repeat" placeholder="Password repeat">
+            </div>
+            <div class="form__field">
+                <input type="submit" value="Sign up" class="btn btn--small btn--primary">
+            </div>
         </div>
     </form>
-    <a class="link--login" href="login.php">Log in</a>
+    <a class="link--login" href="login.php">Already have an account? Log in</a>
     <script src="public_html/js/validatesignup.js"></script>
 </body>
 </html>
