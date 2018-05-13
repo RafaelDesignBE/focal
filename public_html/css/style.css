@@ -59,6 +59,7 @@ h1, h2, h3, h4, h5 {
     padding: 0;
     border-radius: 3rem;
     cursor: pointer;
+    -webkit-appearance: none;
     -webkit-box-shadow: 0px 4px 8px rgba(98,111,253,0.08);
             box-shadow: 0px 4px 8px rgba(98,111,253,0.08);
     -webkit-transition: -webkit-box-shadow 0.3s ease-in-out;
