@@ -98,6 +98,11 @@ h1, h2, h3, h4, h5 {
 /* END OF BUTTONS */
 
 
+input, textarea{
+    -webkit-appearance: none;
+    border-radius: 0;
+}
+
 /* UPLOAD COMPLETE MESSAGE */
 .upload__complete {
     position: fixed;
