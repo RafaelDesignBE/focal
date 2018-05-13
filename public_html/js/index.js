@@ -10,7 +10,6 @@ function loadMore(event){
 
 function loadMyFeed(event) {
     $('.feeds__tabs__selected').css('transform', 'translateX(0)');
-    $('.feed__post').remove();
     var offset = 0;
     loadFeed(offset);
     $('.btn.btn--secondary.btn--loadmore').val(1);
@@ -30,6 +29,7 @@ function loadFeed(offset) {
                         $("<p class='feed__msg'>End of feed</p>").insertAfter('.feed');
                     } 
                 } else {
+                    $('.feed__post').remove();
                     $('.feed__msg').css('display', 'flex');
                     $('.btn.btn--secondary.btn--loadmore').css('display', 'block'); 
                     $('.feed').append(res);
