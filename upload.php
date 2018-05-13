@@ -40,7 +40,6 @@ if (!empty($_POST)) {
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>New post</title>
 <?php include_once('header.inc.php'); ?>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="./public_html/js/upload.js"></script>
 </head>
 <body>
