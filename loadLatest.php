@@ -21,7 +21,10 @@ catch (Exception $e){
 <?php if(!empty($page)): ?>
 <?php foreach ($page as $p): ?>
                 <div class="feed__post">
-                    <a href="post.php?watch=<?php echo $p['id']; ?>" class="feed__post--image"><img src="<?php echo $p["thmb_url"] ?>">
+                    <a href="post.php?watch=<?php echo $p['id']; ?>" class="feed__post--image">
+                        <figure class="<?php echo $p["photofilter"]; ?>">
+                            <img src="<?php echo $p["thmb_url"] ?>">
+                        </figure> 
                     </a>
                     <div class="feed__post__info">
                         <div class="feed__post__info--more">
