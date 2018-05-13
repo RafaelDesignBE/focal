@@ -106,5 +106,6 @@ $('.feed__post__info__add-comment-area').keypress(function(e) {
                 method: "POST",
                 data: { postId: $(this).data("post") }
                 }).done(function() {
+                        $(this).parents('.feed__post').css('display', 'none');
         });
     }
