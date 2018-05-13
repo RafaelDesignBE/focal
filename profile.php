@@ -19,6 +19,15 @@
         $profile = User::loadProfile($_GET["user"]);
     }
 
+    if (User::checkFollow($_GET["user"], $_SESSION['user_id']) == 0) {
+        $btnClass = "btn--follow";
+        $btnText = "Follow";
+    }
+    else {
+        $btnClass = "btn--following";
+        $btnText = "Unfollow";
+    }
+
     $page = Post::loadPostsProfile($_GET["user"], $_SESSION['user_id']);
     
 
@@ -43,7 +52,7 @@
                         <a class="btn btn--secondary btn--logout" href="logout.php">Log out</a>
                     </div>
                 <?php else: ?>
-                    <div class="btn btn--follow" data-post="<?php echo  $_GET["user"]; ?>">Follow</div>
+                    <div class="btn <?php echo $btnClass; ?>" data-post="<?php echo  $_GET["user"]; ?>"><?php echo $btnText; ?></div>
                 <?php endif; ?>
             </div>
             <div class="profile__user--description">
@@ -56,7 +65,10 @@
         <?php if(isset($page)): ?>  
             <?php foreach ($page as $p): ?>
                 <div class="feed__post">
-                    <a href="post.php?watch=<?php echo $p['id']; ?>" class="feed__post--image"><img src="<?php echo $p["thmb_url"] ?>">
+                    <a href="post.php?watch=<?php echo $p['id']; ?>" class="feed__post--image">
+                        <figure class="<?php echo $p["photofilter"]; ?>">
+                            <img src="<?php echo $p["thmb_url"] ?>">
+                        </figure>  
                     </a>
                     <div class="feed__post__info">
                         <div class="feed__post__info--more">

@@ -2,6 +2,7 @@
 include_once('userCheck.php');
 include_once('library/classes/Post.class.php');
 
+$filters = array("walden", "slumber", "moon", "gingham", "aden", "_1977", "reyes");
 
 if (!empty($_POST)) {
     try {
@@ -13,6 +14,13 @@ if (!empty($_POST)) {
         $upload->setHeight(400);
         $upload->setLocation($_POST['latitude'], $_POST['longitude'], $_POST['location']);
         $upload->saveImg();
+        if (isset($_POST['filterinput'])) {
+            foreach ($filters as $f) {
+                if ($_POST['filterinput'] == $f) {
+                    $upload->setFilter($_POST['filterinput']);
+                }
+            }
+        }        
         $upload->postImg($_SESSION['user_id']);
         header('Location: index.php?upload=complete');
     }
@@ -83,6 +91,17 @@ success:function(msg){
 
 }); 
 
+$("input:checkbox").on('click', function() {
+  var $box = $(this);
+  if ($box.is(":checked")) {
+    var group = "input:checkbox[name='" + $box.attr("name") + "']";
+    $(group).prop("checked", false);
+    $box.prop("checked", true);
+  } else {
+    $box.prop("checked", false);
+  }
+});
+
 } 
 </script>
 </head>
@@ -103,6 +122,21 @@ success:function(msg){
                 <div class="btn btn--primary btn--upload"><input type="file" name="uploadFile" id="uploadFile" onchange="readURL(this);">Choose file</div>
             </div>
         </div>
+        <div class="form__content form__content__filters">
+            <ul>
+                <?php foreach ($filters as $f): ?>
+                    <li>
+                        <input name="filterinput" type="checkbox" value="<?php echo $f ?>" id="filter--<?php echo $f ?>" />
+                        <label class="labelfilter" for="filter--<?php echo $f ?>">
+                            <figure class="filterfigure <?php echo $f ?>">
+                                <img class="uploadedPicture" src="" alt="picture">
+                            </figure>
+                        </label>
+                    </li>                    
+                <?php endforeach ?>
+            </ul>
+            
+        </div>       
         <div class="form__content">
             <div class="form__field">
                 <label for="description">Description</label>

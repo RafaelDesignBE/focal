@@ -239,10 +239,17 @@
 
         public static function followUser($userId, $currentUser){
                 $conn = Db::getInstance();
-                $statement = $conn->prepare("INSERT INTO followers (u_id, f_id) VALUES (:currentUser, :userID)");
+                $statement = $conn->prepare("SELECT 1 FROM followers WHERE u_id = :currentUser AND f_id = :userID");
                 $statement->bindParam(":currentUser", $currentUser);
                 $statement->bindParam(":userID", $userId);
-                $result = $statement->execute();
+                $statement->execute();
+                if ($statement->fetchColumn() == 0) {
+                        $statement2 = $conn->prepare("INSERT INTO followers (u_id, f_id) VALUES (:currentUser, :userID)");
+                        $statement2->bindParam(":currentUser", $currentUser);
+                        $statement2->bindParam(":userID", $userId);
+                        $statement2->execute();
+                }
+                
         }
 
         public static function unfollowUser($userId, $currentUser){
@@ -252,7 +259,6 @@
                 $statement->bindParam(":userID", $userId);
                 $result = $statement->execute();
         }
-        
 
         public function cookieCheck($hash) {
                 $conn = Db::getInstance();
@@ -269,6 +275,17 @@
                 $statement = $conn->prepare("DELETE FROM cookies WHERE cookie = :hash");
                 $statement->bindValue(':hash', $hash);
                 $statement->execute();
+        }
+
+        public static function checkFollow($userId, $currentUser){
+                $conn = Db::getInstance();
+                $statement = $conn->prepare("SELECT 1 FROM followers WHERE u_id = :currentUser AND f_id = :userID");
+                $statement->bindParam(":currentUser", $currentUser);
+                $statement->bindParam(":userID", $userId);
+                $statement->execute();
+                return $statement->fetchColumn();
+                
+                
         }
     }
 ?>
