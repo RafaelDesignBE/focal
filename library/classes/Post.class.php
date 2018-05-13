@@ -10,6 +10,7 @@ class Post {
     private $height;
     private $fileName;
     private $imageFileType;
+    private $filter;
     /**
      * Get the value of image
      */ 
@@ -113,6 +114,26 @@ class Post {
     public function setHeight($height)
     {
         $this->height = $height;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of filter
+     */ 
+    public function getFilter()
+    {
+        return $this->filter;
+    }
+
+    /**
+     * Set the value of filter
+     *
+     * @return  self
+     */ 
+    public function setFilter($filter)
+    {
+        $this->filter = $filter;
 
         return $this;
     }
