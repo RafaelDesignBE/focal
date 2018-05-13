@@ -10,12 +10,12 @@ else {
 include_once('library/classes/Post.class.php');
 
 try {
-    $limit = $_POST['limit'];
+    $limit = 20;
     $page = Post::getLatest($limit, $_SESSION['user_id']);
 }
 
 catch (Exception $e){
-  
+
 }
 ?>
 <?php if(!empty($page)): ?>

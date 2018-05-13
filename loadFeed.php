@@ -10,7 +10,7 @@ else {
 include_once('library/classes/Post.class.php');
 
 try {
-    $limit = $_POST['limit'];
+    $limit = 20;
     $offset = $_POST['offset'] * $limit;
     $page = Post::loadPosts($limit, $offset, $_SESSION['user_id']);
 }
