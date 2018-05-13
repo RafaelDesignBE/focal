@@ -41,69 +41,7 @@ if (!empty($_POST)) {
 <title>New post</title>
 <?php include_once('header.inc.php'); ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="./public_html/js/uploadpreview.js"></script>
-<script>
-    $(document).ready(function(){ 
-
-if (navigator.geolocation) { 
-
-    navigator.geolocation.getCurrentPosition(showLocation); 
-
-} else { 
-
-    $('#location').val(''); 
-
-} 
-
-}); 
-
-function showLocation(position) { 
-
-var latitude = position.coords.latitude; 
-
-var longitude = position.coords.longitude; 
-
-$("#latitude").val(latitude);
-
-$("#longitude").val(longitude);
-
-$.ajax({ 
-
-type:'POST', 
-
-url:'getLocation.php', 
-
-data:'latitude='+latitude+'&longitude='+longitude, 
-
-success:function(msg){ 
-
-        if(msg){ 
-
-           $("#location").val(msg); 
-
-        }else{ 
-
-            $("#location").val(''); 
-
-        } 
-
-} 
-
-}); 
-
-$("input:checkbox").on('click', function() {
-  var $box = $(this);
-  if ($box.is(":checked")) {
-    var group = "input:checkbox[name='" + $box.attr("name") + "']";
-    $(group).prop("checked", false);
-    $box.prop("checked", true);
-  } else {
-    $box.prop("checked", false);
-  }
-});
-
-} 
-</script>
+<script src="./public_html/js/upload.js"></script>
 </head>
 <body>
 <?php include_once("nav.inc.php"); ?>
@@ -116,13 +54,10 @@ $("input:checkbox").on('click', function() {
     <?php endif; ?>
     <div class="form__container">
         <div class="form__content">
-            <div id="preview--image" alt="Image preview"></div>
-            <div class="form__field field__upload">
-                <label>Select image to upload:</label>
-                <div class="btn btn--primary btn--upload"><input type="file" name="uploadFile" id="uploadFile" onchange="readURL(this);">Choose file</div>
-            </div>
-        </div>
-        <div class="form__content form__content__filters">
+            <figure id="figurePreview">
+            <img id="preview--image" alt="Image preview">
+            </figure>
+            <div class="form__content form__content__filters">
             <ul>
                 <?php foreach ($filters as $f): ?>
                     <li>
@@ -136,7 +71,13 @@ $("input:checkbox").on('click', function() {
                 <?php endforeach ?>
             </ul>
             
-        </div>       
+            </div>
+            <div class="form__field field__upload">
+                <label>Select image to upload:</label>
+                <div class="btn btn--primary btn--upload"><input type="file" name="uploadFile" id="uploadFile" onchange="readURL(this);">Choose file</div>
+            </div>
+        </div>
+               
         <div class="form__content">
             <div class="form__field">
                 <label for="description">Description</label>
