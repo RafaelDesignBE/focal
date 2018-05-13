@@ -38,6 +38,14 @@ h1, h2, h3, h4, h5 {
     text-decoration: none;
     color: #000;
 }
+
+.h2--focal {
+    letter-spacing: .1em;
+    margin: 0;
+    color:rgba(98, 111, 253, 1);
+    text-align: center;
+}
+
 /* BUTTONS */
 .btn {
     font-size: 1.25rem;
@@ -129,7 +137,6 @@ h1, h2, h3, h4, h5 {
 /* SIGNUP / SIGN IN AND FORMS */
 .form__login h1 {
     text-align: center;
-    margin-top: 1.5em;
 }
 
 .form__login {
@@ -166,25 +173,30 @@ h1, h2, h3, h4, h5 {
 
 .form__login label, .form__post label {
     display: block;
-    font-size: 1.25rem;
+    font-size: 1rem;
     margin-top: 1rem;
+    padding: .5em;
 }
 
 .form__login input, .form__post input[type="text"] {
     display: block;
-    font-size: 1.25rem;
-    line-height: 2.5rem;
+    font-size: 1rem;
+    padding: 1em;
     width: 100%;
     outline: none;
     border: 0;
     -webkit-appearance: none;
     border-radius: 0;
-    -webkit-box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
-            box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    -webkit-box-shadow: 0px 4px 8px rgba(98,111,253,0.15);
+            box-shadow: 0px 4px 8px rgba(98,111,253,0.15);
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
+}
+
+.form__login .btn--small {
+    padding: 0;
 }
 
 .form__login input.good {
@@ -213,6 +225,24 @@ a.link--login {
     color: #626FFD;
     margin-bottom: 2em;
   }
+
+.form__login__field__container {
+    background-color: rgba(98,111,253,0.08);
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 2em auto;
+    padding: 2em;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
 /* END OF SIGNUP / SIGN IN FORM */
 
 /* POST */
