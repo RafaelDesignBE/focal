@@ -32,11 +32,13 @@ catch (Exception $e){
                             <div class="feed__post__info--more--menu">
                                 <div class="flexspace"></div>
                                 <div class="feed__post__info--option option__mark" data-post="<?php echo  $p['id']; ?>">Mark as inappropriate</div>
-                                <div class="feed__post__info--option option__delete">Delete post</div>
+                                <?php if ($_SESSION['user_id'] == Post::getUploader($p['id'])):  ?>
+                                    <div class="feed__post__info--option option__delete" data-post="<?php echo  $p['id']; ?>">Delete post</div>
+                                <?php endif; ?>
                                 <div class="flexspace"></div>
                             </div>
                         </div>
-                        <p class="feed__post__info--uploader"><?php echo htmlspecialchars($p['username']); ?></p>
+                        <a href="<?php echo "profile.php?user=".Post::getUploader($p['id']).""; ?>" class="feed__post__info--uploader"><?php echo htmlspecialchars($p['username']); ?></a>
                         <p class="feed__post__info--description"><?php echo htmlspecialchars($p['title']); ?></p>
                         <p class="feed__post__info--uploadtime"><?php echo Post::time_elapsed_string($p['datetime']); ?></p>
                         <?php if(!empty($p['city'])): ?>
@@ -77,7 +79,8 @@ catch (Exception $e){
                         </div>
                     </div>
                 </div>
-<?php endforeach ?>
+                
+            <?php endforeach ?>
 <?php else : ?>
 <?php echo "none" ?>
 <?php endif ?>
