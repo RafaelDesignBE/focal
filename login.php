@@ -30,7 +30,8 @@ if (!empty($_POST)) {
 </head>
 <body>
 <form action="" method="post" class="form__login">
-        <h1>Log In</h1>
+        <h1>FOCAL</h1>
+        <h2>Focus on the good things</h2>
         <div class="form__field">
             <?php if(isset($e)): ?>
             <div class="error">
