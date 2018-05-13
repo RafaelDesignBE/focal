@@ -1237,9 +1237,10 @@ input[type="checkbox"] {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
-    width: 70vw;
-    max-width: 400px;
+    width: 80vw;
+    max-width: 500px;
     margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .editprofile--h1 {
@@ -1290,4 +1291,20 @@ input[type="checkbox"] {
 figure {
     padding: 0;
     margin: 0;
+}
+
+.previewAvatar {
+    background-color: yellow;
+}
+
+.previewAvatar input[type=file] {
+    left: 0;
+    top: 0;
+    position: absolute;
+    outline: none;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border-radius: 3rem;
 }

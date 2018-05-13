@@ -54,7 +54,7 @@ if (!empty($_POST)) {
     <div class="form__container">
         <div class="form__content">
             <figure id="figurePreview">
-            <img id="preview--image" alt="Image preview">
+                <img id="preview--image" alt="Image preview">
             </figure>
             <div class="form__content form__content__filters">
             <ul>

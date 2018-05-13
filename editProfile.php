@@ -40,6 +40,16 @@
     
     <h1 class="editprofile--h1">Change profile settings</h1>
 
+    <div class="editprofile__avatar">
+        <?php foreach ($profile as $p): ?>
+            <form action="" method="post" id="changeAvatar" class="form__changeAvatar">
+                <label>Edit avatar</label>
+                <div class="previewAvatar"><input type="file" name="avatarFile" id="avatarFile" onchange="readURL(this);">Choose file</div>
+            </form>
+            <input type="submit" value="Save avatar" name="submit" class="btn btn--primary btn--change">
+        <?php endforeach; ?>
+    </div>
+
     <button class="accordion">Change profile text</button>
     <div class="panel panel__profileText">
         <?php foreach ($profile as $p): ?>
