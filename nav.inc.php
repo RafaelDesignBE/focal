@@ -1,6 +1,7 @@
-
 <?php
 
+  include_once('library/classes/User.class.php');
+  $avatar = User::getAvatar($_SESSION['user_id']);
 
 ?><nav class="navbar">
 
@@ -15,7 +16,13 @@
       <div class="navbar__icons">
         <a href="#"><img class="navbar__icons--icon" src="public_html/img/notification.svg" alt="notification"></a>
         <a href="upload.php"><img class="navbar__icons--icon" src="public_html/img/upload.svg" alt="upload"></a>
-        <a href="profile.php?user=<?php echo $_SESSION['user_id'] ?>"><img class="navbar__icons--icon navbar__icons--rightIcon" src="public_html/img/profile.svg" alt="profile"></a>
+        <?php if (!empty($avatar)): ?>
+          <?php foreach ($avatar as $a): ?>
+            <a href="profile.php?user=<?php echo $_SESSION['user_id'] ?>"><div style="background-image:url(<?php echo $a['avatar_url']; ?>)" class="navbar__avatar navbar__icons--rightIcon"></div></a>
+          <?php endforeach; ?>
+        <?php else: ?>
+          <a href="profile.php?user=<?php echo $_SESSION['user_id'] ?>"><img class="navbar__icons--icon navbar__icons--rightIcon" src="public_html/img/profile.svg" alt="profile"></a>
+        <?php endif; ?>
       </div>
 
       

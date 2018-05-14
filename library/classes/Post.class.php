@@ -275,7 +275,7 @@ class Post {
     /* Load results on feed */
     public static function loadPosts($limit, $offset, $currentUserID) {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT posts.id, posts.thmb_url, posts.title, posts.datetime, posts.photofilter, users.username, locations.city, locations.region, locations.country, (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype FROM posts INNER JOIN followers ON posts.users_id = followers.f_id INNER JOIN users ON posts.users_id = users.id INNER JOIN locations ON posts.location_id = locations.id WHERE followers.u_id = :currentUser && posts.deleted != 1 ORDER BY posts.id  DESC LIMIT :limit OFFSET :offset");
+        $statement = $conn->prepare("SELECT posts.id, posts.thmb_url, posts.title, posts.datetime, posts.photofilter, users.avatar_url, users.username, locations.city, locations.region, locations.country, (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype FROM posts INNER JOIN followers ON posts.users_id = followers.f_id INNER JOIN users ON posts.users_id = users.id INNER JOIN locations ON posts.location_id = locations.id WHERE followers.u_id = :currentUser && posts.deleted != 1 ORDER BY posts.id  DESC LIMIT :limit OFFSET :offset");
         $statement->bindValue(':limit', $limit, PDO::PARAM_INT);
         $statement->bindValue(':offset', $offset, PDO::PARAM_INT);
         $statement->bindValue(':currentUser', $currentUserID, PDO::PARAM_INT);
@@ -286,7 +286,7 @@ class Post {
 
     public static function getLatest($limit, $currentUserID){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT posts.id, posts.thmb_url, posts.title, posts.datetime, posts.photofilter, users.username, locations.city, locations.region, locations.country, (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype FROM posts INNER JOIN users ON posts.users_id = users.id INNER JOIN locations ON posts.location_id = locations.id WHERE posts.deleted != 1 ORDER BY posts.id  DESC LIMIT :limit");
+        $statement = $conn->prepare("SELECT users.avatar_url, posts.id, posts.thmb_url, posts.title, posts.datetime, posts.photofilter, users.username, locations.city, locations.region, locations.country, (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype FROM posts INNER JOIN users ON posts.users_id = users.id INNER JOIN locations ON posts.location_id = locations.id WHERE posts.deleted != 1 ORDER BY posts.id  DESC LIMIT :limit");
         $statement->bindValue(':limit', $limit, PDO::PARAM_INT);
         $statement->bindValue(':currentUser', $currentUserID, PDO::PARAM_INT);
         $statement->execute();
@@ -297,7 +297,7 @@ class Post {
     /* get all posts */
     public static function getAll($currentUserID) {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT posts.photofilter, posts.id, posts.thmb_url, posts.title, posts.datetime, posts.photofilter, posts.tags, users.username, locations.city, locations.region, locations.country, (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype FROM posts  INNER JOIN users ON posts.users_id = users.id INNER JOIN locations ON posts.location_id = locations.id WHERE posts.deleted != 1 ORDER BY posts.id DESC");
+        $statement = $conn->prepare("SELECT users.avatar_url, posts.photofilter, posts.id, posts.thmb_url, posts.title, posts.datetime, posts.photofilter, posts.tags, users.username, locations.city, locations.region, locations.country, (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype FROM posts  INNER JOIN users ON posts.users_id = users.id INNER JOIN locations ON posts.location_id = locations.id WHERE posts.deleted != 1 ORDER BY posts.id DESC");
         $statement->bindValue(':currentUser', $currentUserID, PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -306,7 +306,7 @@ class Post {
     /* get all posts by city */
     public static function getByCity($currentUserID, $city) {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT posts.id, posts.thmb_url, posts.title, posts.datetime, posts.photofilter, posts.tags, users.username, locations.city, locations.region, locations.country, (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype FROM posts  INNER JOIN users ON posts.users_id = users.id INNER JOIN locations ON posts.location_id = locations.id WHERE locations.city = :city && posts.deleted != 1 ORDER BY posts.id DESC LIMIT 20");
+        $statement = $conn->prepare("SELECT users.avatar_url, posts.id, posts.thmb_url, posts.title, posts.datetime, posts.photofilter, posts.tags, users.username, locations.city, locations.region, locations.country, (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype FROM posts  INNER JOIN users ON posts.users_id = users.id INNER JOIN locations ON posts.location_id = locations.id WHERE locations.city = :city && posts.deleted != 1 ORDER BY posts.id DESC LIMIT 20");
         $statement->bindValue(':currentUser', $currentUserID, PDO::PARAM_INT);
         $statement->bindValue(':city', $city);
         $statement->execute();
@@ -316,7 +316,7 @@ class Post {
     /* get all posts by region */
     public static function getByRegion($currentUserID, $region) {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT posts.id, posts.thmb_url, posts.title, posts.datetime, posts.photofilter, posts.tags, users.username, locations.city, locations.region, locations.country, (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype FROM posts  INNER JOIN users ON posts.users_id = users.id INNER JOIN locations ON posts.location_id = locations.id WHERE locations.region = :region && posts.deleted != 1 ORDER BY posts.id DESC LIMIT 20");
+        $statement = $conn->prepare("SELECT users.avatar_url, posts.id, posts.thmb_url, posts.title, posts.datetime, posts.photofilter, posts.tags, users.username, locations.city, locations.region, locations.country, (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype FROM posts  INNER JOIN users ON posts.users_id = users.id INNER JOIN locations ON posts.location_id = locations.id WHERE locations.region = :region && posts.deleted != 1 ORDER BY posts.id DESC LIMIT 20");
         $statement->bindValue(':currentUser', $currentUserID, PDO::PARAM_INT);
         $statement->bindValue(':region', $region);
         $statement->execute();
@@ -326,7 +326,7 @@ class Post {
     /* get all posts by country */
     public static function getByCountry($currentUserID, $country) {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT posts.id, posts.thmb_url, posts.title, posts.datetime, posts.photofilter, posts.tags, users.username, locations.city, locations.region, locations.country, (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype FROM posts  INNER JOIN users ON posts.users_id = users.id INNER JOIN locations ON posts.location_id = locations.id WHERE locations.country = :country && posts.deleted != 1 ORDER BY posts.id DESC LIMIT 20");
+        $statement = $conn->prepare("SELECT users.avatar_url, posts.id, posts.thmb_url, posts.title, posts.datetime, posts.photofilter, posts.tags, users.username, locations.city, locations.region, locations.country, (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype FROM posts  INNER JOIN users ON posts.users_id = users.id INNER JOIN locations ON posts.location_id = locations.id WHERE locations.country = :country && posts.deleted != 1 ORDER BY posts.id DESC LIMIT 20");
         $statement->bindValue(':currentUser', $currentUserID, PDO::PARAM_INT);
         $statement->bindValue(':country', $country);
         $statement->execute();
@@ -469,7 +469,7 @@ class Post {
 
     public static function loadPostsProfile($profileID, $currentUserID) {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT posts.photofilter, posts.id, posts.thmb_url, posts.title, posts.datetime, posts.tags, users.username, locations.city, locations.region, locations.country, (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype FROM posts INNER JOIN users ON posts.users_id = users.id INNER JOIN locations ON posts.location_id = locations.id WHERE posts.deleted != 1 && users.id = :profileID ORDER BY posts.id DESC");
+        $statement = $conn->prepare("SELECT users.avatar_url, posts.photofilter, posts.id, posts.thmb_url, posts.title, posts.datetime, posts.tags, users.username, locations.city, locations.region, locations.country, (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype FROM posts INNER JOIN users ON posts.users_id = users.id INNER JOIN locations ON posts.location_id = locations.id WHERE posts.deleted != 1 && users.id = :profileID ORDER BY posts.id DESC");
         $statement->bindValue(':currentUser', $currentUserID, PDO::PARAM_INT);
         $statement->bindValue(':profileID', $profileID, PDO::PARAM_INT);
         $statement->execute();

@@ -222,6 +222,14 @@
                 return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
 
+        public static function getAvatar($userId) {
+                $conn = Db::getInstance();
+                $statement = $conn->prepare("SELECT users.avatar_url FROM users WHERE users.id = :id");
+                $statement->bindValue(':id', $userId, PDO::PARAM_INT);
+                $statement->execute();
+                return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+
         public static function updateProfileText($userId, $profileText) {
                 $conn = Db::getInstance();
                 $statement = $conn->prepare("UPDATE users SET profileText=:profileText WHERE id = :id");
