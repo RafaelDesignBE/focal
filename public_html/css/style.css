@@ -726,6 +726,10 @@ input[type="checkbox"] {
     .form__search {
         margin-right: 1rem;
     }
+
+    .navbar--home {
+        display: none !important;
+    }
 }
 
 .form__search input {

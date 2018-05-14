@@ -14,7 +14,7 @@
       </form>
 
       <div class="navbar__icons">
-        <a href="#"><img class="navbar__icons--icon" src="public_html/img/notification.svg" alt="notification"></a>
+        <a class="navbar--home" href="index.php"><img class="navbar__icons--icon" src="public_html/img/home.svg" alt="home"></a>
         <a href="upload.php"><img class="navbar__icons--icon" src="public_html/img/upload.svg" alt="upload"></a>
         <?php if (!empty($avatar)): ?>
           <?php foreach ($avatar as $a): ?>
