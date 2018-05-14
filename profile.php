@@ -12,11 +12,11 @@
     };
     
     if ($_GET["user"] == $_SESSION['user_id']) {
-        $profile = User::loadProfile($_SESSION['user_id']);
+        $p = User::loadProfile($_SESSION['user_id']);
         $edit = 1;
     }
     else {
-        $profile = User::loadProfile($_GET["user"]);
+        $p = User::loadProfile($_GET["user"]);
     }
 
     if (User::checkFollow($_GET["user"], $_SESSION['user_id']) == 0) {
@@ -37,12 +37,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <?php include_once('header.inc.php'); ?>
-    <title>Home</title>
+    <title><?php echo $p['username'] ?></title>
 </head>
 <body>
     <?php include_once("nav.inc.php"); ?>
-    
-    <?php foreach ($profile as $p): ?>
         <div class="profile__user">
             <div class="profile__user--top">
                 <div class="profile__user--ava_name">
@@ -62,7 +60,6 @@
                 <p><?php echo $p['profileText'] ?></p>
             </div>                      
         </div>        
-    <?php endforeach; ?>
 
     <div class="feed">
     <?php if(isset($page)): ?>  

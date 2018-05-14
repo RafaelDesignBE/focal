@@ -219,7 +219,7 @@
                 $statement = $conn->prepare("SELECT users.avatar_url, users.username, users.profileText, users.email FROM users WHERE users.id = :id");
                 $statement->bindValue(':id', $userId, PDO::PARAM_INT);
                 $statement->execute();
-                return $statement->fetchAll(PDO::FETCH_ASSOC);
+                return $statement->fetch(PDO::FETCH_ASSOC);
         }
 
         public static function getAvatar($userId) {
