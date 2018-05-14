@@ -309,38 +309,5 @@
                 
         }
 
-        public static function updateAvatar($userId, $avatar) {              
-                
-                $target_dir = "avatars/";
-                $fileName = md5(microtime());
-                $target_file = $target_dir . basename($avatar);
-                $imageFileType = strtolower(pathinfo($avatar,PATHINFO_EXTENSION));
-                                        
-                // Allow only jpg, pbg and gif
-                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-                && $imageFileType != "gif" ) {
-                        $uploadOk = 0;
-                }
-
-                $target_file = $target_dir .$fileName.".".$imageFileType;
-                // Check if $uploadOk is set to 0 by an error
-                if ($uploadOk == 0) {
-                        
-                // if everything is ok, try to upload file
-                } else {
-                        $conn = Db::getInstance();
-                        $statement = $conn->prepare("UPDATE users SET avatar_url=:avatar WHERE id = :id");
-                        $statement->bindValue(':id', $userId, PDO::PARAM_INT);
-                        $statement->bindValue(':avatar', $name, PDO::PARAM_STR);
-                        $statement->execute();
-                        // upload full image to /uploads
-                        if (move_uploaded_file($avatar, $target_file)) {
-                                $name = $target_file;
-                                
-                        }
-                }
-                    
-        } 
-
     }
 ?>

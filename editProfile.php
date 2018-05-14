@@ -13,10 +13,6 @@
     $profile = User::loadProfile($_SESSION['user_id']);
 
     if (!empty($_POST)) {     
-        
-        if(!empty($_POST['avatarFile'])) {
-            User::updateAvatar($_SESSION['user_id'], $_POST['avatarFile']);
-        }
 
         if(!empty($_POST['profileText'])) {
             User::updateProfileText($_SESSION['user_id'], $_POST['profileText']);
@@ -27,9 +23,6 @@
         }
 
         $profile = User::loadProfile($_SESSION['user_id']);
-        
-
-        
         
     }
     
