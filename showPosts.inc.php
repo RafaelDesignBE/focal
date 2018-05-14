@@ -18,7 +18,9 @@
                             </div>
                         </div>
                         <div class="feed__post__info__uploader--container">
-                            <div style="background-image:url(<?php echo $p['avatar_url']; ?>)" class="feed__post__info--avatar"></div>
+                            <?php if (!empty($p['avatar_url'])): ?>
+                                <div style="background-image:url(<?php echo $p['avatar_url']; ?>)" class="feed__post__info--avatar"></div>
+                            <?php endif; ?>
                             <a href="<?php echo "profile.php?user=".Post::getUploader($p['id']).""; ?>" class="feed__post__info--uploader"><?php echo htmlspecialchars($p['username']); ?></a>
                         </div>
                         <p class="feed__post__info--description"><?php echo htmlspecialchars($p['title']); ?></p>

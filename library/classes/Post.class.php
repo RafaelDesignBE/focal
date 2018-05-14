@@ -336,7 +336,7 @@ class Post {
      /* get specific post */
     public static function getPost($currentUserID, $id) {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype, posts.id, posts.photofilter, posts.photo_url, posts.title, posts.datetime, users.username, posts.tags, users.username, locations.city, locations.region, locations.country FROM posts INNER JOIN users ON posts.users_id = users.id INNER JOIN locations ON posts.location_id = locations.id WHERE posts.id = :id && posts.deleted != 1 ORDER BY posts.id DESC");
+        $statement = $conn->prepare("SELECT (SELECT GROUP_CONCAT(likes.type) from likes WHERE likes.posts_id = posts.id) AS likes, (SELECT likes.type from likes WHERE likes.users_id = :currentUser AND likes.posts_id = posts.id) AS liketype, posts.id, posts.photofilter, users.avatar_url, posts.photo_url, posts.title, posts.datetime, users.username, posts.tags, users.username, locations.city, locations.region, locations.country FROM posts INNER JOIN users ON posts.users_id = users.id INNER JOIN locations ON posts.location_id = locations.id WHERE posts.id = :id && posts.deleted != 1 ORDER BY posts.id DESC");
         $statement->bindValue(':currentUser', $currentUserID, PDO::PARAM_INT);
         $statement->bindValue(':id', $id, PDO::PARAM_INT);
         $statement->execute();

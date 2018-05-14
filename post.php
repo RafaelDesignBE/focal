@@ -37,7 +37,12 @@
                                 <div class="flexspace"></div>
                             </div>
                         </div>
+                    <div class="feed__post__info__uploader--container">
+                        <?php if (!empty($p['avatar_url'])): ?>
+                            <div style="background-image:url(<?php echo $p['avatar_url']; ?>)" class="feed__post__info--avatar"></div>
+                        <?php endif; ?>
                         <a href="<?php echo "profile.php?user=".Post::getUploader($p['id']).""; ?>" class="feed__post__info--uploader"><?php echo htmlspecialchars($p['username']); ?></a>
+                    </div>
                     <p class="post__detail__info--description"><?php echo htmlspecialchars($p['title']); ?></p>
                     <p class="feed__post__info--uploadtime"><?php echo Post::time_elapsed_string($p['datetime']); ?></p>
                     <?php if(!empty($p['city'])): ?>
