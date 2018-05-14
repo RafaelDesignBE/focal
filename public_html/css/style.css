@@ -1232,6 +1232,7 @@ input[type="checkbox"] {
     background-size: cover;
     background-position: center;
     border-radius: 2000px;
+    background-color: #eee;
 }
 
 .profile__user--ava_name {
