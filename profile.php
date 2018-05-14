@@ -12,7 +12,7 @@
     };
     
     if ($_GET["user"] == $_SESSION['user_id']) {
-        $p = User::loadProfile($_SESSION['user_id']);
+        $profile = User::loadProfile($_SESSION['user_id']);
         $edit = 1;
     }
     else {
@@ -37,15 +37,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <?php include_once('header.inc.php'); ?>
-    <title><?php echo $p['username'] ?></title>
+    <title><?php echo $profile['username'] ?></title>
 </head>
 <body>
     <?php include_once("nav.inc.php"); ?>
         <div class="profile__user">
             <div class="profile__user--top">
                 <div class="profile__user--ava_name">
-                    <div style="background-image:url(<?php echo $p['avatar_url']; ?>)" class="profile--avatar"></div>
-                    <h1><?php echo $p['username'] ?></h1>
+                    <div style="background-image:url(<?php echo $profile['avatar_url']; ?>)" class="profile--avatar"></div>
+                    <h1><?php echo $profile['username'] ?></h1>
                 </div>                
                 <?php if (isset($edit)): ?>
                     <div class="profile__user--btns">
@@ -57,7 +57,7 @@
                 <?php endif; ?>
             </div>
             <div class="profile__user--description">
-                <p><?php echo $p['profileText'] ?></p>
+                <p><?php echo $profile['profileText'] ?></p>
             </div>                      
         </div>        
 

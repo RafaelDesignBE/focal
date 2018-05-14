@@ -4,7 +4,7 @@
 
     include_once('userCheck.php');
 
-    $p = User::loadProfile($_SESSION['user_id']);
+    $profile = User::loadProfile($_SESSION['user_id']);
 
     if (!empty($_POST)) {     
 
@@ -16,7 +16,7 @@
             User::updateEmail($_SESSION['user_id'], $_POST['email']);
         }
 
-        $p = User::loadProfile($_SESSION['user_id']);
+        $profile = User::loadProfile($_SESSION['user_id']);
         
     }
 
@@ -64,7 +64,7 @@
             <form action="editProfile.php" method="post" id="changeAvatar" class="form__changeAvatar" enctype="multipart/form-data">
                 <div class="form__changeAvatar--container">
                     <label>Click on avatar to edit</label>
-                    <div style="background-image:url(<?php echo $p['avatar_url'] ?>);" class="previewAvatar"><input type="file" name="avatarFile" id="avatarFile" onchange="readURL(this);"></div>
+                    <div style="background-image:url(<?php echo $profile['avatar_url'] ?>);" class="previewAvatar"><input type="file" name="avatarFile" id="avatarFile" onchange="readURL(this);"></div>
                 </div>                
                 <input type="submit" value="Save avatar" name="submit" class="btn btn--primary btn--change">
             </form>
@@ -76,7 +76,7 @@
             <form action="" method="post" id="changeProfileText" class="form__changeSettings">
                 <div class="form__field form__field--profileText">
                     <label for="profileText">Change status</label>
-                    <textarea id="profileText" form="changeProfileText" name="profileText"><?php echo $p['profileText'] ?></textarea>
+                    <textarea id="profileText" form="changeProfileText" name="profileText"><?php echo $profile['profileText'] ?></textarea>
                 </div>
                 <div class="form__field">
                     <input type="submit" value="Save" class="btn btn--primary btn--change">
@@ -86,7 +86,6 @@
 
     <button class="accordion">Change password</button>
     <div class="panel panel__password">
-        <?php foreach ($profile as $p): ?>
             <form action="" method="post" id="changePassword" class="form__changeSettings">
                 <div class="form__field form__field--password">
                     <label for="oldpassword">Old password</label>
@@ -104,22 +103,19 @@
                     <input type="submit" value="Save" class="btn btn--change btn--primary">
                 </div>
             </form>
-        <?php endforeach; ?>
     </div>
 
     <button class="accordion">Change email</button>
     <div class="panel panel__email">
-        <?php foreach ($profile as $p): ?>
             <form action="" method="post" id="changeEmail" class="form__changeSettings">
                 <div class="form__field form__field--email">
                     <label for="email">Change email</label>
-                    <input type="email" id="email" name="email" placeholder="<?php echo $p['email'] ?>">
+                    <input type="email" id="email" name="email" placeholder="<?php echo $profile['email'] ?>">
                 </div>
                 <div class="form__field">
                     <input type="submit" value="Save" class="btn btn--change btn--primary">
                 </div>
             </form>
-        <?php endforeach; ?>
     </div>
 
     <script>
