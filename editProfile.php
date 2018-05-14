@@ -2,13 +2,7 @@
 
     include_once('library/classes/User.class.php');
 
-    session_start();
-    if ( isset($_SESSION['email'])) {
-
-    }
-    else {
-        header('Location: signup.php');
-    };
+    include_once('userCheck.php');
 
     $profile = User::loadProfile($_SESSION['user_id']);
 

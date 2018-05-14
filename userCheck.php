@@ -9,7 +9,7 @@ session_start();
         if ( isset($_SESSION['email'])) {
 
         } else {
-            header('Location: signup.php');
+            header('Location: login.php');
         }
         
     };
