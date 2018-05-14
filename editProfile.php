@@ -25,7 +25,22 @@
         $profile = User::loadProfile($_SESSION['user_id']);
         
     }
-    
+
+    if(!empty($_FILES["avatarFile"])){
+        try {
+
+            $user = new User();
+            $user->setAvatar($_FILES["avatarFile"]);     
+            $user->saveAvatar();
+            $user->postAvatar($_SESSION['user_id']);
+            header('Location: editProfile.php?upload=complete');
+        }
+
+        catch (Exception $e){
+  
+        }
+    }
+
     
 ?><html lang="en">
 <head>
@@ -37,17 +52,23 @@
 </head>
 <body>
     <?php include_once("nav.inc.php"); ?>
-    
-    <h1 class="editprofile--h1">Change profile settings</h1>
     <?php if(isset($e)): ?>
-        <div class="error">
+        <div class="user__error error">
             <p><?php echo $e->getMessage(); ?></p>
         </div>
     <?php endif; ?>
+    <?php 
+        if(isset($_GET['upload'])){
+            if( $_GET['upload'] == "complete" ) {
+                echo "<div class='user__avatar__complete'><p>Your avatar has been updated</p></div>";
+            }
+        }
+    ?>
+    <h1 class="editprofile--h1">Change profile settings</h1>
 
     <div class="editprofile__avatar">
         <?php foreach ($profile as $p): ?>
-            <form action="" method="post" id="changeAvatar" class="form__changeAvatar">
+            <form action="editProfile.php" method="post" id="changeAvatar" class="form__changeAvatar" enctype="multipart/form-data">
                 <div class="form__changeAvatar--container">
                     <label>Click on avatar to edit</label>
                     <div style="background-image:url(<?php echo $p['avatar_url'] ?>);" class="previewAvatar"><input type="file" name="avatarFile" id="avatarFile" onchange="readURL(this);"></div>

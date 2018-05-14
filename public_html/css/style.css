@@ -153,13 +153,17 @@ input, textarea{
     padding-right: 1rem;
 }
 
-.form__login .error, .form__post .error {
+.form__login .error, .form__post .error, .user__error, .user__avatar__complete {
     background-color: #c62828;
     color: #fff;
     width: 100%;
 }
 
-.form__login .error p, .form__post .error p {
+.user__avatar__complete {
+    background-color: #4CAF50;
+}
+
+.form__login .error p, .form__post .error p, .user__error p, .user__avatar__complete p {
     line-height: 4em;
     height: 4em;
     text-align: center;
