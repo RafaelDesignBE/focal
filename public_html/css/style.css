@@ -388,6 +388,10 @@ a.link--login {
     }
 }
 
+label.labelfilter {
+    padding: 0;
+}
+
 .form__content__filters {
     display: none;
 }
@@ -697,10 +701,6 @@ input[type="checkbox"] {
     width: 2rem;
     padding: 1rem;
     opacity: .3;
-}
-
-.navbar__icons--rightIcon {
-    padding-right: 0;
 }
 
 .form__search {
