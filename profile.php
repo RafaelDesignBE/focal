@@ -16,7 +16,7 @@
         $edit = 1;
     }
     else {
-        $p = User::loadProfile($_GET["user"]);
+        $profile = User::loadProfile($_GET["user"]);
     }
 
     if (User::checkFollow($_GET["user"], $_SESSION['user_id']) == 0) {
