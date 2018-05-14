@@ -4,7 +4,7 @@
 
     include_once('userCheck.php');
 
-    $profile = User::loadProfile($_SESSION['user_id']);
+    $p = User::loadProfile($_SESSION['user_id']);
 
     if (!empty($_POST)) {     
 
@@ -16,7 +16,7 @@
             User::updateEmail($_SESSION['user_id'], $_POST['email']);
         }
 
-        $profile = User::loadProfile($_SESSION['user_id']);
+        $p = User::loadProfile($_SESSION['user_id']);
         
     }
 
@@ -42,7 +42,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <?php include_once('header.inc.php'); ?>
-    <title>Home</title>
+    <title>Edit Profile</title>
 </head>
 <body>
     <?php include_once("nav.inc.php"); ?>
@@ -61,7 +61,6 @@
     <h1 class="editprofile--h1">Change profile settings</h1>
 
     <div class="editprofile__avatar">
-        <?php foreach ($profile as $p): ?>
             <form action="editProfile.php" method="post" id="changeAvatar" class="form__changeAvatar" enctype="multipart/form-data">
                 <div class="form__changeAvatar--container">
                     <label>Click on avatar to edit</label>
@@ -69,13 +68,11 @@
                 </div>                
                 <input type="submit" value="Save avatar" name="submit" class="btn btn--primary btn--change">
             </form>
-            
-        <?php endforeach; ?>
+    
     </div>
 
     <button class="accordion">Change profile text</button>
     <div class="panel panel__profileText">
-        <?php foreach ($profile as $p): ?>
             <form action="" method="post" id="changeProfileText" class="form__changeSettings">
                 <div class="form__field form__field--profileText">
                     <label for="profileText">Change status</label>
@@ -85,7 +82,6 @@
                     <input type="submit" value="Save" class="btn btn--primary btn--change">
                 </div>
             </form>
-        <?php endforeach; ?>
     </div>
 
     <button class="accordion">Change password</button>
