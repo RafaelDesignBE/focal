@@ -4,14 +4,43 @@ var offset = 0;
 function loadMore(event){
     offset = parseInt($(this).val());
     $(this).val(offset + 1);
-    loadFeed(offset);
+    if( $('.btn.btn--secondary.btn--loadmore').hasClass('myfeed') ){
+        loadFeed(offset);
+    } else if ( $('.btn.btn--secondary.btn--loadmore').hasClass('latest') ) {
+        loadLatest(offset);
+    } else if ( $('.btn.btn--secondary.btn--loadmore').hasClass('nearby') ) {
+        loadNearby(offset);
+    }
+    
     event.preventDefault();
 }
 
-function loadMyFeed(event) {
+function getFeed(event) {
     $('.feeds__tabs__selected').css('transform', 'translateX(0)');
     var offset = 0;
     loadFeed(offset);
+    $('.btn.btn--secondary.btn--loadmore').removeClass('nearby latest');
+    $('.btn.btn--secondary.btn--loadmore').addClass('myfeed');
+    $('.btn.btn--secondary.btn--loadmore').val(1);
+    event.preventDefault();
+}
+
+function getLatest(event) {
+    $('.feeds__tabs__selected').css('transform', 'translateX(-100%)');
+    var offset = 0;
+    loadLatest(offset);
+    $('.btn.btn--secondary.btn--loadmore').removeClass('nearby myfeed');
+    $('.btn.btn--secondary.btn--loadmore').addClass('latest');
+    $('.btn.btn--secondary.btn--loadmore').val(1);
+    event.preventDefault();
+}
+
+function getNearby(event) {
+    $('.feeds__tabs__selected').css('transform', 'translateX(100%)');
+    var offset = 0;
+    loadNearby(offset);
+    $('.btn.btn--secondary.btn--loadmore').removeClass('latest myfeed');
+    $('.btn.btn--secondary.btn--loadmore').addClass('nearby');
     $('.btn.btn--secondary.btn--loadmore').val(1);
     event.preventDefault();
 }
@@ -24,16 +53,17 @@ function loadFeed(offset) {
             data: { offset: offset }
             }).done(function(res) {
                 if(res == "none"){
-                    $('.btn.btn--secondary.btn--loadmore').css('display', 'none'); 
                     if(offset != 0){
-                        $("<p class='feed__msg'>End of feed</p>").insertAfter('.feed');
+                        loadLatest(offset);
                     } else {
                         $('.feed__post').remove();
-                        $('<p class="feed__msg">No posts yet, be sure to follow people!</p>').insertAfter('.feed');
+                        loadLatest(offset);
                     }
                 } else {
-                    $('.feed__post').remove();
-                    $('.feed__msg').css('display', 'flex');
+                    if(offset == 0){
+                        $('.feed__post').remove();
+                        $(".feed__msg").css('display', 'none');
+                    }
                     $('.btn.btn--secondary.btn--loadmore').css('display', 'block'); 
                     $('.feed').append(res);
                     $(".like").on("click", likePost);
@@ -75,16 +105,28 @@ function loadFeed(offset) {
         });
 }
 
-function loadLatest(event) {
-    $('.feeds__tabs__selected').css('transform', 'translateX(-100%)');
+function loadLatest(offset) {
+    
     $.ajax({
         url: "loadLatest.php",
         context: this,
-        method: "POST"
+        method: "POST",
+        data: { offset: offset }
         }).done(function(res) {
             if(res == "none"){
+                $('.btn.btn--secondary.btn--loadmore').css('display', 'none'); 
+                if(offset != 0){
+                    $(".feed__msg").css('display', 'flex');
+                } else {
+                    $('.feed__post').remove();
+                    $(".feed__msg").css('display', 'flex');
+                }
             } else {
-                $('.feed__post').remove();
+                if(offset == 0){
+                    $('.feed__post').remove();
+                    $(".feed__msg").css('display', 'none');
+                }
+                $('.btn.btn--secondary.btn--loadmore').css('display', 'block'); 
                 $('.feed').append(res);
                 $(".like").on("click", likePost);
                 $(".liked").on("click", removeLike);
@@ -100,6 +142,15 @@ function loadLatest(event) {
                                     method: "POST",
                                     data: { comment: $(this).val(), postId: $(this).data("post") },
                                     success: function(data) {
+                                        if(res == "none"){
+                                            $('.btn.btn--secondary.btn--loadmore').css('display', 'none'); 
+                                            if(offset != 0){
+                                                $("<p class='feed__msg'>End of feed</p>").insertAfter('.feed');
+                                            } else {
+                                                $('.feed__post').remove();
+                                                $('<p class="feed__msg">You should follow some people!</p>').insertAfter('.feed');
+                                            }
+                                        } else {
                                             var parent = $(this).parent().parent().find('.feed__post__info__comments');
                                             if(parent.hasClass('commments--all')){
                                                     parent.append('<div class="feed__post__info__comments--comment"><a href="profile.php?user='+$(this).data("post")+'" class="feed__post__info__comments--commentUsername">'+ data + '</a><p>' + $(this).val() + '</p></div>');
@@ -115,30 +166,39 @@ function loadLatest(event) {
                                             count.html(newCount);
                                             }
                                             $(this).val('');
+                                        }
                                     }
                                     });
                         e.preventDefault();
                     }
                 });
-                $('.btn.btn--secondary.btn--loadmore').css('display', 'none');   
-                $('.feed__msg').css('display', 'none');
             }
     });
     event.preventDefault();
 }
 
-function loadNearby(event) {
-    $('.feeds__tabs__selected').css('transform', 'translateX(100%)');
+function loadNearby(offset) {
     var city = $('#location').val();
     $.ajax({
         url: "loadNearby.php",
         context: this,
         method: "POST",
-        data: { city: city }
+        data: { offset: offset, city: city }
         }).done(function(res) {
             if(res == "none"){
+                $('.btn.btn--secondary.btn--loadmore').css('display', 'none'); 
+                if(offset != 0){
+                    $(".feed__msg").css('display', 'flex');
+                } else {
+                    $('.feed__post').remove();
+                    $(".feed__msg").css('display', 'flex');
+                }
             } else {
-                $('.feed__post').remove();
+                if(offset == 0){
+                    $('.feed__post').remove();
+                    $(".feed__msg").css('display', 'none');
+                }
+                $('.btn.btn--secondary.btn--loadmore').css('display', 'block');
                 $('.feed').append(res);
                 $(".like").on("click", likePost);
                 $(".liked").on("click", removeLike);
@@ -174,17 +234,15 @@ function loadNearby(event) {
                         e.preventDefault();
                     }
                 });
-                $('.btn.btn--secondary.btn--loadmore').css('display', 'none');   
-                $('.feed__msg').css('display', 'none');
             }
     });
     event.preventDefault();
 }
 
 $('.btn.btn--secondary.btn--loadmore').on('click', loadMore);
-$('#myfeed').on('click', loadMyFeed);
-$('#latest').on('click', loadLatest);
-$('#nearby').on('click', loadNearby);
+$('#myfeed').on('click', getFeed);
+$('#latest').on('click', getLatest);
+$('#nearby').on('click', getNearby);
 
 /* GET LOCATION */
 $(document).ready(function(){ 

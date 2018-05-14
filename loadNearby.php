@@ -10,8 +10,10 @@ else {
 include_once('library/classes/Post.class.php');
 
 try {
+    $limit = 20;
+    $offset = $_POST['offset'] * $limit;
     $city = $_POST['city'];
-    $page = Post::getByCity($_SESSION['user_id'], $city);
+    $page = Post::getNearby($limit, $offset, $_SESSION['user_id'], $city);
 }
 
 catch (Exception $e){

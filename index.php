@@ -6,12 +6,17 @@
     $limit = 20;
     $pCount = 0;
     $offset = 0;
+    $latest = 0;
     if (isset($_GET["page"])) {
         $pCount = $_GET["page"];
         $offset = $limit * $pCount; 
     }
     
     $page = Post::loadPosts($limit, $offset, $_SESSION['user_id']);
+    if(empty($page)){
+        $page = Post::getLatest($limit, $offset, $_SESSION['user_id']);
+        $latest = 1;
+    }
 
 ?><html lang="en">
 <head>
@@ -42,19 +47,11 @@
         <?php if(isset($page)): ?>  
           <?php include_once('showPosts.inc.php'); ?>
         </div>
-    <?php if(!empty($page)){
-        echo '<form action="" method="GET">
-        <button class="btn btn--secondary btn--loadmore" type="submit" value="'.($pCount+1).'" name="page">Load More</button>
-    </form>';
-        
-    } else {
-        echo '<p class="feed__msg">No posts yet, be sure to follow people!</p>';
-    }
-    
-    ?>
-        
     <?php endif; ?>
-    
+    <?php echo '<form action="" method="GET">
+        <button class="btn btn--secondary btn--loadmore myfeed" type="submit" value="'.($pCount+1).'" name="page">Load More</button>
+    </form>'; ?>
+    <p class="feed__msg" style="display: none">End of the feed</p>
     <script src="public_html/js/index.js"></script>
     <script src="public_html/js/post.js"></script>
 </body>

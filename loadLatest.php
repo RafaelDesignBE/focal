@@ -11,7 +11,8 @@ include_once('library/classes/Post.class.php');
 
 try {
     $limit = 20;
-    $page = Post::getLatest($limit, $_SESSION['user_id']);
+    $offset = $_POST['offset'] * $limit;
+    $page = Post::getLatest($limit, $offset, $_SESSION['user_id']);
 }
 
 catch (Exception $e){
