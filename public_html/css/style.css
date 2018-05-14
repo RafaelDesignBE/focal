@@ -681,6 +681,7 @@ input[type="checkbox"] {
             box-shadow: 0px -4px 8px rgba(98,111,253,0.08);
     box-sizing: border-box;
     z-index: 999;
+    align-items: center;
 }
 
 .navbar__icons--icon {
@@ -698,6 +699,16 @@ input[type="checkbox"] {
     flex: 1;
     width: 100%;
     margin-left: 1rem;
+}
+
+.navbar__avatar {
+    height: 2rem;
+    width: 2rem;
+    display: block;
+    background-size: cover;
+    background-position: center;
+    border-radius: 2000px;
+    margin: 1rem;
 }
 
 @media (min-width: 37rem){
@@ -858,6 +869,22 @@ input[type="checkbox"] {
     color: rgba(0, 0, 0, 0.7);
     border-radius: .2em;
     text-decoration: none;
+}
+
+.feed__post__info__uploader--container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.feed__post__info--avatar {
+    width: 40px;
+    height: 40px;
+    margin-right: 1em;
+    background-size: cover;
+    background-position: center;
+    border-radius: 2000px;
 }
 
 @media (min-width: 27rem){
@@ -1195,6 +1222,20 @@ input[type="checkbox"] {
 
 /* Profile */
 
+.profile--avatar {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 2000px;
+}
+
+.profile__user--ava_name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .profile__user--top {
     display: flex;
     flex-direction: column;
@@ -1213,6 +1254,14 @@ input[type="checkbox"] {
 
 @media (min-width: 700px) {
     .profile__user--top {
+        flex-direction: row;
+    }
+
+    .profile--avatar {
+        margin-right: 1em;
+    }
+
+    .profile__user--ava_name {
         flex-direction: row;
     }
 }

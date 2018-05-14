@@ -45,7 +45,10 @@
     <?php foreach ($profile as $p): ?>
         <div class="profile__user">
             <div class="profile__user--top">
-                <h1><?php echo $p['username'] ?></h1>
+                <div class="profile__user--ava_name">
+                    <div style="background-image:url(<?php echo $p['avatar_url']; ?>)" class="profile--avatar"></div>
+                    <h1><?php echo $p['username'] ?></h1>
+                </div>                
                 <?php if (isset($edit)): ?>
                     <div class="profile__user--btns">
                         <a class="btn btn--edit" href="editProfile.php">Edit Profile</a>
