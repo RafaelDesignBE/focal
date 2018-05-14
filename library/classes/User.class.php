@@ -9,6 +9,7 @@
         private $email;
         private $password;
         private $status;
+        private $avatar;
 
         /**
          * Get the value of username
@@ -145,6 +146,26 @@
                 return $this;
         }
 
+        /**
+         * Get the value of avatar
+         */ 
+        public function getAvatar()
+        {
+                return $this->avatar;
+        }
+
+        /**
+         * Set the value of avatar
+         *
+         * @return  self
+         */ 
+        public function setAvatar($avatar)
+        {
+                $this->avatar = $avatar;
+
+                return $this;
+        }
+
         public function register(){
             //connectie 
             $conn = Db::getInstance();
@@ -215,7 +236,7 @@
 
         public static function loadProfile($userId) {
                 $conn = Db::getInstance();
-                $statement = $conn->prepare("SELECT users.username, users.profileText, users.email FROM users WHERE users.id = :id");
+                $statement = $conn->prepare("SELECT users.avatar_url, users.username, users.profileText, users.email FROM users WHERE users.id = :id");
                 $statement->bindValue(':id', $userId, PDO::PARAM_INT);
                 $statement->execute();
                 return $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -287,5 +308,6 @@
                 
                 
         }
+
     }
 ?>
