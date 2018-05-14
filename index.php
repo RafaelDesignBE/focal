@@ -41,7 +41,7 @@
     <div class="feed">
         <?php if(isset($page)): ?>  
           <?php include_once('showPosts.inc.php'); ?>
-    
+        </div>
     <?php if(!empty($page)){
         echo '<form action="" method="GET">
         <button class="btn btn--secondary btn--loadmore" type="submit" value="'.($pCount+1).'" name="page">Load More</button>
@@ -54,7 +54,7 @@
     ?>
         
     <?php endif; ?>
-    </div>
+    
     <script src="public_html/js/index.js"></script>
     <script src="public_html/js/post.js"></script>
 </body>

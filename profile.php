@@ -64,10 +64,11 @@
     <div class="feed">
     <?php if(isset($page)): ?>  
         <?php include_once('showPosts.inc.php'); ?>
+        </div>
     <?php else: ?>
         <p class="feed__msg">This user has nothing posted yet!</p>
     <?php endif; ?>
-    </div>
+    
     <script src="public_html/js/post.js"></script>
     <script src="public_html/js/follow.js"></script>
 </body>

@@ -29,10 +29,10 @@ if (isset($_GET['city'])){
     <div class="feed">
         <?php if(!empty($page)): ?>  
             <?php include_once('showPosts.inc.php'); ?>
+            </div>
 <?php else: ?>
         <p class="feed__msg">No posts found</p>
     <?php endif; ?>
-    </div> 
     <script src="public_html/js/post.js"></script>
 </body>
 </html>
