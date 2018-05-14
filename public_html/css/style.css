@@ -1320,7 +1320,7 @@ figure {
     background-position: center;
 }
 
-.form__changeAvatar {
+.form__changeAvatar--container {
     display: flex;
     flex-direction: column-reverse;
     justify-content: center;

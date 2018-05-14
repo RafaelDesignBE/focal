@@ -12,17 +12,17 @@
 
     $profile = User::loadProfile($_SESSION['user_id']);
 
-    if (!empty($_POST)) {
+    if (!empty($_POST)) {     
 
         if(!empty($_POST['profileText'])) {
             User::updateProfileText($_SESSION['user_id'], $_POST['profileText']);
-            $profile = User::loadProfile($_SESSION['user_id']);
         }
 
         if(!empty($_POST['email'])) {
             User::updateEmail($_SESSION['user_id'], $_POST['email']);
-            $profile = User::loadProfile($_SESSION['user_id']);
         }
+
+        $profile = User::loadProfile($_SESSION['user_id']);
         
     }
     
@@ -39,14 +39,22 @@
     <?php include_once("nav.inc.php"); ?>
     
     <h1 class="editprofile--h1">Change profile settings</h1>
+    <?php if(isset($e)): ?>
+        <div class="error">
+            <p><?php echo $e->getMessage(); ?></p>
+        </div>
+    <?php endif; ?>
 
     <div class="editprofile__avatar">
         <?php foreach ($profile as $p): ?>
             <form action="" method="post" id="changeAvatar" class="form__changeAvatar">
-                <label>Click on avatar to edit</label>
-                <div class="previewAvatar"><input type="file" name="avatarFile" id="avatarFile" onchange="readURL(this);"></div>
+                <div class="form__changeAvatar--container">
+                    <label>Click on avatar to edit</label>
+                    <div style="background-image:url(<?php echo $p['avatar_url'] ?>);" class="previewAvatar"><input type="file" name="avatarFile" id="avatarFile" onchange="readURL(this);"></div>
+                </div>                
+                <input type="submit" value="Save avatar" name="submit" class="btn btn--primary btn--change">
             </form>
-            <input type="submit" value="Save avatar" name="submit" class="btn btn--primary btn--change">
+            
         <?php endforeach; ?>
     </div>
 

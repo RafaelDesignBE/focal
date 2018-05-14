@@ -75,5 +75,7 @@
         <?php endif; ?>
     </div>
     <script src="public_html/js/post.js"></script>
+    <script src="public_html/js/quantize.js"></script>
+    <script src="public_html/js/color-thief.js"></script>
 </body>
 </html>
