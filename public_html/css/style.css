@@ -1419,4 +1419,65 @@ figure {
     height: 100%;
     cursor: pointer;
     border-radius: 3rem;
+
+/* TABLES */
+
+.admin-table { 
+    width: 100%; 
+    border-collapse: collapse; 
+}
+
+tr {
+    background-color: #fff;
+}
+
+tr:nth-of-type(odd) { 
+    background: #fafafa; 
+}
+
+tr.deleted {
+    background-color: #ef9a9a;
+}
+
+tr.deleted:nth-of-type(odd) {
+    background-color: #e57373;
+}
+
+th { 
+    background: #888; 
+    color: white; 
+    font-weight: bold; 
+}
+
+td, th { 
+    padding: 0.5em; 
+    border-top: 1px solid rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    border-left: 1px solid rgba(0,0,0,0.1);
+    border-right: 1px solid rgba(0,0,0,0.1);
+    text-align: left; 
+}
+
+.table__creation {
+    font-size: 0.8em;
+}
+
+.admin-table a {
+    color: #616EFF;
+}
+
+.admin-table a.delete {
+    color: #d32f2f;
+}
+
+.admin-table .deleted a.delete {
+    color: #fff;
+}
+
+.admin-table input {
+    background: transparent;
+    border: none;
+    font-size: 1rem;
+    outline: 0;
+    max-width: 100%;
 }
