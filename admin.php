@@ -45,7 +45,7 @@ include_once('library/classes/Post.class.php');
         </tr>
     <?php foreach ($users as $user): ?>
         <tr<?php if(  $user['deleted'] == 1 ){echo ' class="deleted"';} ?>>
-            <td><?php echo $user['id']; ?></td>
+            <td class="table__userid"><?php echo $user['id']; ?></td>
             <td><input type="text" class="username" data-userid="<?php echo $user['id']; ?>" value="<?php echo $user['username']; ?>"></td>
             <td><input class="email" type="email" data-userid="<?php echo $user['id']; ?>" value="<?php echo $user['email']; ?>"></td>
             <td><a href="profile.php?user=<?php echo $user['id']; ?>">View Profile</a></td>

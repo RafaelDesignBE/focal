@@ -129,6 +129,10 @@ function passwordEdit(event) {
     }
 }
 
+function selectRow(event) {
+    $(this).parent().toggleClass('selected');
+}
+
 $('.lock').on('click', lockAccount);
 $('.delete').on('click', deleteAccount);
 $('.role').on('change', roleChange);
@@ -137,3 +141,4 @@ $('input.username').on('keypress', usernameEdit);
 $('input.firstname').on('keypress', firstnameEdit);
 $('input.lastname').on('keypress', lastnameEdit);
 $('input.password').on('keypress', passwordEdit);
+$('.table__userid').on('click', selectRow);

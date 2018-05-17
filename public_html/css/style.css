@@ -1481,3 +1481,15 @@ td, th {
     outline: 0;
     max-width: 100%;
 }
+
+.table__userid {
+    cursor: pointer;
+}
+
+tr.selected {
+    background-color: #90CAF9;
+}
+
+tr.selected:nth-of-type(odd) {
+    background-color: #64B5F6;
+}
