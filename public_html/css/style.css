@@ -662,10 +662,9 @@ input[type="checkbox"] {
     left: 0;
     right: 0;
     background-color:rgba(255,255,255,0.9);
-    -webkit-backdrop-filter: blur(1rem);
-    backdrop-filter: blur(1rem);
     z-index: 9999;
 }
+
 .navbar__container {
     display: flex;
     max-width: 60rem;
@@ -698,6 +697,20 @@ input[type="checkbox"] {
     box-sizing: border-box;
     z-index: 9999;
     align-items: center;
+}
+
+@supports (backdrop-filter: blur(1rem)) {
+    .navbar, .navbar__icons {
+        backdrop-filter: blur(1rem);
+        background-color:rgba(255,255,255,0.8);
+    }
+}
+
+@supports (-webkit-backdrop-filter: blur(1rem)) {
+    .navbar, .navbar__icons {
+        -webkit-backdrop-filter: blur(1rem);
+        background-color:rgba(255,255,255,0.8);
+    }
 }
 
 .navbar__icons--icon {
