@@ -1,20 +1,45 @@
 <?php
 
     include_once('library/classes/User.class.php');
+    include_once('library/helpers/Security.class.php');
 
     include_once('userCheck.php');
 
     $profile = User::loadProfile($_SESSION['user_id']);
 
-    if (!empty($_POST)) {     
+    if (!empty($_POST)) {        
+        try {
+            if(!empty($_POST['profileText'])) {
+                User::updateProfileText($_SESSION['user_id'], $_POST['profileText']);
+            }
+    
+            if(!empty($_POST['email'])) {
+                User::updateEmail($_SESSION['user_id'], $_POST['email']);
+            }
 
-        if(!empty($_POST['profileText'])) {
-            User::updateProfileText($_SESSION['user_id'], $_POST['profileText']);
-        }
+            if(!empty($_POST['oldpassword']) && !empty($_POST['newpassword']) && !empty($_POST['confirmnewpassword'])) {
+                try {
+                    $security = new Security();
+                    $security->password = $_POST['newpassword'];
+                    $security->passwordRepeat = $_POST['confirmnewpassword'];
+                    
+                    if ($security->passwordsCheck()) {
+                        if (User::passwordCheck($_POST['oldpassword'], $_SESSION['user_id'])) {
+                            User::updatePassword($_SESSION['user_id'], $_POST['newpassword']);
+                        }
+                    }
+                }
+                catch (Exception $e){
+                              
+                }
+                
+            }
 
-        if(!empty($_POST['email'])) {
-            User::updateEmail($_SESSION['user_id'], $_POST['email']);
         }
+        catch (Exception $e){
+  
+        }
+        
 
         $profile = User::loadProfile($_SESSION['user_id']);
         
@@ -93,11 +118,11 @@
                 </div>
                 <div class="form__field form__field--password">
                     <label for="newpassword">New password</label>
-                    <input type="newpassword" id="newpassword" name="newpassword" placeholder="New password">
+                    <input type="password" id="newpassword" name="newpassword" placeholder="New password">
                 </div>
                 <div class="form__field form__field--password">
                     <label for="confirmnewpassword">Confirm new password</label>
-                    <input type="confirmnewpassword" id="confirmnewpassword" name="confirmnewpassword" placeholder="Confirm new password">
+                    <input type="password" id="confirmnewpassword" name="confirmnewpassword" placeholder="Confirm new password">
                 </div>
                 <div class="form__field">
                     <input type="submit" value="Save" class="btn btn--change btn--primary">

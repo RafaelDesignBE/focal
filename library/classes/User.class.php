@@ -201,11 +201,11 @@
 
         public function loginCheck () {
                 $conn = Db::getInstance();
-                        $query = "select password from users where email = :email";
-                        $statement = $conn->prepare($query);
-                        $statement->bindParam(":email", $this->email);
-                        $statement->execute();
-                        $result = $statement->fetch(PDO::FETCH_ASSOC);
+                $query = "select password from users where email = :email";
+                $statement = $conn->prepare($query);
+                $statement->bindParam(":email", $this->email);
+                $statement->execute();
+                $result = $statement->fetch(PDO::FETCH_ASSOC);
                 if(password_verify ( $this->password , $result["password"] )){
                                 return true;
                         }
@@ -416,6 +416,33 @@
                 $result = $statement->execute();
                 return $result;
             }
+
+            public function passwordCheck ($oldpw, $userId) {
+                $conn = Db::getInstance();
+                $query = "select password from users where id = :id";
+                $statement = $conn->prepare($query);
+                $statement->bindParam(":id", $userId);
+                $statement->execute();
+                $result = $statement->fetch(PDO::FETCH_ASSOC);
+                if(password_verify ($oldpw , $result["password"] )){
+                                return true;
+                        }
+                        else {
+                                throw new Exception ("Wrong password");
+                        }
+            }
+
+            public static function updatePassword($userId, $newpw) {
+                $conn = Db::getInstance();
+                $options = [
+                    'cost' => 12,
+                ];
+                $hash = password_hash($newpw, PASSWORD_DEFAULT, $options);
+                $statement = $conn->prepare("UPDATE users SET password=:pw WHERE id = :id");
+                $statement->bindValue(':id', $userId, PDO::PARAM_INT);
+                $statement->bindValue(':pw', $hash, PDO::PARAM_STR);
+                $statement->execute();
+        } 
 
     }
 ?>

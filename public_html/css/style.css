@@ -197,7 +197,7 @@ input, textarea{
     padding: .5em;
 }
 
-.form__login input[type="text"], .form__changePost input[type="text"], .form__post input[type="text"] {
+.form__login input, .form__changePost input[type="text"], .form__post input[type="text"] {
     display: block;
     font-size: 1rem;
     padding: 1em;
