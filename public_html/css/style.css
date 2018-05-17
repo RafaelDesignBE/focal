@@ -1415,27 +1415,3 @@ figure {
     cursor: pointer;
     border-radius: 3rem;
 }
-
-
-@media (min-width: 54rem ) {
-        .feed {
-            display: block;
-           column-count: 2;
-            column-gap: 2rem;
-            width: 52rem;
-            margin-left: auto;
-            margin-right: auto;
-        }
-       .feed__post {
-            display: inline-block;
-        }
-    }
-    
-    @media (min-width: 81rem ) {
-        .feed {
-            column-count: 3;
-            width: 79rem;
-        }
-        .feed__post {
-        }
-    }
