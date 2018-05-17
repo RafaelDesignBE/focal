@@ -10,15 +10,28 @@
 
     $all = Post::getAll($_SESSION['user_id']);
     $result = [];
+    
     foreach($all as $key => $p) {
+        $inSearch =false;
         $tags = explode(", ", $p['tags']);
         $amountTags = count($tags) - 1;
         for ($x = 0; $x <= $amountTags; $x++) {    
             if (in_array(strtolower($tags[$x]), $searchArray)) {              
-                $result[$key] = $p;
+                //$result[$key] = $p;
+                $inSearch = true;
             }
         }
-        
+        if( in_array( strtolower($p['city']), $searchArray ) ) {
+            $inSearch = true;
+        } else if( in_array( strtolower($p['region']), $searchArray ) ) {
+            $inSearch = true;
+        } else if( in_array( strtolower($p['country']), $searchArray ) ) {
+            $inSearch = true;
+        }
+
+        if( $inSearch == true ) {
+            $result[$key] = $p;
+        }
     }
     $page = $result;
 ?><html lang="en">
