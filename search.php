@@ -6,8 +6,8 @@
     $search = $_GET['q'];
     $search = strtolower($search);
     $search = htmlspecialchars($search);
+    $search = str_replace("#","",$search);
     $searchArray = explode(",", $search);
-
     $all = Post::getAll($_SESSION['user_id']);
     $result = [];
     
@@ -15,8 +15,8 @@
         $inSearch =false;
         $tags = explode(", ", $p['tags']);
         $amountTags = count($tags) - 1;
-        for ($x = 0; $x <= $amountTags; $x++) {    
-            if (in_array(strtolower($tags[$x]), $searchArray)) {              
+        for ($x = 0; $x <= $amountTags; $x++) {  
+            if (in_array(strtolower(str_replace("#","",$tags[$x])), $searchArray)) {              
                 //$result[$key] = $p;
                 $inSearch = true;
             }
