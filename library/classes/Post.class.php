@@ -489,6 +489,22 @@ class Post {
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function updatePostDescription($postId, $description) {
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("UPDATE posts SET title=:title WHERE id = :id");
+        $statement->bindValue(':id', $postId, PDO::PARAM_INT);
+        $statement->bindValue(':title', $description, PDO::PARAM_STR);
+        $statement->execute();
+    } 
+
+    public static function updatePostTags($postId, $tags) {
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("UPDATE posts SET tags=:tags WHERE id = :id");
+        $statement->bindValue(':id', $postId, PDO::PARAM_INT);
+        $statement->bindValue(':tags', $tags, PDO::PARAM_STR);
+        $statement->execute();
+    } 
+
 }
     
 

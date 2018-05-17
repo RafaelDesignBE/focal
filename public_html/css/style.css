@@ -190,14 +190,14 @@ input, textarea{
     to{height: 4em;}
 }
 
-.form__login label, .form__post label {
+.form__login label, .form__post label, .form__changePost label {
     display: block;
     font-size: 1rem;
     margin-top: 1rem;
     padding: .5em;
 }
 
-.form__login input, .form__post input[type="text"] {
+.form__login input[type="text"], .form__changePost input[type="text"], .form__post input[type="text"] {
     display: block;
     font-size: 1rem;
     padding: 1em;
@@ -1167,6 +1167,11 @@ input[type="checkbox"] {
     -webkit-box-shadow: 0px 4px 8px rgba(98,111,253,0.08);
             box-shadow: 0px 4px 8px rgba(98,111,253,0.08);
     z-index: 9999;
+}
+
+.option__edit {
+    text-decoration: none;
+    color: #000;
 }
 
 @-webkit-keyframes shaked {
