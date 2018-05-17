@@ -20,12 +20,12 @@ if (isset($_GET['city'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <?php include_once('header.inc.php'); ?>
-    <title><?php echo $location; ?></title>
+    <title><?php echo htmlspecialchars($location); ?></title>
 </head>
 <body>
 
     <?php include_once("nav.inc.php"); ?>
-    <h1 class="location__h1"><div class="location__icon"></div><?php echo $location; ?></h1>
+    <h1 class="location__h1"><div class="location__icon"></div><?php echo htmlspecialchars($location); ?></h1>
     <div class="feed">
         <?php if(!empty($page)): ?>  
             <?php include_once('showPosts.inc.php'); ?>

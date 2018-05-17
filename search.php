@@ -27,7 +27,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <?php include_once('header.inc.php'); ?>
-    <title><?php echo $search; ?></title>
+    <title><?php echo htmlspecialchars($search); ?></title>
 </head>
 <body>
 

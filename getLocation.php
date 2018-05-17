@@ -30,7 +30,7 @@ if(!empty($_POST['latitude']) && !empty($_POST['longitude'])){
 
     //Print location 
 
-    echo $location;
+    echo htmlspecialchars($location);
 
 } 
 

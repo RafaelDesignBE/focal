@@ -37,7 +37,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <?php include_once('header.inc.php'); ?>
-    <title><?php echo $profile['username'] ?></title>
+    <title><?php echo htmlspecialchars($profile['username']); ?></title>
 </head>
 <body>
     <?php include_once("nav.inc.php"); ?>
@@ -45,7 +45,7 @@
             <div class="profile__user--top">
                 <div class="profile__user--ava_name">
                     <div style="background-image:url(<?php echo $profile['avatar_url']; ?>)" class="profile--avatar"></div>
-                    <h1><?php echo $profile['username'] ?></h1>
+                    <h1><?php echo htmlspecialchars($profile['username']); ?></h1>
                 </div>                
                 <?php if (isset($edit)): ?>
                     <div class="profile__user--btns">
@@ -53,11 +53,11 @@
                         <a class="btn btn--secondary btn--logout" href="logout.php">Log out</a>
                     </div>
                 <?php else: ?>
-                    <div class="btn <?php echo $btnClass; ?>" data-post="<?php echo  $_GET["user"]; ?>"><?php echo $btnText; ?></div>
+                    <div class="btn <?php echo $btnClass; ?>" data-post="<?php echo  htmlspecialchars($_GET["user"]); ?>"><?php echo $btnText; ?></div>
                 <?php endif; ?>
             </div>
             <div class="profile__user--description">
-                <p><?php echo $profile['profileText'] ?></p>
+                <p><?php echo htmlspecialchars($profile['profileText']); ?></p>
             </div>                      
         </div>        
 

@@ -76,7 +76,7 @@
             <form action="" method="post" id="changeProfileText" class="form__changeSettings">
                 <div class="form__field form__field--profileText">
                     <label for="profileText">Change status</label>
-                    <textarea id="profileText" form="changeProfileText" name="profileText"><?php echo $profile['profileText'] ?></textarea>
+                    <textarea id="profileText" form="changeProfileText" name="profileText"><?php echo htmlspecialchars($profile['profileText']) ?></textarea>
                 </div>
                 <div class="form__field">
                     <input type="submit" value="Save" class="btn btn--primary btn--change">
