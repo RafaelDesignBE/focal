@@ -178,10 +178,11 @@
 
         public function login(){
             $conn = Db::getInstance();
-            $statement = $conn->prepare('select id from users where email = :email');
+            $statement = $conn->prepare('select id from users where email = :email && deleted=0');
             $statement->bindParam(":email", $this->email);
             $statement->execute();
             $currentUserID = $statement->fetch(PDO::FETCH_ASSOC);
+            if( !empty($currentUserID) ){
             session_start();
             $_SESSION['email'] = $this->email;
             $_SESSION['user_id'] = $currentUserID['id'];
@@ -196,6 +197,9 @@
             $cookieDb->bindValue(':userId', $_SESSION['user_id'], PDO::PARAM_INT);
             $cookieDb->execute();
             header('Location: index.php');
+            } else {
+                throw new Exception ("Your account has been deactivated");
+            } 
         }
 
         public function loginCheck () {
@@ -294,6 +298,76 @@
                 $statement->execute();
                 $result = $statement->fetchAll(PDO::FETCH_ASSOC);
                 return $result;
+        }
+
+        public static function getUserRole($currentUser){
+                $conn = Db::getInstance();
+                $statement = $conn->prepare("SELECT role FROM users WHERE id = :currentUser");
+                $statement->bindParam(":currentUser", $currentUser);
+                $statement->execute();
+                $result = $statement->fetch(PDO::FETCH_ASSOC);
+                return $result;
+        }
+
+        public static function updateRole($user, $role){
+                $conn = Db::getInstance();
+                $statement = $conn->prepare("UPDATE users SET role=:role WHERE id=:user");
+                $statement->bindParam(":user", $user, PDO::PARAM_INT);
+                $statement->bindParam(":role", $role, PDO::PARAM_INT);
+                $statement->execute();
+        }
+
+        public static function updateUsername($user, $username){
+                $conn = Db::getInstance();
+                $statement = $conn->prepare("UPDATE users SET username=:username WHERE id=:user");
+                $statement->bindParam(":user", $user, PDO::PARAM_INT);
+                $statement->bindParam(":username", $username);
+                $statement->execute();
+        }
+
+        public static function updateFirstname($user, $firstname){
+                $conn = Db::getInstance();
+                $statement = $conn->prepare("UPDATE users SET first_name=:firstname WHERE id=:user");
+                $statement->bindParam(":user", $user, PDO::PARAM_INT);
+                $statement->bindParam(":firstname", $firstname);
+                $statement->execute();
+        }
+
+        public static function updateLastname($user, $lastname){
+                $conn = Db::getInstance();
+                $statement = $conn->prepare("UPDATE users SET last_name=:lastname WHERE id=:user");
+                $statement->bindParam(":user", $user, PDO::PARAM_INT);
+                $statement->bindParam(":lastname", $lastname);
+                $statement->execute();
+        }
+
+        public static function lockAccount($user){
+                $password = openssl_random_pseudo_bytes(16);
+                $conn = Db::getInstance();
+                $statement = $conn->prepare("UPDATE users SET password=:password WHERE id=:user");
+                $statement->bindParam(":user", $user, PDO::PARAM_INT);
+                $statement->bindParam(":password", $password);
+                $statement->execute();
+        }
+
+        public static function updatePassword($user, $password){
+                $options = [
+                        'cost' => 12,
+                ];
+                $hash = password_hash($password, PASSWORD_DEFAULT, $options);
+                $conn = Db::getInstance();
+                $statement = $conn->prepare("UPDATE users SET password=:hash WHERE id=:user");
+                $statement->bindParam(":user", $user, PDO::PARAM_INT);
+                $statement->bindParam(":hash", $hash);
+                $statement->execute();
+        }
+
+        public static function deleteAccount($user, $del){
+                $conn = Db::getInstance();
+                $statement = $conn->prepare("UPDATE users SET deleted=:del WHERE id=:user");
+                $statement->bindParam(":user", $user, PDO::PARAM_INT);
+                $statement->bindParam(":del", $del, PDO::PARAM_INT);
+                $statement->execute();
         }
     }
 ?>
