@@ -1,9 +1,17 @@
 <?php
     include_once('userCheck.php');
+    include_once('library/classes/User.class.php');
+    
 
     include_once('library/classes/Post.class.php');
 
     $getPost = $_GET['watch'];
+
+    if ($_SESSION['user_id'] == Post::getUploader($getPost) ||  User::getUserRole($_SESSION['user_id'])['role'] > 0 ){
+
+    } else {
+        die();
+    }
 
     $p = Post::getPost($_SESSION['user_id'] ,$getPost);
 

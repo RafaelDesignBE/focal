@@ -31,7 +31,7 @@
                             <div class="feed__post__info--more--menu">
                                 <div class="flexspace"></div>
                                 <div class="feed__post__info--option option__mark" data-post="<?php echo  $p['id']; ?>">Mark as inappropriate</div>
-                                <?php if ($_SESSION['user_id'] == Post::getUploader($p['id'])):  ?>
+                                <?php if ($_SESSION['user_id'] == Post::getUploader($p['id']) ||  User::getUserRole($_SESSION['user_id'])['role'] > 0 ):  ?>
                                     <div class="feed__post__info--option"><a class="option__edit" href="editPost.php?watch=<?php echo $p['id']; ?>">Edit post</a></div>
                                     <div class="feed__post__info--option option__delete" data-post="<?php echo  $p['id']; ?>">Delete post</div>
                                 <?php endif; ?>
