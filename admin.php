@@ -46,12 +46,12 @@ include_once('library/classes/Post.class.php');
     <?php foreach ($users as $user): ?>
         <tr<?php if(  $user['deleted'] == 1 ){echo ' class="deleted"';} ?>>
             <td class="table__userid"><?php echo $user['id']; ?></td>
-            <td><input type="text" class="username" data-userid="<?php echo $user['id']; ?>" value="<?php echo $user['username']; ?>"></td>
-            <td><input class="email" type="email" data-userid="<?php echo $user['id']; ?>" value="<?php echo $user['email']; ?>"></td>
+            <td><input type="text" class="username" data-userid="<?php echo $user['id']; ?>" value="<?php echo htmlspecialchars($user['username']); ?>"></td>
+            <td><input class="email" type="email" data-userid="<?php echo $user['id']; ?>" value="<?php echo htmlspecialchars($user['email']); ?>"></td>
             <td><a href="profile.php?user=<?php echo $user['id']; ?>">View Profile</a></td>
             <td><input type="password" class="password" data-userid="<?php echo $user['id']; ?>" value=""></td>
-            <td><input type="text" class="firstname" data-userid="<?php echo $user['id']; ?>" value="<?php echo $user['first_name']; ?>"></td>
-            <td><input type="text" class="lastname" data-userid="<?php echo $user['id']; ?>" value="<?php echo $user['last_name']; ?>"></td>
+            <td><input type="text" class="firstname" data-userid="<?php echo $user['id']; ?>" value="<?php echo htmlspecialchars($user['first_name']); ?>"></td>
+            <td><input type="text" class="lastname" data-userid="<?php echo $user['id']; ?>" value="<?php echo htmlspecialchars($user['last_name']); ?>"></td>
             <td>
                 <select name="role" class="role" data-userid="<?php echo $user['id']; ?>">
                     <option value="0"<?php if( $user['role'] == 0 ) { echo 'selected="selected"'; } ?>>User</option>
