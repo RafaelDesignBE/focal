@@ -513,5 +513,53 @@
                 $statement->bindParam(":del", $del, PDO::PARAM_INT);
                 $statement->execute();
         }
+
+        public function resetMail(){
+                $conn = Db::getInstance();
+                $statement = $conn->prepare("SELECT id FROM users WHERE email = :email");
+                $statement->bindParam(":email", $this->email);
+                $statement->execute();
+                $userId = $statement->fetch(PDO::FETCH_ASSOC)['id'];
+                if(empty($userId)){
+                        throw new Exception ("Email not found");
+                }
+                $t=time();
+                $hash = hash('sha512', $this->email."kcsze34f884H8hhd".$t);
+                $statement = $conn->prepare("INSERT INTO reset (user_id, hash) VALUES (:userId, :hash)");
+                $statement->bindParam(":userId", $userId, PDO::PARAM_INT);
+                $statement->bindParam(":hash", $hash);
+                $statement->execute();
+                $subject = " Focal Password Reset";
+                $message = 'You have requested a password reset <a href="https://focal.rafaeldesign.be/passwordReset.php?key='.$hash.'">follow this link to reset</a>';
+                $headers = 'From: focal@rafaeldesign.be' . "\r\n" .
+                'Reply-To: focal@rafaeldesign.be' . "\r\n" .
+                'X-Mailer: PHP/' . phpversion();
+                mail($this->email, $subject, $message, $headers);
+                return true;
+        }
+
+        public function resetHash($hash, $password){
+                $conn = Db::getInstance();
+                $statement = $conn->prepare("SELECT reset.id, reset.user_id, users.email FROM reset INNER JOIN users ON reset.user_id = users.id WHERE hash = :hash");
+                $statement->bindParam(":hash", $hash);
+                $statement->execute();
+                $result = $statement->fetch(PDO::FETCH_ASSOC);
+                if(empty($result)){
+                        throw new Exception ("Reset not found or expired");
+                }
+
+                $options = [
+                        'cost' => 12,
+                    ];
+                $pwHash = password_hash($password, PASSWORD_DEFAULT, $options);
+                $statement = $conn->prepare("UPDATE users SET password=:pw WHERE id = :id");
+                $statement->bindValue(':id', $result['user_id'], PDO::PARAM_INT);
+                $statement->bindValue(':pw', $pwHash, PDO::PARAM_STR);
+                $statement->execute();
+                $statement = $conn->prepare("DELETE FROM reset WHERE hash=:hash");
+                $statement->bindParam(":hash", $hash);
+                $statement->execute();
+                return $result;
+        }
     }
 ?>
