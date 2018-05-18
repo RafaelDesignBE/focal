@@ -1190,6 +1190,7 @@ input[type="checkbox"] {
 }
 
 .option__edit {
+    display: block;
     text-decoration: none;
     color: #000;
 }
