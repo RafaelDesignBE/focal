@@ -530,7 +530,7 @@
                 $statement->bindParam(":hash", $hash);
                 $statement->execute();
                 $subject = " Focal Password Reset";
-                $message = 'You have requested a password reset <a href="https://focal.rafaeldesign.be/passwordReset.php?key='.$hash.'">follow this link to reset</a>';
+                $message = 'You have requested a password reset https://focal.rafaeldesign.be/passwordReset.php?key='.$hash.' follow the link or paste it into your browser.';
                 $headers = 'From: focal@rafaeldesign.be' . "\r\n" .
                 'Reply-To: focal@rafaeldesign.be' . "\r\n" .
                 'X-Mailer: PHP/' . phpversion();
