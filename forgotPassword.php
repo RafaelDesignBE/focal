@@ -10,7 +10,6 @@ if (!empty($_POST)) {
         $user->setEmail($_POST['email']);
         $emailReset = $user->resetMail();
         if ($emailReset) {
-            var_dump($emailReset);
             $reset = "done";
         }
     }
