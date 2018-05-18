@@ -243,7 +243,11 @@ a.link--login {
     text-align: center;
     color: #626FFD;
     margin-bottom: 2em;
-  }
+}
+
+a.link--login.reset {
+    margin-top: 1rem;
+}
 
 .form__login__field__container {
     background-color: rgba(98,111,253,0.08);

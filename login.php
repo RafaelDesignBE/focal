@@ -51,6 +51,8 @@ if (!empty($_POST)) {
             <div class="form__field">
                 <input type="submit" value="Log in" class="btn btn--small btn--primary">
             </div>
+
+            <a class="link--login reset" href="forgotPassword.php">Forgot password?</a>
         </div>        
     </form>
     <a class="link--login" href="signup.php">No account yet? Sign up</a>
