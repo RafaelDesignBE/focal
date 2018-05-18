@@ -67,11 +67,11 @@
                     <form action="" method="post" id="changePost" class="form__changePost">
                         <div class="form__field form__field--descriptionPost">
                             <label for="descriptionPost">Change post description</label>
-                            <input type="text" id="descriptionPost" name="descriptionPost" placeholder="<?php echo htmlspecialchars($p['title']); ?>"></input>
+                            <input type="text" id="descriptionPost" name="descriptionPost" value="<?php echo htmlspecialchars($p['title']); ?>"></input>
                         </div>
                         <div class="form__field form__field--tagsPost">
                             <label for="tagsPost">Change tags</label>
-                            <input type="text" id="tagsPost" name="tagsPost" placeholder="<?php echo htmlspecialchars($p['tags']); ?>"></input>
+                            <input type="text" id="tagsPost" name="tagsPost" value="<?php echo htmlspecialchars($p['tags']); ?>"></input>
                         </div>
                         <div class="form__field">
                             <input type="submit" value="Save" class="btn btn--primary btn--change">
