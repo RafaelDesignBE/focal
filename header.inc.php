@@ -20,12 +20,12 @@
 <meta name="theme-color" content="#616EFF">
 <script>
 function maxSearch(){
-    $('.h1--focal').css('width', '0');
-    $('.form__search').css('margin-left', '0');
+    $('.h1--focal').addClass('searchopen');
+    $('.form__search').addClass('searchopen');
    }
 
 function minSearch(){
-    $('.h1--focal').css('width', 'auto');
-    $('.form__search').css('margin-left', '1rem');
+    $('.h1--focal').removeClass('searchopen');
+    $('.form__search').removeClass('searchopen');
 }
 </script>

@@ -648,12 +648,20 @@ input[type="checkbox"] {
     margin: 0;
     font-size: 1rem;
     line-height: 4rem;
+    width: 4.67rem;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
 }
 
 @media (min-width: 25rem){
     .h1--focal {
         font-size: 1.5rem;
+        width: 7rem;
     }
+}
+
+.h1--focal.searchopen {
+    width: 0;
 }
 
 .navbar {
